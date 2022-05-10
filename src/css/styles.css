@@ -2,19 +2,57 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    height: 0; /* required so that IE11 centers */
     margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 /*-------------------- BUTTON --------------------*/
 
+button {
+    flex-shrink: 0;
+    width: 2em;
+    height: 2em;
+    padding: .25em;
+    font-family: inherit;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+button:not(:last-child) {
+    margin-right: .5rem;
+}
 
 /*-------------------- CONTAINER --------------------*/
+
+.calculator {
+    max-width: 100%;
+    outline: solid black 1px;
+    padding: 1rem;
+}
+
+.output {
+    margin-bottom: 2rem;
+}
+
+.expression {
+    margin-bottom: .5em;
+    font-size: 1.25rem;
+}
+
+.operand {
+    font-size: 2.5rem;
+}
 
 .row {
     display: flex;
 }
 
-.calculator {
-    outline: solid black 1px;
+.row:not(:last-child) {
+    margin-bottom: .5rem;
 }
