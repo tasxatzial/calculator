@@ -19,9 +19,36 @@ button {
     width: 2em;
     height: 2em;
     padding: .25em;
+    background-color: transparent;
+    border: 0;
     font-family: inherit;
     font-size: 1.5rem;
     position: relative;
+}
+
+.btn-erase {
+    color:tomato;
+}
+
+.btn-del,
+.btn-dot {
+    font-weight: bold;
+}
+
+.btn-parens {
+    color:violet;
+}
+
+.btn-operation {
+    color: #FCBE16;
+}
+
+.btn-equals {
+    color:rgb(117, 255, 186);
+}
+
+.btn-number {
+    color: rgb(244, 244, 244);
 }
 
 button:not(:last-child) {
@@ -31,13 +58,19 @@ button:not(:last-child) {
 /*-------------------- CONTAINER --------------------*/
 
 .calculator {
-    max-width: 100%;
-    outline: solid black 1px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+}
+
+.container {
     padding: 1rem;
 }
 
 .output {
-    margin-bottom: 2rem;
+    color: white;
+    background-color: black;
+    background: linear-gradient(to bottom, black 95%, #454545 100%);
 }
 
 .expression {
@@ -55,4 +88,8 @@ button:not(:last-child) {
 
 .row:not(:last-child) {
     margin-bottom: .5rem;
+}
+
+.buttons-container {
+    background-color: #454545;
 }
