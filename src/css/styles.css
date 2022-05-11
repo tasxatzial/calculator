@@ -1,3 +1,9 @@
+:root {
+    --calc-padding: 1rem;
+    --calc-btn-option-ff-size: 1rem;
+    --calc-btn-option-padding: calc(var(--calc-btn-option-ff-size) / 2);
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -67,10 +73,10 @@ button:focus-visible {
 }
 
 .btn-option {
-    padding: .5em;
+    padding: var(--calc-btn-option-padding);
     border: 0;
     background-color: transparent;
-    font-size: 1rem;
+    font-size: var(--calc-btn-option-ff-size);
 }
 
 .btn-theme {
@@ -78,7 +84,7 @@ button:focus-visible {
 }
 
 .btn-theme.btn-active-theme,
-.btn-calc-history {
+.btn-history {
     color: white;
 }
 
@@ -87,9 +93,9 @@ button:focus-visible {
     background-color: #4a4a4a;
 }
 
-.btn-calc-history {
+.btn-history {
     position: absolute;
-    left: .5rem;
+    left: calc(var(--calc-padding) - var(--calc-btn-option-padding));
 }
 
 /*-------------------- CONTAINER --------------------*/
@@ -102,14 +108,14 @@ button:focus-visible {
 
 .calc-output,
 .calc-buttons {
-    padding: 1rem;
+    padding: var(--calc-padding);
 }
 
 .calc-options {
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 0 1rem;
+    padding: 0 var(--calc-padding);
     background-color: #2F2F2F;  
 }
 
