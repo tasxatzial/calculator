@@ -2,6 +2,30 @@
     --calc-padding: 1rem;
     --calc-btn-option-ff-size: 1rem;
     --calc-btn-option-padding: calc(var(--calc-btn-option-ff-size) / 2);
+
+    --calc-dark-btn-clr-number: rgb(235, 235, 235);
+    --calc-dark-btn-clr-erase: tomato;
+    --calc-dark-btn-clr-parens: violet;
+    --calc-dark-btn-clr-equals: rgb(117, 255, 186);
+    --calc-dark-btn-clr-operation: #FCBE16;
+    --calc-dark-btn-bgclr-active: rgba(255, 255, 255, 0.15);
+    --calc-dark-btn-clr-focus-visible: whitesmoke;
+    --calc-dark-btns-bgclr: #2F2F2F;
+    --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
+    --calc-dark-output-bgclr: black;
+    --calc-dark-output-clr: white;
+
+    --calc-btn-clr-number: var(--calc-dark-btn-clr-number);
+    --calc-btn-clr-erase: var(--calc-dark-btn-clr-erase);
+    --calc-btn-clr-parens: var(--calc-dark-btn-clr-parens);
+    --calc-btn-clr-equals: var(--calc-dark-btn-clr-equals);
+    --calc-btn-clr-operation: var(--calc-dark-btn-clr-operation);
+    --calc-btn-bgclr-active: var(--calc-dark-btn-bgclr-active);
+    --calc-btn-clr-focus-visible: var(--calc-dark-btn-clr-focus-visible);
+    --calc-btns-bgclr: var(--calc-dark-btns-bgclr);
+    --calc-btns-bg: var(--calc-dark-btns-bg);
+    --calc-output-bgclr: var(--calc-dark-output-bgclr);
+    --calc-output-clr: var(--calc-dark-output-clr);
 }
 
 body {
@@ -20,8 +44,8 @@ body {
 
 /*-------------------- BUTTON --------------------*/
 
-button:focus-visible {
-    outline: 1px solid whitesmoke;
+.calc button:focus-visible {
+    outline: 1px solid var(--calc-btn-clr-focus-visible);
 }
 
 .btn-calc {
@@ -39,12 +63,12 @@ button:focus-visible {
 }
 
 .btn-calc:active {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--calc-btn-bgclr-active);
     transition: none;
 }
 
 .btn-erase {
-    color:tomato;
+    color: var(--calc-btn-clr-erase);
 }
 
 .btn-del,
@@ -53,19 +77,19 @@ button:focus-visible {
 }
 
 .btn-parens {
-    color:violet;
+    color: var(--calc-btn-clr-parens);
 }
 
 .btn-operation {
-    color: #FCBE16;
+    color: var(--calc-btn-clr-operation);
 }
 
 .btn-equals {
-    color:rgb(117, 255, 186);
+    color: var(--calc-btn-clr-equals);
 }
 
 .btn-number {
-    color: rgb(235, 235, 235);
+    color: var(--calc-btn-clr-number);
 }
 
 .btn-calc:not(:last-child) {
@@ -122,8 +146,8 @@ button:focus-visible {
 .calc-output {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     border-top: 1px solid rgba(255, 255, 255, 0.5);
-    color: white;
-    background-color: black;
+    color: var(--calc-output-clr);
+    background-color: var(--calc-output-bgclr);
 }
 
 .calc-expression {
@@ -144,6 +168,6 @@ button:focus-visible {
 }
 
 .calc-buttons {
-    background-color: #2F2F2F;
-    background: linear-gradient( #2F2F2F, black);
+    background-color: var(--calc-btns-bgclr);
+    background: var(--calc-btns-bg);
 }
