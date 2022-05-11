@@ -15,7 +15,7 @@ body {
 /*-------------------- BUTTON --------------------*/
 
 button:focus-visible {
-    outline: 2px solid whitesmoke;
+    outline: 1px solid whitesmoke;
 }
 
 .btn-calc {
@@ -66,8 +66,7 @@ button:focus-visible {
     margin-right: .5rem;
 }
 
-.btn-dark-theme,
-.btn-light-theme {
+.btn-theme {
     padding: .5em;
     border: 0;
     background-color: black;
@@ -75,7 +74,12 @@ button:focus-visible {
     font-size: 1rem;
 }
 
-button.btn-active-theme {
+.btn-theme:focus,
+.btn-theme:hover {
+    background-color: #454545;
+}
+
+.btn-active-theme {
     color: white;
 }
 
@@ -96,6 +100,7 @@ button.btn-active-theme {
     display: flex;
     justify-content: center;
     background-color: black;
+    outline: 1px solid white;
 }
 
 .calc-output {
