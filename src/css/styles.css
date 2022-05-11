@@ -14,7 +14,11 @@ body {
 
 /*-------------------- BUTTON --------------------*/
 
-button {
+button:focus-visible {
+    outline: 2px solid whitesmoke;
+}
+
+.btn-calc {
     flex-shrink: 0;
     width: 2em;
     height: 2em;
@@ -28,11 +32,7 @@ button {
     transition: background-color 200ms ease-out;
 }
 
-button:focus-visible {
-    outline: 2px solid whitesmoke;
-}
-
-button:active {
+.btn-calc:active {
     background-color: rgba(0, 0, 0, 0.3);
     transition: none;
 }
@@ -62,12 +62,15 @@ button:active {
     color: rgb(244, 244, 244);
 }
 
-button:not(:last-child) {
+.btn-calc:not(:last-child) {
     margin-right: .5rem;
 }
 
 .btn-dark-theme,
 .btn-light-theme {
+    padding: .5em;
+    border: 0;
+    background-color: black;
     color:rgba(255, 255, 255, 0.5);
     font-size: 1rem;
 }
@@ -78,48 +81,46 @@ button.btn-active-theme {
 
 /*-------------------- CONTAINER --------------------*/
 
-.calculator {
+.calc {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
-.container {
+.calc-output,
+.calc-buttons {
     padding: 1rem;
 }
 
-.options-container {
+.calc-options {
+    display: flex;
+    justify-content: center;
     background-color: black;
 }
 
-.output {
+.calc-output {
     color: white;
     background-color: black;
     background: linear-gradient(to bottom, black 95%, #454545 100%);
 }
 
-.expression {
+.calc-expression {
     margin-bottom: .5em;
     font-size: 1.25rem;
 }
 
-.operand {
+.calc-operand {
     font-size: 2.5rem;
 }
 
-.row {
+.calc-btn-row {
     display: flex;
 }
 
-.row:not(:last-child) {
+.calc-btn-row:not(:last-child) {
     margin-bottom: .5rem;
 }
 
-.buttons-container {
+.calc-buttons {
     background-color: #454545;
-}
-
-.options-container {
-    display: flex;
-    justify-content: center;
 }
