@@ -1,6 +1,6 @@
 :root {
     --calc-padding: 1rem;
-    --calc-btn-option-ff-size: 1rem;
+    --calc-btn-option-ff-size: 1.25rem;
     --calc-btn-option-padding: calc(var(--calc-btn-option-ff-size) / 2);
 
     --calc-dark-btn-clr-number: rgb(235, 235, 235);
@@ -12,7 +12,7 @@
     --calc-dark-btn-clr-focus-visible: whitesmoke;
     --calc-dark-btns-bgclr: #2F2F2F;
     --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
-    --calc-dark-output-bgclr: #2F2F2F;
+    --calc-dark-output-bgclr: rgb(2, 2, 2);
     --calc-dark-output-clr: white;
     --calc-dark-output-border-bottom: gray;
 
@@ -25,7 +25,7 @@
     --calc-light-btn-clr-focus-visible: #2F2F2F;
     --calc-light-btns-bgclr: whitesmoke;
     --calc-light-btns-bg: linear-gradient( whitesmoke, silver);
-    --calc-light-output-bgclr: whitesmoke;
+    --calc-light-output-bgclr: rgb(253, 253, 253);
     --calc-light-output-clr: #2F2F2F;
     --calc-light-output-border-bottom: silver;
 
@@ -85,11 +85,12 @@ body {
     width: 2em;
     height: 2em;
     padding: .25em;
+    margin: .125em;
     background-color: transparent;
     border: 0;
     border-radius: 25%;
     font-family: inherit;
-    font-size: 1.5rem;
+    font-size: 2rem;
     position: relative;
     transition: background-color 200ms ease-out;
 }
@@ -103,8 +104,7 @@ body {
     color: var(--calc-btn-clr-erase);
 }
 
-.btn-del,
-.btn-dot {
+.btn-calc:not(.btn-number) {
     font-weight: bold;
 }
 
@@ -122,10 +122,6 @@ body {
 
 .btn-number {
     color: var(--calc-btn-clr-number);
-}
-
-.btn-calc:not(:last-child) {
-    margin-right: .5rem;
 }
 
 .btn-option {
@@ -162,17 +158,21 @@ body {
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
-.calc-output,
-.calc-buttons {
-    padding: var(--calc-padding);
-}
-
 .calc-options {
     display: flex;
     justify-content: center;
     position: relative;
     padding: 0 var(--calc-padding);
     background-color: #2F2F2F;  
+}
+
+.calc-themes {
+    display: flex;
+}
+
+.calc-output,
+.calc-buttons {
+    padding: var(--calc-padding);
 }
 
 .calc-output {
@@ -191,15 +191,12 @@ body {
     font-size: 2.5rem;
 }
 
-.calc-btn-row {
-    display: flex;
-}
-
-.calc-btn-row:not(:last-child) {
-    margin-bottom: .5rem;
-}
-
 .calc-buttons {
     background-color: var(--calc-btns-bgclr);
     background: var(--calc-btns-bg);
+}
+
+.calc-btn-row {
+    display: flex;
+    justify-content: center;
 }
