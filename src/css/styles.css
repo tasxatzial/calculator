@@ -33,7 +33,7 @@ button:focus-visible {
 }
 
 .btn-calc:active {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
     transition: none;
 }
 
@@ -59,18 +59,17 @@ button:focus-visible {
 }
 
 .btn-number {
-    color: rgb(244, 244, 244);
+    color: rgb(235, 235, 235);
 }
 
 .btn-calc:not(:last-child) {
     margin-right: .5rem;
 }
 
-.btn-theme,
-.btn-calc-history {
+.btn-option {
     padding: .5em;
     border: 0;
-    background-color: black;
+    background-color: transparent;
     font-size: 1rem;
 }
 
@@ -85,7 +84,7 @@ button:focus-visible {
 
 .btn-option:focus,
 .btn-option:hover {
-    background-color: #454545;
+    background-color: #4a4a4a;
 }
 
 .btn-calc-history {
@@ -101,10 +100,6 @@ button:focus-visible {
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
-.calc-options {
-    padding: 0 1rem;
-}
-
 .calc-output,
 .calc-buttons {
     padding: 1rem;
@@ -114,14 +109,15 @@ button:focus-visible {
     display: flex;
     justify-content: center;
     position: relative;
-    background-color: black;
-    outline: 1px solid white;
+    padding: 0 1rem;
+    background-color: #2F2F2F;  
 }
 
 .calc-output {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
     color: white;
     background-color: black;
-    background: linear-gradient(to bottom, black 95%, #454545 100%);
 }
 
 .calc-expression {
@@ -142,5 +138,6 @@ button:focus-visible {
 }
 
 .calc-buttons {
-    background-color: #454545;
+    background-color: #2F2F2F;
+    background: linear-gradient( #2F2F2F, black);
 }
