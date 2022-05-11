@@ -66,6 +66,16 @@ button:not(:last-child) {
     margin-right: .5rem;
 }
 
+.btn-dark-theme,
+.btn-light-theme {
+    color:rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+}
+
+button.btn-active-theme {
+    color: white;
+}
+
 /*-------------------- CONTAINER --------------------*/
 
 .calculator {
@@ -76,6 +86,10 @@ button:not(:last-child) {
 
 .container {
     padding: 1rem;
+}
+
+.options-container {
+    background-color: black;
 }
 
 .output {
@@ -103,4 +117,9 @@ button:not(:last-child) {
 
 .buttons-container {
     background-color: #454545;
+}
+
+.options-container {
+    display: flex;
+    justify-content: center;
 }
