@@ -66,21 +66,31 @@ button:focus-visible {
     margin-right: .5rem;
 }
 
-.btn-theme {
+.btn-theme,
+.btn-calc-history {
     padding: .5em;
     border: 0;
     background-color: black;
-    color:rgba(255, 255, 255, 0.5);
     font-size: 1rem;
 }
 
-.btn-theme:focus,
-.btn-theme:hover {
+.btn-theme {
+    color:rgba(255, 255, 255, 0.5);
+}
+
+.btn-theme.btn-active-theme,
+.btn-calc-history {
+    color: white;
+}
+
+.btn-option:focus,
+.btn-option:hover {
     background-color: #454545;
 }
 
-.btn-active-theme {
-    color: white;
+.btn-calc-history {
+    position: absolute;
+    left: .5rem;
 }
 
 /*-------------------- CONTAINER --------------------*/
@@ -91,6 +101,10 @@ button:focus-visible {
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
+.calc-options {
+    padding: 0 1rem;
+}
+
 .calc-output,
 .calc-buttons {
     padding: 1rem;
@@ -99,6 +113,7 @@ button:focus-visible {
 .calc-options {
     display: flex;
     justify-content: center;
+    position: relative;
     background-color: black;
     outline: 1px solid white;
 }
