@@ -59,6 +59,14 @@ body {
 
 /*-------------------- JS --------------------*/
 
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+.js-focus-visible .focus-visible {
+    outline: 1px solid var(--calc-btn-clr-focus-visible);
+}
+
 .js-light-mode {
     --calc-btn-clr-number: var(--calc-light-btn-clr-number);
     --calc-btn-clr-erase: var(--calc-light-btn-clr-erase);
@@ -75,10 +83,6 @@ body {
 }
 
 /*-------------------- BUTTON --------------------*/
-
-.calc button:focus-visible {
-    outline: 1px solid var(--calc-btn-clr-focus-visible);
-}
 
 .btn-calc {
     flex-shrink: 0;
