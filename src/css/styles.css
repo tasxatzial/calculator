@@ -3,47 +3,47 @@
     --calc-btn-option-ff-size: 1.25rem;
     --calc-btn-option-padding: calc(var(--calc-btn-option-ff-size) / 2);
 
-    --calc-dark-btn-clr-number: rgb(218, 218, 218);
-    --calc-dark-btn-clr-erase: tomato;
-    --calc-dark-btn-clr-parens: violet;
-    --calc-dark-btn-clr-equals: rgb(117, 255, 186);
-    --calc-dark-btn-clr-operation: #FCBE16;
-    --calc-dark-btn-bgclr-active: rgba(255, 255, 255, 0.15);
-    --calc-dark-btn-clr-focus-visible: white;
+    --calc-dark-btn-number-clr: rgb(218, 218, 218);
+    --calc-dark-btn-erase-clr: tomato;
+    --calc-dark-btn-parens-clr: violet;
+    --calc-dark-btn-equals-clr: rgb(117, 255, 186);
+    --calc-dark-btn-operation-clr: #FCBE16;
+    --calc-dark-btn-active-bgclr: rgba(255, 255, 255, 0.15);
+    --calc-dark-btn-focus-visible-clr: white;
     --calc-dark-btns-bgclr: #2F2F2F;
     --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
     --calc-dark-options-bgclr: #2F2F2F;
     --calc-dark-btn-option-clr: rgba(255, 255, 255, 0.4);
     --calc-dark-btn-option-active-clr: rgb(235, 235, 235);
     --calc-dark-btn-option-hover: #4a4a4a;
-    --calc-dark-output-bgclr: #2F2F2F;
+    --calc-dark-output-bgclr: black;
     --calc-dark-output-clr: rgb(218, 218, 218);
     --calc-dark-output-border: gray;
 
-    --calc-light-btn-clr-number: #2F2F2F;
-    --calc-light-btn-clr-erase: rgb(200, 81, 60);
-    --calc-light-btn-clr-parens: rgb(182, 58, 182);
-    --calc-light-btn-clr-equals: rgb(46, 154, 100);
-    --calc-light-btn-clr-operation: #b78c18;
-    --calc-light-btn-bgclr-active: rgba(0, 0, 0, .1);
-    --calc-light-btn-clr-focus-visible: black;
+    --calc-light-btn-number-clr: #2F2F2F;
+    --calc-light-btn-erase-clr: rgb(200, 81, 60);
+    --calc-light-btn-parens-clr: rgb(182, 58, 182);
+    --calc-light-btn-equals-clr: rgb(46, 154, 100);
+    --calc-light-btn-operation-clr: #b78c18;
+    --calc-light-btn-active-bgclr: rgba(0, 0, 0, .1);
+    --calc-light-btn-focus-visible-clr: black;
     --calc-light-btns-bgclr: whitesmoke;
     --calc-light-btns-bg: linear-gradient( whitesmoke, silver);
     --calc-light-options-bgclr: whitesmoke;
     --calc-light-btn-option-clr: rgba(0, 0, 0, 0.4);
     --calc-light-btn-option-active-clr: #2F2F2F;
     --calc-light-btn-option-hover: rgb(210, 210, 210);
-    --calc-light-output-bgclr: whitesmoke;
+    --calc-light-output-bgclr: white;
     --calc-light-output-clr: #2F2F2F;
     --calc-light-output-border: silver;
 
-    --calc-btn-clr-number: var(--calc-dark-btn-clr-number);
-    --calc-btn-clr-erase: var(--calc-dark-btn-clr-erase);
-    --calc-btn-clr-parens: var(--calc-dark-btn-clr-parens);
-    --calc-btn-clr-equals: var(--calc-dark-btn-clr-equals);
-    --calc-btn-clr-operation: var(--calc-dark-btn-clr-operation);
-    --calc-btn-bgclr-active: var(--calc-dark-btn-bgclr-active);
-    --calc-btn-clr-focus-visible: var(--calc-dark-btn-clr-focus-visible);
+    --calc-btn-number-clr: var(--calc-dark-btn-number-clr);
+    --calc-btn-erase-clr: var(--calc-dark-btn-erase-clr);
+    --calc-btn-parens-clr: var(--calc-dark-btn-parens-clr);
+    --calc-btn-equals-clr: var(--calc-dark-btn-equals-clr);
+    --calc-btn-operation-clr: var(--calc-dark-btn-operation-clr);
+    --calc-btn-active-bgclr: var(--calc-dark-btn-active-bgclr);
+    --calc-btn-focus-visible-clr: var(--calc-dark-btn-focus-visible-clr);
     --calc-btns-bgclr: var(--calc-dark-btns-bgclr);
     --calc-btns-bg: var(--calc-dark-btns-bg);
     --calc-options-bgclr: var(--calc-dark-options-bgclr);
@@ -52,7 +52,7 @@
     --calc-btn-option-hover: var(--calc-dark-btn-option-hover);
     --calc-output-bgclr: var(--calc-dark-output-bgclr);
     --calc-output-clr: var(--calc-dark-output-clr);
-    --calc-output-border: var(--calc-dark-output-border-bottom);
+    --calc-output-border: var(--calc-dark-output-border);
 }
 
 body {
@@ -76,17 +76,17 @@ body {
 }
 
 .js-focus-visible .focus-visible {
-    outline: 1px solid var(--calc-btn-clr-focus-visible);
+    outline: 1px solid var(--calc-btn-focus-visible-clr);
 }
 
 .js-light-mode {
-    --calc-btn-clr-number: var(--calc-light-btn-clr-number);
-    --calc-btn-clr-erase: var(--calc-light-btn-clr-erase);
-    --calc-btn-clr-parens: var(--calc-light-btn-clr-parens);
-    --calc-btn-clr-equals: var(--calc-light-btn-clr-equals);
-    --calc-btn-clr-operation: var(--calc-light-btn-clr-operation);
-    --calc-btn-bgclr-active: var(--calc-light-btn-bgclr-active);
-    --calc-btn-clr-focus-visible: var(--calc-light-btn-clr-focus-visible);
+    --calc-btn-number-clr: var(--calc-light-btn-number-clr);
+    --calc-btn-erase-clr: var(--calc-light-btn-erase-clr);
+    --calc-btn-parens-clr: var(--calc-light-btn-parens-clr);
+    --calc-btn-equals-clr: var(--calc-light-btn-equals-clr);
+    --calc-btn-operation-clr: var(--calc-light-btn-operation-clr);
+    --calc-btn-active-bgclr: var(--calc-light-btn-active-bgclr);
+    --calc-btn-focus-visible-clr: var(--calc-light-btn-focus-visible-clr);
     --calc-btns-bgclr: var(--calc-light-btns-bgclr);
     --calc-btns-bg: var(--calc-light-btns-bg);
     --calc-options-bgclr: var(--calc-light-options-bgclr);
@@ -100,7 +100,7 @@ body {
 
 /*-------------------- BUTTON --------------------*/
 
-.btn-calc {
+.calc-btn {
     flex-shrink: 0;
     width: 2em;
     height: 2em;
@@ -115,56 +115,56 @@ body {
     transition: background-color 200ms ease-out;
 }
 
-.btn-calc:active {
-    background-color: var(--calc-btn-bgclr-active);
+.calc-btn:active {
+    background-color: var(--calc-btn-active-bgclr);
     transition: none;
 }
 
-.btn-erase {
-    color: var(--calc-btn-clr-erase);
+.calc-btn-erase {
+    color: var(--calc-btn-erase-clr);
 }
 
-.btn-calc:not(.btn-number) {
+.calc-btn-calc:not(.calc-btn-number) {
     font-weight: bold;
 }
 
-.btn-parens {
-    color: var(--calc-btn-clr-parens);
+.calc-btn-parens {
+    color: var(--calc-btn-parens-clr);
 }
 
-.btn-operation {
-    color: var(--calc-btn-clr-operation);
+.calc-btn-operation {
+    color: var(--calc-btn-operation-clr);
 }
 
-.btn-equals {
-    color: var(--calc-btn-clr-equals);
+.calc-btn-equals {
+    color: var(--calc-btn-equals-clr);
 }
 
-.btn-number {
-    color: var(--calc-btn-clr-number);
+.calc-btn-number {
+    color: var(--calc-btn-number-clr);
 }
 
-.btn-option {
+.calc-btn-option {
     padding: var(--calc-btn-option-padding);
     border: 0;
     background-color: transparent;
     font-size: var(--calc-btn-option-ff-size);
 }
 
-.btn-theme {
+.calc-btn-theme {
     color: var(--calc-btn-option-clr);
 }
 
-.btn-theme.btn-active-theme,
-.btn-history {
+.calc-btn-theme.calc-btn-active-theme,
+.calc-btn-history {
     color: var(--calc-btn-option-active-clr);
 }
 
-.btn-option:hover {
+.calc-btn-option:hover {
     background-color: var(--calc-btn-option-hover);
 }
 
-.btn-history {
+.calc-btn-history {
     position: absolute;
     left: calc(var(--calc-padding) - var(--calc-btn-option-padding));
 }
