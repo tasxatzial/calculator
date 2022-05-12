@@ -12,9 +12,13 @@
     --calc-dark-btn-clr-focus-visible: whitesmoke;
     --calc-dark-btns-bgclr: #2F2F2F;
     --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
+    --calc-dark-options-bgclr: #2F2F2F;
+    --calc-dark-btn-option-clr: rgba(255, 255, 255, 0.5);
+    --calc-dark-btn-option-active-clr: white;
+    --calc-dark-btn-option-hover: #4a4a4a;
     --calc-dark-output-bgclr: rgb(2, 2, 2);
     --calc-dark-output-clr: white;
-    --calc-dark-output-border-bottom: gray;
+    --calc-dark-output-border: gray;
 
     --calc-light-btn-clr-number: #2F2F2F;
     --calc-light-btn-clr-erase: rgb(200, 81, 60);
@@ -25,9 +29,13 @@
     --calc-light-btn-clr-focus-visible: #2F2F2F;
     --calc-light-btns-bgclr: whitesmoke;
     --calc-light-btns-bg: linear-gradient( whitesmoke, silver);
+    --calc-light-options-bgclr: whitesmoke;
+    --calc-light-btn-option-clr: rgba(0, 0, 0, 0.5);
+    --calc-light-btn-option-active-clr: black;
+    --calc-light-btn-option-hover: white;
     --calc-light-output-bgclr: rgb(253, 253, 253);
     --calc-light-output-clr: #2F2F2F;
-    --calc-light-output-border-bottom: silver;
+    --calc-light-output-border: silver;
 
     --calc-btn-clr-number: var(--calc-dark-btn-clr-number);
     --calc-btn-clr-erase: var(--calc-dark-btn-clr-erase);
@@ -38,9 +46,13 @@
     --calc-btn-clr-focus-visible: var(--calc-dark-btn-clr-focus-visible);
     --calc-btns-bgclr: var(--calc-dark-btns-bgclr);
     --calc-btns-bg: var(--calc-dark-btns-bg);
+    --calc-options-bgclr: var(--calc-dark-options-bgclr);
+    --calc-btn-option-clr: var(--calc-dark-btn-option-clr);
+    --calc-btn-option-active-clr: var(--calc-dark-btn-option-active-clr);
+    --calc-btn-option-hover: var(--calc-dark-btn-option-hover);
     --calc-output-bgclr: var(--calc-dark-output-bgclr);
     --calc-output-clr: var(--calc-dark-output-clr);
-    --calc-output-border-bottom: var(--calc-dark-output-border-bottom);
+    --calc-output-border: var(--calc-dark-output-border-bottom);
 }
 
 body {
@@ -77,9 +89,13 @@ body {
     --calc-btn-clr-focus-visible: var(--calc-light-btn-clr-focus-visible);
     --calc-btns-bgclr: var(--calc-light-btns-bgclr);
     --calc-btns-bg: var(--calc-light-btns-bg);
+    --calc-options-bgclr: var(--calc-light-options-bgclr);
+    --calc-btn-option-clr: var(--calc-light-btn-option-clr);
+    --calc-btn-option-active-clr: var(--calc-light-btn-option-active-clr);
+    --calc-btn-option-hover: var(--calc-light-btn-option-hover);
     --calc-output-bgclr: var(--calc-light-output-bgclr);
     --calc-output-clr: var(--calc-light-output-clr);
-    --calc-output-border-bottom: var(--calc-light-output-border-bottom);
+    --calc-output-border: var(--calc-light-output-border);
 }
 
 /*-------------------- BUTTON --------------------*/
@@ -136,17 +152,16 @@ body {
 }
 
 .btn-theme {
-    color:rgba(255, 255, 255, 0.5);
+    color: var(--calc-btn-option-clr);
 }
 
 .btn-theme.btn-active-theme,
 .btn-history {
-    color: white;
+    color: var(--calc-btn-option-active-clr);
 }
 
-.btn-option:focus,
 .btn-option:hover {
-    background-color: #4a4a4a;
+    background-color: var(--calc-btn-option-hover);
 }
 
 .btn-history {
@@ -167,7 +182,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 var(--calc-padding);
-    background-color: #2F2F2F;  
+    background-color: var(--calc-options-bgclr);  
 }
 
 .calc-themes {
@@ -180,8 +195,8 @@ body {
 }
 
 .calc-output {
-    border-bottom: 2px solid var(--calc-output-border-bottom);
-    border-top: 2px solid gray;
+    border-bottom: 2px solid var(--calc-output-border);
+    border-top: 2px solid var(--calc-output-border);
     color: var(--calc-output-clr);
     background-color: var(--calc-output-bgclr);
 }
