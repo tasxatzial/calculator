@@ -124,7 +124,7 @@ body {
     color: var(--calc-btn-erase-clr);
 }
 
-.calc-btn-calc:not(.calc-btn-number) {
+.calc-btn:not(.calc-btn-number) {
     font-weight: bold;
 }
 
