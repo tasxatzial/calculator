@@ -8,14 +8,14 @@
     --calc-dark-btn-parens-clr: violet;
     --calc-dark-btn-equals-clr: rgb(117, 255, 186);
     --calc-dark-btn-operation-clr: #FCBE16;
-    --calc-dark-btn-active-bgclr: rgba(255, 255, 255, 0.15);
+    --calc-dark-btn-active-bgclr: rgba(255, 255, 255, 0.1);
     --calc-dark-btn-focus-visible-clr: white;
     --calc-dark-btns-bgclr: #2F2F2F;
     --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
     --calc-dark-options-bgclr: #2F2F2F;
     --calc-dark-btn-option-clr: rgba(255, 255, 255, 0.4);
     --calc-dark-btn-option-active-clr: rgb(235, 235, 235);
-    --calc-dark-btn-option-hover: #4a4a4a;
+    --calc-dark-btn-option-hover: #5b5b5b;
     --calc-dark-output-bgclr: black;
     --calc-dark-output-clr: rgb(218, 218, 218);
     --calc-dark-output-border: gray;
@@ -23,8 +23,8 @@
     --calc-light-btn-number-clr: #2F2F2F;
     --calc-light-btn-erase-clr: rgb(200, 81, 60);
     --calc-light-btn-parens-clr: rgb(182, 58, 182);
-    --calc-light-btn-equals-clr: rgb(46, 154, 100);
-    --calc-light-btn-operation-clr: #b78c18;
+    --calc-light-btn-equals-clr: rgb(1, 139, 70);
+    --calc-light-btn-operation-clr: #a77a00;
     --calc-light-btn-active-bgclr: rgba(0, 0, 0, .1);
     --calc-light-btn-focus-visible-clr: black;
     --calc-light-btns-bgclr: whitesmoke;
