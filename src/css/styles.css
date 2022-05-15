@@ -134,7 +134,7 @@ body {
     --btn-parens-clr: violet;
     --btn-equals-clr: rgb(117, 255, 186);
     --btn-operation-clr: #FCBE16;
-    --btn-active-bgclr: rgba(255, 255, 255, 0.1);
+    --btn-active-bgclr: rgba(255, 255, 255, 0.2);
     --btn-focus-visible-clr: white;
     --btns-bgclr: #2F2F2F;
     --btns-bg: linear-gradient( #2F2F2F, black);
