@@ -1,66 +1,8 @@
-:root {
-    --calc-padding: 1rem;
-    --calc-btn-option-ff-size: 1.25rem;
-    --calc-btn-option-padding: calc(var(--calc-btn-option-ff-size) / 2);
-
-    --calc-dark-btn-number-clr: rgb(218, 218, 218);
-    --calc-dark-btn-erase-clr: tomato;
-    --calc-dark-btn-parens-clr: violet;
-    --calc-dark-btn-equals-clr: rgb(117, 255, 186);
-    --calc-dark-btn-operation-clr: #FCBE16;
-    --calc-dark-btn-active-bgclr: rgba(255, 255, 255, 0.1);
-    --calc-dark-btn-focus-visible-clr: white;
-    --calc-dark-btns-bgclr: #2F2F2F;
-    --calc-dark-btns-bg: linear-gradient( #2F2F2F, black);
-    --calc-dark-options-bgclr: #2F2F2F;
-    --calc-dark-btn-option-clr: rgba(255, 255, 255, 0.4);
-    --calc-dark-btn-option-active-clr: rgb(235, 235, 235);
-    --calc-dark-btn-option-hover: #5b5b5b;
-    --calc-dark-output-bgclr: black;
-    --calc-dark-output-clr: rgb(218, 218, 218);
-    --calc-dark-output-border: gray;
-
-    --calc-light-btn-number-clr: #2F2F2F;
-    --calc-light-btn-erase-clr: rgb(200, 81, 60);
-    --calc-light-btn-parens-clr: rgb(182, 58, 182);
-    --calc-light-btn-equals-clr: rgb(1, 139, 70);
-    --calc-light-btn-operation-clr: #a77a00;
-    --calc-light-btn-active-bgclr: rgba(0, 0, 0, .1);
-    --calc-light-btn-focus-visible-clr: black;
-    --calc-light-btns-bgclr: whitesmoke;
-    --calc-light-btns-bg: linear-gradient( whitesmoke, silver);
-    --calc-light-options-bgclr: whitesmoke;
-    --calc-light-btn-option-clr: rgba(0, 0, 0, 0.4);
-    --calc-light-btn-option-active-clr: #2F2F2F;
-    --calc-light-btn-option-hover: rgb(210, 210, 210);
-    --calc-light-output-bgclr: white;
-    --calc-light-output-clr: #2F2F2F;
-    --calc-light-output-border: silver;
-
-    --calc-btn-number-clr: var(--calc-dark-btn-number-clr);
-    --calc-btn-erase-clr: var(--calc-dark-btn-erase-clr);
-    --calc-btn-parens-clr: var(--calc-dark-btn-parens-clr);
-    --calc-btn-equals-clr: var(--calc-dark-btn-equals-clr);
-    --calc-btn-operation-clr: var(--calc-dark-btn-operation-clr);
-    --calc-btn-active-bgclr: var(--calc-dark-btn-active-bgclr);
-    --calc-btn-focus-visible-clr: var(--calc-dark-btn-focus-visible-clr);
-    --calc-btns-bgclr: var(--calc-dark-btns-bgclr);
-    --calc-btns-bg: var(--calc-dark-btns-bg);
-    --calc-options-bgclr: var(--calc-dark-options-bgclr);
-    --calc-btn-option-clr: var(--calc-dark-btn-option-clr);
-    --calc-btn-option-active-clr: var(--calc-dark-btn-option-active-clr);
-    --calc-btn-option-hover: var(--calc-dark-btn-option-hover);
-    --calc-output-bgclr: var(--calc-dark-output-bgclr);
-    --calc-output-clr: var(--calc-dark-output-clr);
-    --calc-output-border: var(--calc-dark-output-border);
-}
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    height: 0; /* required so that IE11 centers */
     margin: 0;
     font-family: 'Inter', sans-serif;
 }
@@ -76,26 +18,26 @@ body {
 }
 
 .js-focus-visible .focus-visible {
-    outline: 1px solid var(--calc-btn-focus-visible-clr);
+    outline: 1px solid var(--btn-focus-visible-clr);
 }
 
-.js-light-mode {
-    --calc-btn-number-clr: var(--calc-light-btn-number-clr);
-    --calc-btn-erase-clr: var(--calc-light-btn-erase-clr);
-    --calc-btn-parens-clr: var(--calc-light-btn-parens-clr);
-    --calc-btn-equals-clr: var(--calc-light-btn-equals-clr);
-    --calc-btn-operation-clr: var(--calc-light-btn-operation-clr);
-    --calc-btn-active-bgclr: var(--calc-light-btn-active-bgclr);
-    --calc-btn-focus-visible-clr: var(--calc-light-btn-focus-visible-clr);
-    --calc-btns-bgclr: var(--calc-light-btns-bgclr);
-    --calc-btns-bg: var(--calc-light-btns-bg);
-    --calc-options-bgclr: var(--calc-light-options-bgclr);
-    --calc-btn-option-clr: var(--calc-light-btn-option-clr);
-    --calc-btn-option-active-clr: var(--calc-light-btn-option-active-clr);
-    --calc-btn-option-hover: var(--calc-light-btn-option-hover);
-    --calc-output-bgclr: var(--calc-light-output-bgclr);
-    --calc-output-clr: var(--calc-light-output-clr);
-    --calc-output-border: var(--calc-light-output-border);
+.calc.js-light-mode {
+    --btn-number-clr: #2F2F2F;
+    --btn-erase-clr: rgb(200, 81, 60);
+    --btn-parens-clr: rgb(182, 58, 182);
+    --btn-equals-clr: rgb(1, 139, 70);
+    --btn-operation-clr: #a77a00;
+    --btn-active-bgclr: rgba(0, 0, 0, .1);
+    --btn-focus-visible-clr: black;
+    --btns-bgclr: whitesmoke;
+    --btns-bg: linear-gradient( whitesmoke, silver);
+    --options-bgclr: whitesmoke;
+    --btn-option-clr: rgba(0, 0, 0, 0.4);
+    --btn-option-active-clr: #2F2F2F;
+    --btn-option-hover: rgb(210, 210, 210);
+    --output-bgclr: white;
+    --output-clr: #2F2F2F;
+    --output-border: silver;
 }
 
 /*-------------------- BUTTON --------------------*/
@@ -116,12 +58,12 @@ body {
 }
 
 .calc-btn:active {
-    background-color: var(--calc-btn-active-bgclr);
+    background-color: var(--btn-active-bgclr);
     transition: none;
 }
 
 .calc-btn-erase {
-    color: var(--calc-btn-erase-clr);
+    color: var(--btn-erase-clr);
 }
 
 .calc-btn:not(.calc-btn-number) {
@@ -129,49 +71,70 @@ body {
 }
 
 .calc-btn-parens {
-    color: var(--calc-btn-parens-clr);
+    color: var(--btn-parens-clr);
 }
 
 .calc-btn-operation {
-    color: var(--calc-btn-operation-clr);
+    color: var(--btn-operation-clr);
 }
 
 .calc-btn-equals {
-    color: var(--calc-btn-equals-clr);
+    color: var(--btn-equals-clr);
 }
 
 .calc-btn-number {
-    color: var(--calc-btn-number-clr);
+    color: var(--btn-number-clr);
 }
 
 .calc-btn-option {
-    padding: var(--calc-btn-option-padding);
+    padding: var(--btn-option-padding);
     border: 0;
     background-color: transparent;
-    font-size: var(--calc-btn-option-ff-size);
+    font-size: var(--btn-option-ff-size);
 }
 
 .calc-btn-theme {
-    color: var(--calc-btn-option-clr);
+    color: var(--btn-option-clr);
 }
 
 .calc-btn-theme.calc-btn-active-theme,
 .calc-btn-history {
-    color: var(--calc-btn-option-active-clr);
+    color: var(--btn-option-active-clr);
 }
 
 .calc-btn-option:hover {
-    background-color: var(--calc-btn-option-hover);
+    background-color: var(--btn-option-hover);
 }
 
 .calc-btn-history {
     position: absolute;
-    left: calc(var(--calc-padding) - var(--calc-btn-option-padding));
+    left: calc(var(--padding) - var(--btn-option-padding));
 }
 
 /*-------------------- CONTAINER --------------------*/
 
 .calc {
+    --padding: 1rem;
+    --btn-option-ff-size: 1.25rem;
+    --btn-option-padding: calc(var(--btn-option-ff-size) / 2);
+
+    --btn-number-clr: rgb(218, 218, 218);
+    --btn-erase-clr: tomato;
+    --btn-parens-clr: violet;
+    --btn-equals-clr: rgb(117, 255, 186);
+    --btn-operation-clr: #FCBE16;
+    --btn-active-bgclr: rgba(255, 255, 255, 0.1);
+    --btn-focus-visible-clr: white;
+    --btns-bgclr: #2F2F2F;
+    --btns-bg: linear-gradient( #2F2F2F, black);
+    --options-bgclr: #2F2F2F;
+    --btn-option-clr: rgba(255, 255, 255, 0.4);
+    --btn-option-active-clr: rgb(235, 235, 235);
+    --btn-option-hover: #5b5b5b;
+    --output-bgclr: black;
+    --output-clr: rgb(218, 218, 218);
+    --output-border: gray;
+
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
@@ -181,8 +144,8 @@ body {
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 0 var(--calc-padding);
-    background-color: var(--calc-options-bgclr);  
+    padding: 0 var(--padding);
+    background-color: var(--options-bgclr);  
 }
 
 .calc-themes {
@@ -191,14 +154,14 @@ body {
 
 .calc-output,
 .calc-buttons {
-    padding: var(--calc-padding);
+    padding: var(--padding);
 }
 
 .calc-output {
-    border-bottom: 2px solid var(--calc-output-border);
-    border-top: 2px solid var(--calc-output-border);
-    color: var(--calc-output-clr);
-    background-color: var(--calc-output-bgclr);
+    border-bottom: 2px solid var(--output-border);
+    border-top: 2px solid var(--output-border);
+    color: var(--output-clr);
+    background-color: var(--output-bgclr);
 }
 
 .calc-expression {
@@ -211,8 +174,8 @@ body {
 }
 
 .calc-buttons {
-    background-color: var(--calc-btns-bgclr);
-    background: var(--calc-btns-bg);
+    background-color: var(--btns-bgclr);
+    background: var(--btns-bg);
 }
 
 .calc-btn-row {
