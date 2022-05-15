@@ -21,7 +21,7 @@ body {
     outline: 1px solid var(--btn-focus-visible-clr);
 }
 
-.calc.js-light-mode {
+.calc.js-light-theme {
     --btn-number-clr: #2F2F2F;
     --btn-erase-clr: rgb(200, 81, 60);
     --btn-parens-clr: rgb(182, 58, 182);
