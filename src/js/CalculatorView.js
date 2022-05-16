@@ -20,10 +20,10 @@ export default class CalculatorView {
             }
             switch(event.target.closest('button').dataset.btn) {
                 case 'light-theme':
-                    this.changeToDarkTheme();
+                    this.changeToLightTheme();
                     break;
                 case 'dark-theme':
-                    this.changeToLightTheme();
+                    this.changeToDarkTheme();
             }
         });
         btns.addEventListener('click', (event) => {
@@ -51,16 +51,16 @@ export default class CalculatorView {
     changeToLightTheme() {
         if (!this.calc.classList.contains('js-light-theme')) {
             this.calc.classList.add('js-light-theme');
-            this.darkModeBtn.classList.remove('calc-btn-active-theme');
-            this.lightModeBtn.classList.add('calc-btn-active-theme');
+            this.darkModeBtn.classList.remove('js-active-theme');
+            this.lightModeBtn.classList.add('js-active-theme');
         } 
     }
     
     changeToDarkTheme() {
         if (this.calc.classList.contains('js-light-theme')) {
             this.calc.classList.remove('js-light-theme');
-            this.lightModeBtn.classList.remove('calc-btn-active-theme');
-            this.darkModeBtn.classList.add('calc-btn-active-theme');
+            this.lightModeBtn.classList.remove('js-active-theme');
+            this.darkModeBtn.classList.add('js-active-theme');
         } 
     }
 }
