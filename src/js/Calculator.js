@@ -3,6 +3,6 @@ export default class Calculator {
         this.model = model;
         this.view = view;
 
-        view.initChangeTheme();
+        view.initBtnListeners();
     }
 }

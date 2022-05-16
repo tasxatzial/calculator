@@ -7,9 +7,21 @@ export default class CalculatorView {
         this.lightModeBtn = document.querySelector('.calc-btn-light-theme');
     }
 
-    initChangeTheme() {
-        this.darkModeBtn.addEventListener('click', () => this.changeToDarkTheme());
-        this.lightModeBtn.addEventListener('click', () => this.changeToLightTheme());
+    initBtnListeners() {
+        const optionBtns = this.calc.querySelector('.calc-option-btns');
+
+        optionBtns.addEventListener('click', (event) => {
+            if (!event.target.closest('button')) {
+                return;
+            }
+            switch(event.target.closest('button').dataset.btn) {
+                case 'light-theme':
+                    this.changeToDarkTheme();
+                    break;
+                case 'dark-theme':
+                    this.changeToLightTheme();
+            }
+        });
     }
 
     changeToLightTheme() {
