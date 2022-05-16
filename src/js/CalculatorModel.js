@@ -18,4 +18,17 @@ export default class CalculatorModel {
             'expression': this.expression
         };
     }
+
+    deleteFromOperand() {
+        /* todo: do not permit deleting if operand is a result */
+
+        if (this.operand < 10) {
+            this.operand = 0;
+            this.eventEmmiter.dispatch("updateDisplay", this.getData());
+            return;
+        }
+        const newOperand = parseFloat(this.operand.toString().slice(0, -1));
+        this.operand = newOperand;
+        this.eventEmmiter.dispatch("updateDisplay", this.getData());
+    }
 }

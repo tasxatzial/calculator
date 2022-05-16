@@ -12,6 +12,7 @@ export default class CalculatorView {
 
     initBtnListeners() {
         const optionBtns = this.calc.querySelector('.calc-option-btns');
+        const btns = this.calc.querySelector('.calc-btns');
 
         optionBtns.addEventListener('click', (event) => {
             if (!event.target.closest('button')) {
@@ -25,6 +26,21 @@ export default class CalculatorView {
                     this.changeToLightTheme();
             }
         });
+        btns.addEventListener('click', (event) => {
+            if (!event.target.closest('button')) {
+                return;
+            }
+
+            switch(event.target.dataset.btn) {
+                case 'delete':
+                    this.eventEmmiter.dispatch("delete", null);
+                    break;
+            }
+        });
+    }
+
+    initEmitter(callbacks) {
+        this.eventEmmiter.on("delete", () => callbacks.delete())
     }
 
     updateDisplay(data) {

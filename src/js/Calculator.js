@@ -4,6 +4,9 @@ export default class Calculator {
         this.view = view;
 
         view.initBtnListeners();
+        view.initEmitter({
+            'delete': () => model.deleteFromOperand()
+        });
         model.initEmitter({
             'updateDisplay': (data) => view.updateDisplay(data)
         });
