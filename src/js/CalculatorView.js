@@ -30,22 +30,37 @@ export default class CalculatorView {
             if (!event.target.closest('button')) {
                 return;
             }
-
             switch(event.target.dataset.btn) {
                 case 'delete':
-                    this.eventEmmiter.dispatch("delete", null);
+                    this.eventEmmiter.dispatch("deleteFromOperand", {
+                        'operand': this.getOperand()
+                    });
+                    break;
+                case 'number':
+                    this.eventEmmiter.dispatch("appendToOperand", {
+                        'operand': this.getOperand(),
+                        'digit': event.target.textContent
+                    });
                     break;
             }
         });
     }
 
     initEmitter(callbacks) {
-        this.eventEmmiter.on("delete", () => callbacks.delete())
+        this.eventEmmiter.on("appendToOperand", (data) => callbacks.appendToOperand(data))
+        this.eventEmmiter.on("deleteFromOperand", (data) => callbacks.deleteFromOperand(data))
     }
 
-    updateDisplay(data) {
-        this.operand.textContent = data.operand.toString();
-        this.expression.textContent = data.expression.toString();
+    getOperand() {
+        return this.operand.textContent;
+    }
+
+    updateOperand({operand}) {
+        this.operand.textContent = operand;
+    }
+
+    updateExpression({expression}) {
+        this.expression.textContent = expression;
     }
 
     changeToLightTheme() {

@@ -5,10 +5,12 @@ export default class Calculator {
 
         view.initBtnListeners();
         view.initEmitter({
-            'delete': () => model.deleteFromOperand()
+            'appendToOperand': (data) => model.appendToOperand(data),
+            'deleteFromOperand': (data) => model.deleteFromOperand(data)
         });
         model.initEmitter({
-            'updateDisplay': (data) => view.updateDisplay(data)
+            'updateOperand': (data) => view.updateOperand(data),
+            'updateExpression': (data) => view.updateExpression(data)
         });
     }
 }

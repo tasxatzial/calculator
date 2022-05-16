@@ -8,27 +8,45 @@ export default class CalculatorModel {
     }
 
     initEmitter(callbacks) {
-        this.eventEmmiter.on("updateDisplay", data => callbacks.updateDisplay(data));
-        this.eventEmmiter.dispatch("updateDisplay", this.getData());
+        this.eventEmmiter.on("updateOperand", data => callbacks.updateOperand(data));
+        this.eventEmmiter.on("updateExpression", data => callbacks.updateExpression(data));
+        this.eventEmmiter.dispatch("updateOperand", {
+            'operand': this.getOperand()
+        });
+        this.eventEmmiter.dispatch("updateExpression", {
+            'expression': this.getExpression()
+        });
     }
 
-    getData() {
-        return {
-            'operand': this.operand,
-            'expression': this.expression
-        };
+    getOperand() {
+        return this.operand;
     }
 
-    deleteFromOperand() {
-        /* todo: do not permit deleting if operand is a result */
+    getExpression() {
+        return this.expression;
+    }
 
-        if (this.operand < 10) {
-            this.operand = 0;
-            this.eventEmmiter.dispatch("updateDisplay", this.getData());
-            return;
+    appendToOperand({operand, digit}) {
+        let newOperand;
+        if (operand === '0') {
+            newOperand = digit;
+        } else {
+            newOperand = operand + digit;
         }
-        const newOperand = parseFloat(this.operand.toString().slice(0, -1));
-        this.operand = newOperand;
-        this.eventEmmiter.dispatch("updateDisplay", this.getData());
+        this.eventEmmiter.dispatch("updateOperand", {
+            'operand': newOperand
+        });
+    }
+
+    deleteFromOperand({operand}) {
+        if (operand.length === 1) {
+            this.eventEmmiter.dispatch("updateOperand", {
+                'operand': 0
+            });
+        } else {
+            this.eventEmmiter.dispatch("updateOperand", {
+                'operand': operand.toString().slice(0, -1)
+            });
+        }
     }
 }
