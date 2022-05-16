@@ -4,5 +4,8 @@ export default class Calculator {
         this.view = view;
 
         view.initBtnListeners();
+        model.initEmitter({
+            'updateDisplay': (data) => view.updateDisplay(data)
+        });
     }
 }

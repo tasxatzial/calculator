@@ -1,5 +1,8 @@
+import EventEmitter from './EventEmitter.js'
+
 export default class CalculatorView {
     constructor(calc) {
+        this.eventEmmiter = new EventEmitter();
         this.calc = calc;
         this.operand = calc.querySelector('.calc-operand');
         this.expression = calc.querySelector('.calc-expression');
@@ -22,6 +25,11 @@ export default class CalculatorView {
                     this.changeToLightTheme();
             }
         });
+    }
+
+    updateDisplay(data) {
+        this.operand.textContent = data.operand.toString();
+        this.expression.textContent = data.expression.toString();
     }
 
     changeToLightTheme() {
