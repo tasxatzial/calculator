@@ -1,8 +1,8 @@
 export default class CalculatorView {
     constructor(calc) {
         this.calc = calc;
-        this.operand = calc.querySelector('calc-operand');
-        this.expression = calc.querySelector('calc-expression');
+        this.operand = calc.querySelector('.calc-operand');
+        this.expression = calc.querySelector('.calc-expression');
         this.darkModeBtn = document.querySelector('.calc-btn-dark-theme');
         this.lightModeBtn = document.querySelector('.calc-btn-light-theme');
     }

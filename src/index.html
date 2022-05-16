@@ -13,53 +13,53 @@
 </head>
 <body>
     <div class="calc">
-        <div class="calc-options">
-            <button class="calc-btn-option calc-btn-history">
+        <div class="calc-option-btns">
+            <button data-btn="history" class="calc-btn-option calc-btn-history">
                 <i class="fa-solid fa-clock-rotate-left"></i>
             </button>
             <div class="calc-themes">
-                <button class="calc-btn-option calc-btn-theme calc-btn-light-theme">
+                <button data-btn="light-theme" class="calc-btn-option calc-btn-theme calc-btn-light-theme">
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <button class="calc-btn-option calc-btn-theme calc-btn-dark-theme calc-btn-active-theme">
+                <button data-btn="dark-theme" class="calc-btn-option calc-btn-theme calc-btn-dark-theme js-active-theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
         </div>
         <div class="calc-output">
-            <div class="calc-expression">1 + 2</div>
-            <div class="calc-operand">12</div>
+            <div data-output="expression" class="calc-expression">1 + 2</div>
+            <div data-output="operand" class="calc-operand">12</div>
         </div>
-        <div class="calc-buttons">
+        <div class="calc-btns">
             <div class="calc-btn-row">
-                <button class="calc-btn calc-btn-erase">C</button>
-                <button class="calc-btn calc-btn-erase calc-btn-back">←</button>
-                <button class="calc-btn calc-btn-parens">(</button>
-                <button class="calc-btn calc-btn-parens">)</button>
+                <button data-btn="clear" class="calc-btn calc-btn-clear">C</button>
+                <button data-btn="delete" class="calc-btn calc-btn-del">←</button>
+                <button data-btn="left-paren" class="calc-btn calc-btn-paren">(</button>
+                <button data-btn="right-paren" class="calc-btn calc-btn-paren">)</button>
             </div>
             <div class="calc-btn-row">
-                <button class="calc-btn calc-btn-number">7</button>
-                <button class="calc-btn calc-btn-number">8</button>
-                <button class="calc-btn calc-btn-number">9</button>
-                <button class="calc-btn calc-btn-operation">÷</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">7</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">8</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">9</button>
+                <button data-btn="operation" class="calc-btn calc-btn-operation">÷</button>
             </div>
             <div class="calc-btn-row">
-                <button class="calc-btn calc-btn-number">4</button>
-                <button class="calc-btn calc-btn-number">5</button>
-                <button class="calc-btn calc-btn-number">6</button>
-                <button class="calc-btn calc-btn-operation">×</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">4</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">5</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">6</button>
+                <button data-btn="operation" class="calc-btn calc-btn-operation">×</button>
             </div>
             <div class="calc-btn-row">
-                <button class="calc-btn calc-btn-number">1</button>
-                <button class="calc-btn calc-btn-number">2</button>
-                <button class="calc-btn calc-btn-number">3</button>
-                <button class="calc-btn calc-btn-operation">−</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">1</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">2</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">3</button>
+                <button data-btn="operation" class="calc-btn calc-btn-operation">−</button>
             </div>
             <div class="calc-btn-row">
-                <button class="calc-btn calc-btn-number">0</button>
-                <button class="calc-btn calc-btn-number">.</button>
-                <button class="calc-btn calc-btn-equals">=</button>
-                <button class="calc-btn calc-btn-operation">+</button>
+                <button data-btn="number" class="calc-btn calc-btn-number">0</button>
+                <button data-btn="dot" class="calc-btn calc-btn-dot">.</button>
+                <button data-btn="equals" class="calc-btn calc-btn-equals">=</button>
+                <button data-btn="operation" class="calc-btn calc-btn-operation">+</button>
             </div>
         </div>
     </div>
