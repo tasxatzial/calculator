@@ -1,52 +1,36 @@
-import EventEmmiter from './EventEmitter.js'
-
 export default class CalculatorModel {
     constructor() {
-        this.eventEmmiter = new EventEmmiter();
         this.operand = 0;
+        this.operandTmp = '0';
         this.expression = '0';
     }
 
-    initEmitter(callbacks) {
-        this.eventEmmiter.on("updateOperand", data => callbacks.updateOperand(data));
-        this.eventEmmiter.on("updateExpression", data => callbacks.updateExpression(data));
-        this.eventEmmiter.dispatch("updateOperand", {
-            'operand': this.getOperand()
-        });
-        this.eventEmmiter.dispatch("updateExpression", {
-            'expression': this.getExpression()
-        });
+    getState() {
+        return {
+            operand: this.operand,
+            expression: this.expression
+        };
     }
 
-    getOperand() {
-        return this.operand;
-    }
-
-    getExpression() {
-        return this.expression;
-    }
-
-    appendToOperand({operand, digit}) {
+    appendToTmpOperand(digit) {
         let newOperand;
-        if (operand === '0') {
+        if (this.operandTmp === '0') {
             newOperand = digit;
         } else {
-            newOperand = operand + digit;
+            newOperand = this.operandTmp + digit;
         }
-        this.eventEmmiter.dispatch("updateOperand", {
-            'operand': newOperand
-        });
+        this.operandTmp = newOperand;
+        return newOperand;
     }
 
-    deleteFromOperand({operand}) {
-        if (operand.length === 1) {
-            this.eventEmmiter.dispatch("updateOperand", {
-                'operand': 0
-            });
+    deleteFromTmpOperand() {
+        let newOperand;
+        if (this.operandTmp.length === 1) {
+            newOperand = '0';
         } else {
-            this.eventEmmiter.dispatch("updateOperand", {
-                'operand': operand.toString().slice(0, -1)
-            });
+            newOperand = this.operandTmp.slice(0, -1);
         }
+        this.operandTmp = newOperand;
+        return newOperand;
     }
 }
