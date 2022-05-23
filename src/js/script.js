@@ -42,6 +42,9 @@ btns.addEventListener('click', (event) => {
         case '.':
             calculationModel.selectDot();
             break;
+        case '(':
+            calculationModel.selectLeftParen();
+            break;
     }
     calculationView.update(calculationModel.getState());
 });

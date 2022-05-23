@@ -5,6 +5,7 @@ export default class CalculatorModel {
         this.operand = '0';
         this.expression = '0';
         this.clearState = 0;
+        this.lastAdded = '';
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
     }
@@ -61,5 +62,18 @@ export default class CalculatorModel {
             this.resetClearState();
         }
         this.operand = newOperand;
+    }
+
+    selectLeftParen() {
+        if (typeof(this.lastAdded) === 'number' || this.lastAdded === ')') {
+            return;
+        }
+        if (this.expression === '0') {
+            this.expression = '(';
+        } else {
+            this.expression += '(';
+        }
+        this.operand = '0';
+        this.operatorStack.push('(');
     }
 }
