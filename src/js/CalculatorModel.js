@@ -3,7 +3,7 @@ import Stack from './Stack.js';
 export default class CalculatorModel {
     constructor() {
         this.operand = '0';
-        this.expression = '0';
+        this.expression = '';
         this.clearState = 0;
         this.lastAdded = '';
         this.operatorStack = new Stack();
@@ -38,7 +38,7 @@ export default class CalculatorModel {
             this.operand = '0';
         } else if (this.clearState === 1) {
             this.resetClearState();
-            this.expression = '0';
+            this.expression = '';
         }
     }
 
@@ -68,11 +68,10 @@ export default class CalculatorModel {
         if (typeof(this.lastAdded) === 'number' || this.lastAdded === ')') {
             return;
         }
-        if (this.expression === '0') {
-            this.expression = '(';
-        } else {
-            this.expression += '(';
+        if (this.expression === '') {
+            this.clearState = 1;
         }
+        this.expression += '(';
         this.operand = '0';
         this.operatorStack.push('(');
     }
