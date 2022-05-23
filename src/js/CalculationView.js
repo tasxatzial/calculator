@@ -2,8 +2,7 @@ export default class CalculationView {
     constructor(calcEl, modelData) {
         this.operandEl = calcEl.querySelector('.calc-operand');
         this.expressionEl = calcEl.querySelector('.calc-expression');
-        this.setOperand(modelData.operand);
-        this.setExpression(modelData.expression);
+        this.update(modelData);
     }
 
     getOperand() {
@@ -14,15 +13,12 @@ export default class CalculationView {
         return this.expressionEl.textContent;
     }
 
-    setOperand(operand) {
-        const s = operand.toString();
+    update(data) {
+        let s = data.operand.toString();
         if (this.getOperand() !== s) {
             this.operandEl.textContent = s;
         }
-    }
-
-    setExpression(expression) {
-        const s = expression.toString();
+        s = data.expression.toString();
         if (this.getExpression() !== s) {
             this.expressionEl.textContent = s;
         }

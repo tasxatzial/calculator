@@ -1,7 +1,6 @@
 export default class CalculatorModel {
     constructor() {
-        this.operand = 0;
-        this.operandTmp = '0';
+        this.operand = '0';
         this.expression = '0';
         this.clearState = 0;
     }
@@ -12,29 +11,16 @@ export default class CalculatorModel {
             expression: this.expression
         };
     }
-
-    appendToTmpOperand(digit) {
+    
+    delete() {
         let newOperand;
-        if (this.operandTmp === '0') {
-            newOperand = digit;
-        } else {
-            newOperand = this.operandTmp + digit;
-            this.resetClearState();
-        }
-        this.operandTmp = newOperand;
-        return newOperand;
-    }
-
-    deleteFromTmpOperand() {
-        let newOperand;
-        if (this.operandTmp.length === 1) {
+        if (this.operand.length === 1) {
             newOperand = '0';
         } else {
-            newOperand = this.operandTmp.slice(0, -1);
+            newOperand = this.operand.slice(0, -1);
             this.resetClearState();
         }
-        this.operandTmp = newOperand;
-        return newOperand;
+        this.operand = newOperand;
     }
 
     resetClearState() {
@@ -44,24 +30,32 @@ export default class CalculatorModel {
     clear() {
         if (this.clearState === 0) {
             this.clearState = 1;
-            this.operandTmp = '0';
-            this.operand = 0;
+            this.operand = '0';
         } else if (this.clearState === 1) {
             this.resetClearState();
             this.expression = '0';
         }
-        return this.getState();
     }
 
-    appendDot() {
+    selectDigit(digit) {
         let newOperand;
-        if (this.operandTmp.includes('.')) {
-            newOperand = this.operandTmp;
+        if (this.operand === '0') {
+            newOperand = digit;
         } else {
-            newOperand = this.operandTmp + '.';
+            newOperand = this.operand + digit;
             this.resetClearState();
         }
-        this.operandTmp = newOperand;
-        return newOperand;
+        this.operand = newOperand;
+    }
+
+    selectDot() {
+        let newOperand;
+        if (this.operand.includes('.')) {
+            newOperand = this.operand;
+        } else {
+            newOperand = this.operand + '.';
+            this.resetClearState();
+        }
+        this.operand = newOperand;
     }
 }

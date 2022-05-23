@@ -8,8 +8,7 @@ const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
 
 const calculationModel = new CalculatorModel();
-const calculationData = calculationModel.getState();
-const calculationView = new CalculationView(calc, calculationData);
+const calculationView = new CalculationView(calc, calculationModel.getState());
 
 
 optionBtns.addEventListener('click', (event) => {
@@ -30,33 +29,22 @@ btns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
         return;
     }
-    let newOperand, modelState;
     switch(event.target.dataset.btn) {
         case 'delete':
-            newOperand = calculationModel.deleteFromTmpOperand();
-            calculationView.setOperand(newOperand);
+            calculationModel.delete();
             break;
         case 'clear':
-            modelState = calculationModel.clear();
-            console.log(modelState)
-            calculationView.setOperand(modelState.operand);
-            calculationView.setExpression(modelState.expression);
+            calculationModel.clear();
             break;
         case 'number':
-            const digit = event.target.textContent;
-            newOperand = calculationModel.appendToTmpOperand(digit);
-            calculationView.setOperand(newOperand);
+            calculationModel.selectDigit(event.target.textContent);
             break;
         case 'dot':
-            clickedDot();
+            calculationModel.selectDot();
             break;
     }
+    calculationView.update(calculationModel.getState());
 });
-
-function clickedDot() {
-    const newOperand = calculationModel.appendDot();
-    calculationView.setOperand(newOperand);
-}
 
 function changeToLightTheme() {
     if (!calc.classList.contains('js-light-theme')) {
