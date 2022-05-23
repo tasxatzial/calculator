@@ -30,11 +30,17 @@ btns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
         return;
     }
-    let newOperand;
+    let newOperand, modelState;
     switch(event.target.dataset.btn) {
         case 'delete':
             newOperand = calculationModel.deleteFromTmpOperand();
             calculationView.setOperand(newOperand);
+            break;
+        case 'clear':
+            modelState = calculationModel.clear();
+            console.log(modelState)
+            calculationView.setOperand(modelState.operand);
+            calculationView.setExpression(modelState.expression);
             break;
         case 'number':
             const digit = event.target.textContent;

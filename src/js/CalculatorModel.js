@@ -3,6 +3,7 @@ export default class CalculatorModel {
         this.operand = 0;
         this.operandTmp = '0';
         this.expression = '0';
+        this.clearState = 0;
     }
 
     getState() {
@@ -18,6 +19,7 @@ export default class CalculatorModel {
             newOperand = digit;
         } else {
             newOperand = this.operandTmp + digit;
+            this.resetClearState();
         }
         this.operandTmp = newOperand;
         return newOperand;
@@ -29,9 +31,26 @@ export default class CalculatorModel {
             newOperand = '0';
         } else {
             newOperand = this.operandTmp.slice(0, -1);
+            this.resetClearState();
         }
         this.operandTmp = newOperand;
         return newOperand;
+    }
+
+    resetClearState() {
+        this.clearState = 0;
+    }
+
+    clear() {
+        if (this.clearState === 0) {
+            this.clearState = 1;
+            this.operandTmp = '0';
+            this.operand = 0;
+        } else if (this.clearState === 1) {
+            this.resetClearState();
+            this.expression = '0';
+        }
+        return this.getState();
     }
 
     appendDot() {
@@ -40,6 +59,7 @@ export default class CalculatorModel {
             newOperand = this.operandTmp;
         } else {
             newOperand = this.operandTmp + '.';
+            this.resetClearState();
         }
         this.operandTmp = newOperand;
         return newOperand;

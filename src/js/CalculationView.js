@@ -24,7 +24,7 @@ export default class CalculationView {
     setExpression(expression) {
         const s = expression.toString();
         if (this.getExpression() !== s) {
-            this.operandEl.textContent = s;
+            this.expressionEl.textContent = s;
         }
     }
 }
