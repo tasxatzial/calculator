@@ -33,4 +33,15 @@ export default class CalculatorModel {
         this.operandTmp = newOperand;
         return newOperand;
     }
+
+    appendDot() {
+        let newOperand;
+        if (this.operandTmp.includes('.')) {
+            newOperand = this.operandTmp;
+        } else {
+            newOperand = this.operandTmp + '.';
+        }
+        this.operandTmp = newOperand;
+        return newOperand;
+    }
 }

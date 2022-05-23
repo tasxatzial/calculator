@@ -41,8 +41,16 @@ btns.addEventListener('click', (event) => {
             newOperand = calculationModel.appendToTmpOperand(digit);
             calculationView.setOperand(newOperand);
             break;
+        case 'dot':
+            clickedDot();
+            break;
     }
 });
+
+function clickedDot() {
+    const newOperand = calculationModel.appendDot();
+    calculationView.setOperand(newOperand);
+}
 
 function changeToLightTheme() {
     if (!calc.classList.contains('js-light-theme')) {
