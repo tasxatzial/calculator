@@ -5,6 +5,8 @@ export default class CalculatorModel {
         this.operand = '0';
         this.expression = '0';
         this.clearState = 0;
+        this.operatorStack = new Stack();
+        this.numberStack = new Stack();
     }
 
     getState() {

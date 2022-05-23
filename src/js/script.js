@@ -36,10 +36,10 @@ btns.addEventListener('click', (event) => {
         case 'clear':
             calculationModel.clear();
             break;
-        case 'number':
-            calculationModel.selectDigit(event.target.textContent);
+        case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':
+            calculationModel.selectDigit(event.target.dataset.btn);
             break;
-        case 'dot':
+        case '.':
             calculationModel.selectDot();
             break;
     }
