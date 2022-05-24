@@ -27,6 +27,15 @@ export default class CalculatorModel {
         return !isNaN(parseFloat(this.lastAdded));
     }
 
+    getPriority(operation) {
+        switch(operation) {
+            case '+':case '−':
+                return 1;
+            case '×':case '÷':
+                return 2;
+        }
+    }
+
     getState() {
         return {
             operand: this.operand,
@@ -87,5 +96,35 @@ export default class CalculatorModel {
         this.initOperand();
         this.lastAdded = '(';
         this.operatorStack.push('(');
+    }
+
+    selectOperation(operation) {
+        this.numberStack.push(parseFloat(this.operand));
+        this.expression += this.operand + operation;
+        while (!this.operatorStack.isEmpty() &&
+                this.getPriority(operation) <= this.getPriority(this.operatorStack.top())) {
+            const result = this.calculateStep();
+            this.numberStack.push(result);
+            this.operand = result.toString();
+        }
+        this.operatorStack.push(operation);
+        this.lastAdded = operation;
+        this.clearState = 1;
+    }
+
+    calculateStep() {
+        const op = this.operatorStack.pop();
+        const n1 = this.numberStack.pop();
+        const n2 = this.numberStack.pop();
+        switch(op) {
+            case '+':
+                return n1 + n2;
+            case '÷':
+                return n2 / n1;
+            case '×':
+                return n1 * n2;
+            case '−':
+                return n2 - n1;
+        }
     }
 }

@@ -45,6 +45,9 @@ btns.addEventListener('click', (event) => {
         case '(':
             calculationModel.selectLeftParen();
             break;
+        case '+':case '÷': case '×':case '−':
+            calculationModel.selectOperation(event.target.dataset.btn);
+            break;
     }
     calculationView.update(calculationModel.getState());
 });
