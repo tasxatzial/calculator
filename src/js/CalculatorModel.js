@@ -2,12 +2,29 @@ import Stack from './Stack.js';
 
 export default class CalculatorModel {
     constructor() {
-        this.operand = '0';
-        this.expression = '';
+        this.init();
+    }
+
+    init() {
+        this.initOperand();
+        this.initLastAdded();
         this.clearState = 0;
-        this.lastAdded = '';
+        this.expression = '';
+        this.result = 0;
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
+    }
+
+    initOperand() {
+        this.operand = '0';
+    }
+
+    initLastAdded() {
+        this.lastAdded = null;
+    }
+
+    wasLastAddedDigit() {
+        return !isNaN(parseFloat(this.lastAdded));
     }
 
     getState() {
@@ -18,39 +35,37 @@ export default class CalculatorModel {
     }
     
     delete() {
-        let newOperand;
-        if (this.operand.length === 1) {
-            newOperand = '0';
-        } else {
-            newOperand = this.operand.slice(0, -1);
-            this.resetClearState();
+        if (this.operand === '0') {
+            return;
         }
-        this.operand = newOperand;
-    }
-
-    resetClearState() {
-        this.clearState = 0;
+        if (this.operand.length === 1) {
+            this.initOperand();
+            this.initLastAdded();
+            this.clearState = 0;
+        } else {
+            this.operand = this.operand.slice(0, -1);
+        }
     }
 
     clear() {
         if (this.clearState === 0) {
-            this.clearState = 1;
-            this.operand = '0';
-        } else if (this.clearState === 1) {
-            this.resetClearState();
-            this.expression = '';
+            this.init();
+        } else {
+            this.initOperand();
+            this.clearState = 0;
         }
     }
 
     selectDigit(digit) {
         let newOperand;
-        if (this.operand === '0') {
-            newOperand = digit;
-        } else {
+        if (this.wasLastAddedDigit()) {
             newOperand = this.operand + digit;
-            this.resetClearState();
+        } else {
+            newOperand = digit;
         }
         this.operand = newOperand;
+        this.lastAdded = digit;
+        this.clearState = 1;
     }
 
     selectDot() {
@@ -59,20 +74,18 @@ export default class CalculatorModel {
             newOperand = this.operand;
         } else {
             newOperand = this.operand + '.';
-            this.resetClearState();
         }
         this.operand = newOperand;
+        this.clearState = 1;
     }
 
     selectLeftParen() {
-        if (typeof(this.lastAdded) === 'number' || this.lastAdded === ')') {
+        if (this.wasLastAddedDigit() || this.lastAdded === ')') {
             return;
         }
-        if (this.expression === '') {
-            this.clearState = 1;
-        }
         this.expression += '(';
-        this.operand = '0';
+        this.initOperand();
+        this.lastAdded = '(';
         this.operatorStack.push('(');
     }
 }
