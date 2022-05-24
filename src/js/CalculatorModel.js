@@ -11,6 +11,7 @@ export default class CalculatorModel {
         this.clearState = 0;
         this.expression = '';
         this.result = 0;
+        this.isOperandResult = true;
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
     }
@@ -27,6 +28,13 @@ export default class CalculatorModel {
         return !isNaN(parseFloat(this.lastAdded));
     }
 
+    wasLastAddedOperation() {
+        return this.lastAdded === '÷' ||
+               this.lastAdded === '×' ||
+               this.lastAdded === '+' ||
+               this.lastAdded === '−';
+    }
+    
     getPriority(operation) {
         switch(operation) {
             case '+':case '−':
@@ -44,7 +52,7 @@ export default class CalculatorModel {
     }
     
     delete() {
-        if (this.operand === '0') {
+        if (this.operand === '0' || this.isOperandResult) {
             return;
         }
         if (this.operand.length === 1) {
@@ -73,6 +81,7 @@ export default class CalculatorModel {
             newOperand = digit;
         }
         this.operand = newOperand;
+        this.isOperandResult = false;
         this.lastAdded = digit;
         this.clearState = 1;
     }
@@ -85,6 +94,7 @@ export default class CalculatorModel {
             newOperand = this.operand + '.';
         }
         this.operand = newOperand;
+        this.isOperandResult = false;
         this.clearState = 1;
     }
 
@@ -107,6 +117,7 @@ export default class CalculatorModel {
             this.numberStack.push(result);
             this.operand = result.toString();
         }
+        this.isOperandResult = true;
         this.operatorStack.push(operation);
         this.lastAdded = operation;
         this.clearState = 1;
