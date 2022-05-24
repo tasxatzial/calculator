@@ -25,7 +25,7 @@ export default class CalculatorModel {
     }
 
     wasLastAddedDigit() {
-        return !isNaN(parseFloat(this.lastAdded));
+        return !isNaN(parseFloat(this.lastAdded)) || this.lastAdded === '.';
     }
 
     wasLastAddedOperation() {
