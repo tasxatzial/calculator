@@ -11,7 +11,7 @@ export default class CalculatorModel {
         this.clearState = 0;
         this.expression = '';
         this.isOperandResult = false;
-        this.leftParen = 0;
+        this.leftParenCount = 0;
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
     }
@@ -39,7 +39,8 @@ export default class CalculatorModel {
     getState() {
         return {
             operand: this.operand,
-            expression: this.expression
+            expression: this.expression,
+            leftParenCount: this.leftParenCount
         };
     }
     
@@ -92,11 +93,11 @@ export default class CalculatorModel {
         this.expression += '(';
         this.operand = '0';
         this.lastAdded = '(';
-        this.leftParen++;
+        this.leftParenCount++;
     }
 
     selectRightParen() {
-        if (this.leftParen === 0 ||
+        if (this.leftParenCount === 0 ||
             !(this.isDigit(this.lastAdded) || this.lastAdded === ')')) {
             return;
         }
@@ -106,7 +107,7 @@ export default class CalculatorModel {
             this.expression += this.operand + ')';
         }
         this.lastAdded = ')';
-        this.leftParen--;
+        this.leftParenCount--;
     }
 
     selectOperation(operation) {
@@ -122,7 +123,7 @@ export default class CalculatorModel {
     }
 
     selectEvaluate() {
-        if (this.isOperation(this.lastAdded) || this.leftParen !== 0) {
+        if (this.isOperation(this.lastAdded) || this.leftParenCount !== 0) {
             return;
         }
         if (this.isDigit(this.lastAdded)) {

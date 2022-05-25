@@ -85,6 +85,14 @@ body {
     color: var(--btn-paren-clr);
 }
 
+.calc-btn-left-paren::after {
+    content: var(--content, "");
+    position: absolute;
+    bottom: 0;
+    right: 0.65em;
+    font-size: .6em;
+}
+
 .calc-btn-operation {
     color: var(--btn-operation-clr);
 }
