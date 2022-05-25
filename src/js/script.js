@@ -36,17 +36,20 @@ btns.addEventListener('click', (event) => {
         case 'clear':
             calculationModel.clear();
             break;
-        case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':
+        case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
             calculationModel.selectDigit(event.target.dataset.btn);
-            break;
-        case '.':
-            calculationModel.selectDot();
             break;
         case '(':
             calculationModel.selectLeftParen();
             break;
+        case ')':
+            calculationModel.selectRightParen();
+            break;
         case '+':case '÷': case '×':case '−':
             calculationModel.selectOperation(event.target.dataset.btn);
+            break;
+        case '=':
+            calculationModel.selectEvaluate();
             break;
     }
     calculationView.update(calculationModel.getState());
