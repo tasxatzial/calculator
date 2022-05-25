@@ -97,8 +97,7 @@ export default class CalculatorModel {
     }
 
     selectRightParen() {
-        if (this.leftParenCount === 0 ||
-            !(this.isDigit(this.lastAdded) || this.lastAdded === ')')) {
+        if (this.leftParenCount === 0 || this.isOperation(this.lastAdded)) {
             return;
         }
         if (this.lastAdded === ')') {

@@ -11,6 +11,12 @@ body {
     box-sizing: border-box;
 }
 
+/*-------------------- UTILITY --------------------*/
+
+.half-opaque {
+    opacity: 0.5;
+}
+
 /*-------------------- JS --------------------*/
 
 .js-focus-visible :focus:not(.focus-visible) {
@@ -195,6 +201,10 @@ body {
     min-height: 1.4em;
     margin-bottom: .5em;
     font-size: 1.25rem;
+}
+
+.calc-missing-parens {
+    opacity: 0.5;
 }
 
 .calc-operand {
