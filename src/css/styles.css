@@ -204,17 +204,18 @@ body {
 
 .calc-expression {
     min-height: 1.4em;
-    margin-bottom: .5em;
-    font-size: 1.25rem;
+    margin-bottom: .25em;
+    font-size: 2rem;
 }
 
 .calc-missing-parens {
     opacity: 0.5;
 }
 
-.calc-operand {
+.calc-result {
     min-height: 1.4em;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    text-align: right;
 }
 
 .calc-btns {

@@ -6,7 +6,7 @@ export default class CalculatorModel {
     }
 
     init() {
-        this.operand = '0';
+        this.result = '';
         this.lastAdded = null;
         this.clearState = 0;
         this.expression = '';
@@ -38,30 +38,28 @@ export default class CalculatorModel {
 
     getState() {
         return {
-            operand: this.operand,
+            result: this.result,
             expression: this.expression,
             leftParenCount: this.leftParenCount
         };
     }
     
     delete() {
-        if (this.operand === '0' || this.isOperandResult) {
+        if (this.result === '' || this.isOperandResult) {
             return;
         }
-        if (this.operand.length === 1) {
-            this.operand = '0';
+        if (this.result.length === 1) {
             this.lastAdded = null;
             this.clearState = 0;
-        } else {
-            this.operand = this.operand.slice(0, -1);
         }
+        this.result = this.result.slice(0, -1);
     }
 
     clear() {
         if (this.clearState === 0) {
             this.init();
         } else {
-            this.operand = '0';
+            this.result = '';
             this.clearState = 0;
         }
     }
@@ -70,16 +68,16 @@ export default class CalculatorModel {
         if (this.isOperandResult) {
             this.expression = '';
             this.isOperandResult = false;
-            this.operand = '0';
+            this.result = '';
         }
         if (this.lastAdded === ')' ||
-           (digit === '.' && this.operand.includes('.') && !this.isOperation(this.lastAdded))) {
+           (digit === '.' && this.result.includes('.') && !this.isOperation(this.lastAdded))) {
             return;
         }
         if (this.isDigit(this.lastAdded)) {
-            this.operand += digit;
+            this.result += digit;
         } else {
-            this.operand = digit;
+            this.result = digit;
         }
         this.isOperandResult = false;
         this.lastAdded = digit;
@@ -91,7 +89,7 @@ export default class CalculatorModel {
             return;
         }
         this.expression += '(';
-        this.operand = '0';
+        this.result = '';
         this.lastAdded = '(';
         this.leftParenCount++;
     }
@@ -103,7 +101,7 @@ export default class CalculatorModel {
         if (this.lastAdded === ')') {
             this.expression += ')';
         } else {
-            this.expression += this.operand + ')';
+            this.expression += this.result + ')';
         }
         this.lastAdded = ')';
         this.leftParenCount--;
@@ -115,7 +113,7 @@ export default class CalculatorModel {
         } else if (this.lastAdded === ')') {
             this.expression += operation;
         } else {
-            this.expression += this.operand + operation;
+            this.expression += this.result + operation;
         }
         this.clearState = 1;
         this.lastAdded = operation;
@@ -126,7 +124,7 @@ export default class CalculatorModel {
             return;
         }
         if (this.isDigit(this.lastAdded)) {
-            this.expression += this.operand;
+            this.expression += this.result;
         }
         //eval
         this.expression += '=';

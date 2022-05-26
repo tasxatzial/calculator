@@ -1,11 +1,17 @@
 export default class CalculationView {
     constructor(calcEl, modelData) {
-        this.operandEl = calcEl.querySelector('.calc-operand');
+        this.resultEl = calcEl.querySelector('.calc-result');
         this.expressionEl = calcEl.querySelector('.calc-curr-expression');
         this.missingParensEl = calcEl.querySelector('.calc-missing-parens')
         this.leftParenEl = calcEl.querySelector('.calc-btn-left-paren');
         this.cursor = this.createCursor();
-        this.update(modelData);
+        this.init(modelData);
+    }
+
+    init(data) {
+        this.resultEl.textContent = data.result.toString();
+        this.expressionEl.textContent = data.expression.toString();
+        this.expressionEl.appendChild(this.cursor);
     }
 
     createCursor() {
@@ -15,8 +21,8 @@ export default class CalculationView {
         return span;
     }
 
-    getOperand() {
-        return this.operandEl.textContent;
+    getResult() {
+        return this.resultEl.textContent;
     }
 
     getExpression() {
@@ -24,14 +30,14 @@ export default class CalculationView {
     }
 
     update(data) {
-        let s = data.operand.toString();
-        if (this.getOperand() !== s) {
-            this.operandEl.textContent = s;
-            this.operandEl.appendChild(this.cursor);
+        let s = data.result.toString();
+        if (this.getResult() !== s) {
+            this.resultEl.textContent = s;
         }
         s = data.expression.toString();
         if (this.getExpression() !== s) {
             this.expressionEl.textContent = s;
+            this.expressionEl.appendChild(this.cursor);
         }
         if (data.leftParenCount !== 0 ) {
             let parentheses = '';
