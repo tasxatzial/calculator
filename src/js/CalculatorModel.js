@@ -6,11 +6,8 @@ export default class CalculatorModel {
     }
 
     init() {
-        this.result = '';
-        this.lastAdded = null;
-        this.clearState = 0;
+        this.result = null;
         this.expression = '';
-        this.isOperandResult = false;
         this.leftParenCount = 0;
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
@@ -27,6 +24,20 @@ export default class CalculatorModel {
                c === '−';
     }
     
+    hasLastNumberDot() {
+        if (!this.isDigit(this.getLastAdded())) {
+            return false;
+        }
+        for (let i = this.expression.length - 1; i >= 0; i--) {
+            if (!this.isDigit(this.expression.charAt(i))) {
+                return false;
+            }
+            if (this.expression.charAt(i) === '.') {
+                return true;
+            }
+        }
+    }
+
     getPriority(operation) {
         switch(operation) {
             case '+':case '−':
@@ -36,6 +47,10 @@ export default class CalculatorModel {
         }
     }
 
+    getLastAdded() {
+        return this.expression.charAt(this.expression.length - 1);
+    }
+
     getState() {
         return {
             result: this.result,
@@ -43,91 +58,68 @@ export default class CalculatorModel {
             leftParenCount: this.leftParenCount
         };
     }
-    
+
     delete() {
-        if (this.result === '' || this.isOperandResult) {
+        if (this.expression === '') {
             return;
         }
-        if (this.result.length === 1) {
-            this.lastAdded = null;
-            this.clearState = 0;
+        const la = this.getLastAdded();
+        if (la === '(') {
+            this.leftParenCount--;
         }
-        this.result = this.result.slice(0, -1);
-    }
-
-    clear() {
-        if (this.clearState === 0) {
-            this.init();
-        } else {
-            this.result = '';
-            this.clearState = 0;
+        if (la == ')') {
+            this.leftParenCount++;
         }
+        this.expression = this.expression.slice(0, -1);
     }
 
     selectDigit(digit) {
-        if (this.isOperandResult) {
-            this.expression = '';
-            this.isOperandResult = false;
-            this.result = '';
-        }
-        if (this.lastAdded === ')' ||
-           (digit === '.' && this.result.includes('.') && !this.isOperation(this.lastAdded))) {
+        const la = this.getLastAdded();
+        if (la === ')' ||
+           (la === '0' && digit !== '.') ||
+           (digit === '.' && this.hasLastNumberDot('.'))) {
             return;
         }
-        if (this.isDigit(this.lastAdded)) {
-            this.result += digit;
-        } else {
-            this.result = digit;
-        }
-        this.isOperandResult = false;
-        this.lastAdded = digit;
-        this.clearState = 1;
+        this.expression += digit;
     }
 
     selectLeftParen() {
-        if (this.isDigit(this.lastAdded) || this.lastAdded === ')') {
+        const la = this.getLastAdded();
+        if (la === ')' || this.isDigit(la)) {
             return;
         }
         this.expression += '(';
-        this.result = '';
-        this.lastAdded = '(';
         this.leftParenCount++;
     }
 
     selectRightParen() {
-        if (this.leftParenCount === 0 || this.isOperation(this.lastAdded)) {
+        const la = this.getLastAdded();
+        if (this.leftParenCount === 0 || this.isOperation(la) || la === '(') {
             return;
         }
-        if (this.lastAdded === ')') {
-            this.expression += ')';
-        } else {
-            this.expression += this.result + ')';
-        }
-        this.lastAdded = ')';
+        this.expression += ')';
         this.leftParenCount--;
     }
 
     selectOperation(operation) {
-        if (this.isOperation(this.lastAdded)) {
-            this.expression = this.expression.slice(0, -1) + operation;
-        } else if (this.lastAdded === ')') {
-            this.expression += operation;
-        } else {
-            this.expression += this.result + operation;
+        const la = this.getLastAdded();
+        if (this.isOperation(la) ||
+           (la === '' && operation !== '−') ||
+           (la === '(' && operation !== '−')) {
+            return;
         }
-        this.clearState = 1;
-        this.lastAdded = operation;
+        if (operation === '−' && (la === '' || la === '(')) {
+            this.expression += '0';
+        }
+        this.expression += operation;
     }
 
     selectEvaluate() {
-        if (this.isOperation(this.lastAdded) || this.leftParenCount !== 0) {
+        const la = this.getLastAdded();
+        if (this.isOperation(la) || this.leftParenCount !== 0) {
             return;
         }
-        if (this.isDigit(this.lastAdded)) {
-            this.expression += this.result;
-        }
         //eval
-        this.expression += '=';
-        this.isOperandResult = true;
+        this.result = 0;
     }
 }

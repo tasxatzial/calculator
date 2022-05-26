@@ -11,10 +11,6 @@ body {
     box-sizing: border-box;
 }
 
-.cursor {
-    animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
-}
-
 /*-------------------- UTILITY --------------------*/
 
 @keyframes blinking {
@@ -53,6 +49,12 @@ body {
     --output-bgclr: white;
     --output-clr: #2F2F2F;
     --output-border: silver;
+}
+
+/*-------------------- TEXT --------------------*/
+
+.cursor {
+    animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
 }
 
 /*-------------------- BUTTON --------------------*/
@@ -200,21 +202,20 @@ body {
     border-top: 2px solid var(--output-border);
     color: var(--output-clr);
     background-color: var(--output-bgclr);
+    word-break: break-all;
 }
 
-.calc-expression {
-    min-height: 1.4em;
-    margin-bottom: .25em;
+.calc-expression-container,
+.calc-result {
+    height: 1.4em;
     font-size: 2rem;
 }
 
-.calc-missing-parens {
+.calc-expression-parens {
     opacity: 0.5;
 }
 
 .calc-result {
-    min-height: 1.4em;
-    font-size: 2rem;
     text-align: right;
 }
 
