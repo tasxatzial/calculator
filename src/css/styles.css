@@ -102,7 +102,7 @@ body {
     content: var(--content, "");
     position: absolute;
     bottom: 0;
-    right: 0.65em;
+    left: 1.8em;
     font-size: .6em;
 }
 
