@@ -54,6 +54,7 @@ export default class CalculatorModel {
     getState() {
         return {
             result: this.result,
+            isResultUpToDate: this.isResultUpToDate,
             expression: this.expression,
             leftParenCount: this.leftParenCount
         };

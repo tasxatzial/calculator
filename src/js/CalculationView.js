@@ -10,7 +10,7 @@ export default class CalculationView {
 
     init(data) {
         if (data.result) {
-            this.resultEl.textContent = data.result.toString();
+            this.resultEl.textContent = this.formatNumber(data.result);
         }
         this.expression.textContent = data.expression;
     }
@@ -25,7 +25,7 @@ export default class CalculationView {
 
     update(data) {
         if (data.result != null) {
-            let result = data.result.toString();
+            let result = this.formatNumber(data.result);
             if (this.getResult() !== result) {
                 this.resultEl.textContent = result;
             }
@@ -46,6 +46,20 @@ export default class CalculationView {
         } else {
             this.leftParenBtn.style.setProperty("--content", "''");
             this.missingParensEl.textContent = '';
+        }
+    }
+
+    formatNumber(number) {
+        const stringNumber = number.toString().split('.');
+        const integerPart = stringNumber[0];
+        const decimalPart = stringNumber[1];
+        const formattedIntegerPart = parseFloat(integerPart).toLocaleString('en', {
+            maximumFractionDigits: 0
+        });
+        if (decimalPart === '') {
+            return formattedIntegerPart;
+        } else {
+            return formattedIntegerPart + '.' + decimalPart;
         }
     }
 }

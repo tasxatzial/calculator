@@ -51,6 +51,10 @@ body {
     --output-border: silver;
 }
 
+.js-updated-result.calc-result {
+    color: var(--btn-equals-clr);
+}
+
 /*-------------------- TEXT --------------------*/
 
 .cursor {
@@ -207,16 +211,12 @@ body {
 
 .calc-expression-container,
 .calc-result {
-    height: 1.4em;
-    font-size: 2rem;
+    min-height: 1.4em;
+    font-size: var(--btn-fs);
 }
 
 .calc-expression-parens {
     opacity: 0.5;
-}
-
-.calc-result {
-    text-align: right;
 }
 
 .calc-btns {
