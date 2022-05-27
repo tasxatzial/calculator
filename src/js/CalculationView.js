@@ -12,7 +12,7 @@ export default class CalculationView {
         if (data.result) {
             this.resultEl.textContent = this.formatNumber(data.result);
         }
-        this.expression.textContent = data.expression;
+        this.expression.textContent = this.formatExpression(data.expression);
     }
 
     getResult() {
@@ -32,8 +32,9 @@ export default class CalculationView {
         } else {
             this.resultEl.textContent = '';
         }
-        if (this.getExpression() !== data.expression) {
-            this.expression.textContent = data.expression;
+        let expression = this.formatExpression(data.expression);
+        if (this.getExpression() !== expression) {
+            this.expression.textContent = expression;
         }
         if (data.leftParenCount !== 0) {
             let parentheses = '';
@@ -56,10 +57,20 @@ export default class CalculationView {
         const formattedIntegerPart = parseFloat(integerPart).toLocaleString('en', {
             maximumFractionDigits: 0
         });
-        if (decimalPart === '') {
+        if (decimalPart === undefined) {
             return formattedIntegerPart;
         } else {
             return formattedIntegerPart + '.' + decimalPart;
         }
+    }
+
+    formatExpression(expression) {
+        let numbers = expression.split(/[÷×+−)(]/).filter(x => x !== '');
+        let formattedNumbers = numbers.map(n => this.formatNumber(n));
+        let expr = expression;
+        for (let i = 0; i < numbers.length; i++) {
+            expr = expr.replace(numbers[i], formattedNumbers[i]);
+        }
+        return expr;
     }
 }
