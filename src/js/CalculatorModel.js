@@ -18,16 +18,13 @@ export default class CalculatorModel {
     }
 
     isOperation(c) {
-        return c === '/' ||
-               c === '*' ||
+        return c === '÷' ||
+               c === '×' ||
                c === '+' ||
-               c === '-';
+               c === '−';
     }
     
     hasLastNumberDot() {
-        if (!this.isDigit(this.getLastAdded())) {
-            return false;
-        }
         for (let i = this.expression.length - 1; i >= 0; i--) {
             if (!this.isDigit(this.expression.charAt(i))) {
                 return false;
@@ -36,6 +33,11 @@ export default class CalculatorModel {
                 return true;
             }
         }
+        return false;
+    }
+
+    isLastNumberZero() {
+        return this.getLastAdded(1) === '0' && !(this.isDigit(this.getLastAdded(2))); 
     }
 
     getPriority(operation) {
@@ -47,14 +49,13 @@ export default class CalculatorModel {
         }
     }
 
-    getLastAdded() {
-        return this.expression.charAt(this.expression.length - 1);
+    getLastAdded(i) {
+        return this.expression.charAt(this.expression.length - i);
     }
 
     getState() {
         return {
             result: this.result,
-            isResultUpToDate: this.isResultUpToDate,
             expression: this.expression,
             leftParenCount: this.leftParenCount
         };
@@ -64,7 +65,7 @@ export default class CalculatorModel {
         if (this.expression === '') {
             return;
         }
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (la === '(') {
             this.leftParenCount--;
         }
@@ -75,17 +76,21 @@ export default class CalculatorModel {
     }
 
     selectDigit(digit) {
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (la === ')' ||
-           (la === '0' && digit !== '.') ||
+           (digit !== '.' && this.isLastNumberZero()) ||
            (digit === '.' && this.hasLastNumberDot('.'))) {
             return;
         }
-        this.expression += digit;
+        if (!this.isDigit(la) && digit === '.') {
+            this.expression += '0.';
+        } else {
+            this.expression += digit;
+        }
     }
 
     selectLeftParen() {
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (la === ')' || this.isDigit(la)) {
             return;
         }
@@ -94,7 +99,7 @@ export default class CalculatorModel {
     }
 
     selectRightParen() {
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (this.leftParenCount === 0 || this.isOperation(la) || la === '(') {
             return;
         }
@@ -103,10 +108,9 @@ export default class CalculatorModel {
     }
 
     selectOperation(operation) {
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (this.isOperation(la) ||
-           (la === '' && operation !== '-') ||
-           (la === '(' && operation !== '-')) {
+           (operation !== '-' && (la === '' || la === '('))) {
             return;
         }
         if (operation === '-' && (la === '' || la === '(')) {
@@ -124,7 +128,7 @@ export default class CalculatorModel {
     }
 
     selectEvaluate() {
-        const la = this.getLastAdded();
+        const la = this.getLastAdded(1);
         if (this.isOperation(la) || this.leftParenCount !== 0) {
             return;
         }
