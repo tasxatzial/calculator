@@ -18,10 +18,10 @@ export default class CalculatorModel {
     }
 
     isOperation(c) {
-        return c === '÷' ||
-               c === '×' ||
+        return c === '/' ||
+               c === '*' ||
                c === '+' ||
-               c === '−';
+               c === '-';
     }
     
     hasLastNumberDot() {
@@ -116,15 +116,7 @@ export default class CalculatorModel {
         if (operation === '-' && (la === '' || la === '(')) {
             this.expression += '0';
         }
-        if (operation === '/') {
-            this.expression += '÷';
-        } else if (operation === '*') {
-            this.expression += '×';
-        } else if (operation === '-') {
-            this.expression += '−';
-        } else {
-            this.expression += operation;
-        }
+        this.expression += operation;
     }
 
     selectEvaluate() {
