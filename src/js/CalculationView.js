@@ -5,14 +5,7 @@ export default class CalculationView {
         this.expression = calcEl.querySelector('.calc-expression');
         this.missingParensEl = calcEl.querySelector('.calc-expression-parens')
         this.leftParenBtn = calcEl.querySelector('.calc-btn-left-paren');
-        this.init(modelData);
-    }
-
-    init(data) {
-        if (data.result) {
-            this.resultEl.textContent = this.formatNumber(data.result);
-        }
-        this.expression.textContent = this.formatExpression(data.expression);
+        this.update(modelData);
     }
 
     getResult() {
@@ -24,26 +17,37 @@ export default class CalculationView {
     }
 
     update(data) {
-        if (data.result != null) {
-            let result = this.formatNumber(data.result);
-            if (this.getResult() !== result) {
-                this.resultEl.textContent = result;
+        this.updateResult(data.result);
+        this.updateExpression(data.expression)
+        this.updateParensCount(data.leftParenCount); 
+    }
+
+    updateResult(result) {
+        if (result !== null) {
+            let formattedResult = this.formatNumber(result);
+            if (this.getResult() !== formattedResult) {
+                this.resultEl.textContent = formattedResult;
             }
         } else {
             this.resultEl.textContent = '';
         }
-        
-        let expression = this.formatExpression(data.expression);
-        if (this.getExpression() !== expression) {
-            this.expression.textContent = expression;
+    }
+
+    updateExpression(expression) {
+        let formattedExpression = this.formatExpression(expression);
+        if (this.getExpression() !== formattedExpression) {
+            this.expression.textContent = formattedExpression;
         }
-        if (data.leftParenCount !== 0) {
+    }
+
+    updateParensCount(count) {
+        if (count !== 0) {
             let parentheses = '';
-            for (let i = 0; i < data.leftParenCount; i++) {
+            for (let i = 0; i < count; i++) {
                 parentheses += ')';
             }
             this.missingParensEl.textContent = parentheses;
-            const content = "'" + data.leftParenCount.toString() + "'";
+            const content = "'" + count.toString() + "'";
             this.leftParenBtn.style.setProperty("--content", content);
         } else {
             this.leftParenBtn.style.setProperty("--content", "''");

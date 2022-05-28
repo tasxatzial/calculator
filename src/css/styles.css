@@ -57,6 +57,15 @@ body {
     animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
 }
 
+.calc-result {
+    min-height: var(--display-min-height);
+    font-size: var(--btn-fs);
+}
+
+.calc-expression-parens {
+    opacity: 0.5;
+}
+
 /*-------------------- BUTTON --------------------*/
 
 .calc-btn {
@@ -74,24 +83,24 @@ body {
     transition: background-color 200ms ease-out;
 }
 
+.calc-btn:active {
+    background-color: var(--btn-active-bgclr);
+    transition: none;
+}
+
+.calc-btn:not(.calc-btn-number) {
+    font-weight: bold;
+}
+
 .calc-btn.calc-btn-operation,
 .calc-btn.calc-btn-back,
 .calc-btn.calc-btn-equals {
     padding-bottom: .4em;
 }
 
-.calc-btn:active {
-    background-color: var(--btn-active-bgclr);
-    transition: none;
-}
-
 .calc-btn-clear,
 .calc-btn-back {
     color: var(--btn-erase-clr);
-}
-
-.calc-btn:not(.calc-btn-number) {
-    font-weight: bold;
 }
 
 .calc-btn-paren {
@@ -126,21 +135,18 @@ body {
     font-size: var(--btn-option-ff-size);
 }
 
+.calc-btn-option:hover {
+    background-color: var(--btn-option-hover);
+}
+
 .calc-btn-theme {
     color: var(--btn-option-clr);
 }
 
 .calc-btn-history {
-    color: var(--btn-option-active-clr);
-}
-
-.calc-btn-option:hover {
-    background-color: var(--btn-option-hover);
-}
-
-.calc-btn-history {
     position: absolute;
     left: calc(var(--padding) - var(--btn-option-padding));
+    color: var(--btn-option-active-clr);
 }
 
 /*-------------------- CONTAINER --------------------*/
@@ -153,6 +159,7 @@ body {
     --btn-padding: .5rem;
     --btn-margin: .25rem;
     --btn-fs: 2rem;
+    --display-min-height: 1.4em;
     --max-width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
 
     --btn-number-clr: rgb(218, 218, 218);
@@ -205,14 +212,10 @@ body {
     word-break: break-all;
 }
 
-.calc-expression-container,
-.calc-result {
-    min-height: 1.4em;
-    font-size: var(--btn-fs);
-}
-
-.calc-expression-parens {
-    opacity: 0.5;
+.calc-expression-container {
+    min-height: var(--display-min-height);
+    margin-bottom: .25em;
+    font-size: calc(0.75 * var(--btn-fs));
 }
 
 .calc-btns {
