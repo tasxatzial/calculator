@@ -32,6 +32,7 @@ export default class CalculationView {
         } else {
             this.resultEl.textContent = '';
         }
+        
         let expression = this.formatExpression(data.expression);
         if (this.getExpression() !== expression) {
             this.expression.textContent = expression;

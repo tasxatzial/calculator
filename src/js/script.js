@@ -26,18 +26,36 @@ optionBtns.addEventListener('click', (event) => {
 });
 
 btns.addEventListener('click', (event) => {
-    if (!event.target.closest('button')) {
-        return;
+    if (event.target.closest('button')) {
+        handleInput(event.target.dataset.btn);
     }
-    switch(event.target.dataset.btn) {
-        case 'delete':
+});
+
+window.addEventListener('keydown', (event) => {
+    const keyName = pressedKey(event);
+    handleInput(keyName);
+});
+
+function pressedKey(event) {
+    let pressedKey;
+    if (event.key) {
+        pressedKey = event.key;
+    } else if (event.keyCode) {
+        pressedKey = String.fromCharCode(event.keyCode);
+    }
+    return pressedKey;
+}
+
+function handleInput(id) {
+    switch(id) {
+        case 'Backspace':
             calculationModel.delete();
             break;
-        case 'clear':
+        case 'Delete':
             calculationModel.init();
             break;
         case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
-            calculationModel.selectDigit(event.target.dataset.btn);
+            calculationModel.selectDigit(id);
             break;
         case '(':
             calculationModel.selectLeftParen();
@@ -45,15 +63,15 @@ btns.addEventListener('click', (event) => {
         case ')':
             calculationModel.selectRightParen();
             break;
-        case '+':case '÷': case '×':case '−':
-            calculationModel.selectOperation(event.target.dataset.btn);
+        case '+':case '/': case '*':case '-':
+            calculationModel.selectOperation(id);
             break;
-        case '=':
+        case 'Enter':
             calculationModel.selectEvaluate();
             break;
     }
     calculationView.update(calculationModel.getState());
-});
+}
 
 function changeToLightTheme() {
     if (!calc.classList.contains('js-light-theme')) {

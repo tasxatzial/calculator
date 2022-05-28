@@ -18,10 +18,10 @@ export default class CalculatorModel {
     }
 
     isOperation(c) {
-        return c === '÷' ||
-               c === '×' ||
+        return c === '/' ||
+               c === '*' ||
                c === '+' ||
-               c === '−';
+               c === '-';
     }
     
     hasLastNumberDot() {
@@ -40,9 +40,9 @@ export default class CalculatorModel {
 
     getPriority(operation) {
         switch(operation) {
-            case '+':case '−':
+            case '+':case '-':
                 return 1;
-            case '×':case '÷':
+            case '*':case '/':
                 return 2;
         }
     }
@@ -105,14 +105,22 @@ export default class CalculatorModel {
     selectOperation(operation) {
         const la = this.getLastAdded();
         if (this.isOperation(la) ||
-           (la === '' && operation !== '−') ||
-           (la === '(' && operation !== '−')) {
+           (la === '' && operation !== '-') ||
+           (la === '(' && operation !== '-')) {
             return;
         }
-        if (operation === '−' && (la === '' || la === '(')) {
+        if (operation === '-' && (la === '' || la === '(')) {
             this.expression += '0';
         }
-        this.expression += operation;
+        if (operation === '/') {
+            this.expression += '÷';
+        } else if (operation === '*') {
+            this.expression += '×';
+        } else if (operation === '-') {
+            this.expression += '−';
+        } else {
+            this.expression += operation;
+        }
     }
 
     selectEvaluate() {

@@ -51,10 +51,6 @@ body {
     --output-border: silver;
 }
 
-.js-updated-result.calc-result {
-    color: var(--btn-equals-clr);
-}
-
 /*-------------------- TEXT --------------------*/
 
 .cursor {
@@ -79,7 +75,7 @@ body {
 }
 
 .calc-btn.calc-btn-operation,
-.calc-btn.calc-btn-del,
+.calc-btn.calc-btn-back,
 .calc-btn.calc-btn-equals {
     padding-bottom: .4em;
 }
@@ -90,7 +86,7 @@ body {
 }
 
 .calc-btn-clear,
-.calc-btn-del {
+.calc-btn-back {
     color: var(--btn-erase-clr);
 }
 
