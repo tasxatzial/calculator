@@ -83,6 +83,10 @@ body {
     transition: background-color 200ms ease-out;
 }
 
+.calc-btn:hover {
+    background: radial-gradient(circle, var(--btn-active-bgclr) 40%, rgba(255, 255, 255, 0) 75%);
+}
+
 .calc-btn:active {
     background-color: var(--btn-active-bgclr);
     transition: none;
