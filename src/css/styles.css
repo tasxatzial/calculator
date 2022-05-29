@@ -91,6 +91,12 @@ body {
     background: radial-gradient(circle, var(--btn-active-bgclr) 40%, rgba(255, 255, 255, 0) 75%);
 }
 
+@media (hover:none), (hover:on-demand) {
+    .calc-btn:hover {
+        background: none;
+    }
+}
+
 .calc-btn:active {
     background-color: var(--btn-active-bgclr);
     transition: none;
@@ -156,6 +162,8 @@ body {
     left: calc(var(--padding) - var(--btn-option-padding));
     color: var(--btn-option-active-clr);
 }
+
+
 
 /*-------------------- CONTAINER --------------------*/
 
