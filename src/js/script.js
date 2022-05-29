@@ -1,5 +1,5 @@
 import CalculationView from './CalculationView.js';
-import CalculatorModel from './CalculatorModel.js';
+import CalculationModel from './CalculationModel.js';
 
 const calc = document.querySelector('.calc');
 const cursor = calc.querySelector('.cursor');
@@ -10,10 +10,14 @@ const btns = calc.querySelector('.calc-btns');
 
 const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
-const calculationModel = new CalculatorModel();
+const calculationModel = new CalculationModel();
 const calculationView = new CalculationView(calc, calculationModel.getState());
 
 (function() {
+    calculationModel.addChangeListener(() => {
+        const data = calculationModel.getState();
+        calculationView.update(data);
+    })
     cursor.classList.add('js-blinking');
 })();
 

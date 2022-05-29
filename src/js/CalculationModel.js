@@ -1,7 +1,9 @@
 import Stack from './Stack.js';
+import Model from './Model.js';
 
-export default class CalculatorModel {
+export default class CalculatorModel extends Model {
     constructor() {
+        super();
         this.init();
     }
 
@@ -11,6 +13,7 @@ export default class CalculatorModel {
         this.leftParenCount = 0;
         this.operatorStack = new Stack();
         this.numberStack = new Stack();
+        this.raiseChange();
     }
 
     isDigit(c) {
@@ -73,6 +76,7 @@ export default class CalculatorModel {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
+        this.raiseChange();
     }
 
     selectDigit(digit) {
@@ -87,6 +91,7 @@ export default class CalculatorModel {
         } else {
             this.expression += digit;
         }
+        this.raiseChange();
     }
 
     selectLeftParen() {
@@ -96,6 +101,7 @@ export default class CalculatorModel {
         }
         this.expression += '(';
         this.leftParenCount++;
+        this.raiseChange();
     }
 
     selectRightParen() {
@@ -105,6 +111,7 @@ export default class CalculatorModel {
         }
         this.expression += ')';
         this.leftParenCount--;
+        this.raiseChange();
     }
 
     selectOperation(operation) {
@@ -117,6 +124,7 @@ export default class CalculatorModel {
             this.expression += '0';
         }
         this.expression += operation;
+        this.raiseChange();
     }
 
     selectEvaluate() {
@@ -126,5 +134,6 @@ export default class CalculatorModel {
         }
         //eval
         this.result = 0;
+        this.raiseChange();
     }
 }
