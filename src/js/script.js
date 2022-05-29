@@ -2,14 +2,20 @@ import CalculationView from './CalculationView.js';
 import CalculatorModel from './CalculatorModel.js';
 
 const calc = document.querySelector('.calc');
+const cursor = calc.querySelector('.cursor');
 const optionBtns = calc.querySelector('.calc-option-btns');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
 
+const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
+
 const calculationModel = new CalculatorModel();
 const calculationView = new CalculationView(calc, calculationModel.getState());
 
+(function() {
+    cursor.classList.add('js-blinking');
+})();
 
 optionBtns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
@@ -31,9 +37,23 @@ btns.addEventListener('click', (event) => {
     }
 });
 
-window.addEventListener('keydown', (event) => {
-    const keyName = pressedKey(event);
-    handleInput(keyName);
+document.addEventListener('click', (event) => {
+    if (calc.contains(event.target)) {
+        cursor.classList.add('js-blinking');
+    } else {
+        cursor.classList.remove('js-blinking');
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (cursor.classList.contains('js-blinking')) {
+        const keyName = pressedKey(event);
+        if (KEYNAMES.indexOf(keyName) !== -1) {
+            const btn = calc.querySelector(`[data-btn='${keyName}']`);
+            btn.focus();
+            handleInput(keyName);
+        }
+    }
 });
 
 function pressedKey(event) {
@@ -66,7 +86,7 @@ function handleInput(id) {
         case '+':case '/': case '*':case '-':
             calculationModel.selectOperation(id);
             break;
-        case 'Enter':
+        case '=':
             calculationModel.selectEvaluate();
             break;
     }

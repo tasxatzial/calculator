@@ -15,7 +15,7 @@ body {
 
 @keyframes blinking {
     from {opacity: 0;}
-    to {opacity: 0.7;}
+    to {opacity: 1;}
 }
 
 /*-------------------- JS --------------------*/
@@ -30,6 +30,10 @@ body {
 
 .calc-btn-theme.js-active-theme {
     color: var(--btn-option-active-clr);
+}
+
+.cursor.js-blinking {
+    animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
 }
 
 .calc.js-light-theme {
@@ -54,7 +58,7 @@ body {
 /*-------------------- TEXT --------------------*/
 
 .cursor {
-    animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
+    opacity: 0;
 }
 
 .calc-result {
