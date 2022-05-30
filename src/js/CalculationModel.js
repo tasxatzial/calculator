@@ -143,7 +143,7 @@ export default class CalculatorModel extends Model {
             return;
         }
         const postfixExpr = this.exprToPostfix();
-        //this.result = this.evaluatePostfix(postfixExpr);
+        this.result = this.evaluatePostfix(postfixExpr);
         this.raiseChange();
     }
 
@@ -171,8 +171,9 @@ export default class CalculatorModel extends Model {
             } else if (this.isOperation(tokens[i])) {
                 while (!operatorStack.isEmpty() &&
                        operatorStack.top() !== '(' &&
-                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) || (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
-                                                                                                this.getAssociativity(tokens[i]) === 'left'))) {
+                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) ||
+                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
+                           this.getAssociativity(tokens[i]) === 'left'))) {
                             postfixArr.push(operatorStack.pop());
                 }
                 operatorStack.push(tokens[i]);
@@ -187,5 +188,34 @@ export default class CalculatorModel extends Model {
             postfixArr.push(operatorStack.pop());
         }
         return postfixArr;
+    }
+
+    evaluatePostfix(postfixArr) {
+        let evalStack = new Stack();
+        for (let i = 0; i < postfixArr.length; i++) {
+            if (typeof(postfixArr[i]) === 'number') {
+                evalStack.push(postfixArr[i]);
+            } else {
+                const n1 = evalStack.pop();
+                const n2 = evalStack.pop();
+                evalStack.push(this.evaluate(postfixArr[i], n2, n1));
+            }
+        }
+        return evalStack.top();
+    }
+
+    evaluate(op, n1, n2) {
+        switch(op) {
+            case '*':
+                return n1 * n2;
+            case '/':
+                return n1 / n2;
+            case '+':
+                return n1 + n2;
+            case '-':
+                return n1 - n2;
+            case '^':
+                return n1 ** n2;
+        }
     }
 }
