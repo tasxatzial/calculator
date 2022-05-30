@@ -70,7 +70,7 @@ export default class CalculationView {
     }
 
     formatExpression(expression) {
-        let numbers = expression.split(/[/*+\-)(]/).filter(x => x !== '');
+        let numbers = expression.split(/[/*+\-)(^]/).filter(x => x !== '');
         let formattedNumbers = numbers.map(n => this.formatNumber(n));
         let expr = expression;
         for (let i = 0; i < numbers.length; i++) {

@@ -11,8 +11,6 @@ export default class CalculatorModel extends Model {
         this.result = null;
         this.expression = '';
         this.leftParenCount = 0;
-        this.operatorStack = new Stack();
-        this.numberStack = new Stack();
         this.raiseChange();
     }
 
@@ -24,7 +22,8 @@ export default class CalculatorModel extends Model {
         return c === '/' ||
                c === '*' ||
                c === '+' ||
-               c === '-';
+               c === '-' ||
+               c === '^';
     }
     
     hasLastNumberDot() {
@@ -132,8 +131,20 @@ export default class CalculatorModel extends Model {
         if (this.isOperation(la) || this.leftParenCount !== 0) {
             return;
         }
-        //eval
-        this.result = 0;
+        //const postfixExpr = this.exprToPostfix();
+        //this.result = this.evaluatePostfix(postfixExpr);
         this.raiseChange();
     }
+
+    exprToTokens() {
+        return this.expression.split(/([/*+\-)(^])/)
+                              .filter(x => x)
+                              .map(x => {
+                                  const y = parseFloat(x);
+                                  if (!isNaN(y)) {
+                                      return y;
+                                  }
+                                  return x;
+                                });
+    };
 }
