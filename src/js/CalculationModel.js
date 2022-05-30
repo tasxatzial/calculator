@@ -144,6 +144,7 @@ export default class CalculatorModel extends Model {
         }
         const postfixExpr = this.exprToPostfix();
         this.result = this.evaluatePostfix(postfixExpr);
+        //this.result = this.evaluateAsParsed();
         this.raiseChange();
     }
 
@@ -218,4 +219,55 @@ export default class CalculatorModel extends Model {
                 return n1 ** n2;
         }
     }
+
+    /*
+    evaluateAsParsed() {
+        let operatorStack = new Stack();
+        let numberStack = new Stack();
+        let tokens = this.exprToTokens();
+        for (let i = 0; i < tokens.length; i++) {
+            if (typeof(tokens[i]) === 'number') {
+                numberStack.push(tokens[i]);
+            } else if (tokens[i] === '(') {
+                operatorStack.push(tokens[i]);
+            } else if (this.isOperation(tokens[i])) {
+                while (!operatorStack.isEmpty() && operatorStack.top() !== '(' &&
+                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) ||
+                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
+                           this.getAssociativity(tokens[i]) === 'left'))) {
+                           numberStack.push(this.evaluateOnce(operatorStack, numberStack));
+                }
+                operatorStack.push(tokens[i]);
+            } else if (tokens[i] === ')') {
+                while(operatorStack.top() !== '(') {
+                    numberStack.push(this.evaluateOnce(operatorStack, numberStack));
+                }
+                operatorStack.pop();
+            }
+        }
+        while (!operatorStack.isEmpty()) {
+            numberStack.push(this.evaluateOnce(operatorStack, numberStack));
+        }
+
+        return numberStack.top();
+    }
+    
+    evaluateOnce(operatorStack, numberStack) {
+        let n2 = numberStack.pop();
+        let n1 = numberStack.pop();
+        let op = operatorStack.pop();
+        switch(op) {
+            case '*':
+                return n1 * n2;
+            case '/':
+                return n1 / n2;
+            case '+':
+                return n1 + n2;
+            case '-':
+                return n1 - n2;
+            case '^':
+                return n1 ** n2;
+        }
+    }
+    */
 }
