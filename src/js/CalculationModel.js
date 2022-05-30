@@ -48,6 +48,17 @@ export default class CalculatorModel extends Model {
                 return 1;
             case '*':case '/':
                 return 2;
+            case '^':
+                return 3;
+        }
+    }
+
+    getAssociativity(operation) {
+        switch(operation) {
+            case '+':case '-':case '*':case '/':
+                return 'left';
+            case '^':
+                return 'right';
         }
     }
 
@@ -131,7 +142,7 @@ export default class CalculatorModel extends Model {
         if (this.isOperation(la) || this.leftParenCount !== 0) {
             return;
         }
-        //const postfixExpr = this.exprToPostfix();
+        const postfixExpr = this.exprToPostfix();
         //this.result = this.evaluatePostfix(postfixExpr);
         this.raiseChange();
     }
@@ -147,4 +158,34 @@ export default class CalculatorModel extends Model {
                                   return x;
                                 });
     };
+
+    exprToPostfix() {
+        let postfixArr = [];
+        let operatorStack = new Stack();
+        let tokens = this.exprToTokens();
+        for (let i = 0; i < tokens.length; i++) {
+            if (typeof(tokens[i]) === 'number') {
+                postfixArr.push(tokens[i]);
+            } else if (tokens[i] === '(') {
+                operatorStack.push(tokens[i]);
+            } else if (this.isOperation(tokens[i])) {
+                while (!operatorStack.isEmpty() &&
+                       operatorStack.top() !== '(' &&
+                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) || (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
+                                                                                                this.getAssociativity(tokens[i]) === 'left'))) {
+                            postfixArr.push(operatorStack.pop());
+                }
+                operatorStack.push(tokens[i]);
+            } else if (tokens[i] === ')') {
+                while(operatorStack.top() !== '(') {
+                    postfixArr.push(operatorStack.pop());
+                }
+                operatorStack.pop();
+            }
+        }
+        while (!operatorStack.isEmpty()) {
+            postfixArr.push(operatorStack.pop());
+        }
+        return postfixArr;
+    }
 }
