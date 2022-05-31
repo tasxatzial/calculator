@@ -56,9 +56,13 @@ export default class CalculationView {
     }
 
     formatNumber(number) {
-        const stringNumber = number.toString().split('.');
-        const integerPart = stringNumber[0];
-        const decimalPart = stringNumber[1];
+        const stringNumber = number.toString();
+        if (stringNumber.includes('e')) {
+            return stringNumber;
+        }
+        const splitNumber = stringNumber.split('.');
+        const integerPart = splitNumber[0];
+        const decimalPart = splitNumber[1];
         const formattedIntegerPart = parseFloat(integerPart).toLocaleString('en', {
             maximumFractionDigits: 0
         });

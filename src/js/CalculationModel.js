@@ -4,6 +4,7 @@ import Model from './Model.js';
 export default class CalculatorModel extends Model {
     constructor() {
         super();
+        Decimal.set({precision: 32});
         this.init();
     }
 
@@ -150,14 +151,7 @@ export default class CalculatorModel extends Model {
 
     exprToTokens() {
         return this.expression.split(/([/*+\-)(^])/)
-                              .filter(x => x)
-                              .map(x => {
-                                  const y = parseFloat(x);
-                                  if (!isNaN(y)) {
-                                      return y;
-                                  }
-                                  return x;
-                                });
+                              .filter(x => x);
     };
 
     exprToPostfix() {
@@ -165,7 +159,7 @@ export default class CalculatorModel extends Model {
         let operatorStack = new Stack();
         let tokens = this.exprToTokens();
         for (let i = 0; i < tokens.length; i++) {
-            if (typeof(tokens[i]) === 'number') {
+            if (!isNaN(tokens[i])) {
                 postfixArr.push(tokens[i]);
             } else if (tokens[i] === '(') {
                 operatorStack.push(tokens[i]);
@@ -194,7 +188,7 @@ export default class CalculatorModel extends Model {
     evaluatePostfix(postfixArr) {
         let evalStack = new Stack();
         for (let i = 0; i < postfixArr.length; i++) {
-            if (typeof(postfixArr[i]) === 'number') {
+            if (!isNaN(postfixArr[i])) {
                 evalStack.push(postfixArr[i]);
             } else {
                 const n1 = evalStack.pop();
@@ -206,17 +200,19 @@ export default class CalculatorModel extends Model {
     }
 
     evaluate(op, n1, n2) {
+        const d1 = new Decimal(n1);
+        const d2 = new Decimal(n2);
         switch(op) {
             case '*':
-                return n1 * n2;
+                return d1.times(d2);
             case '/':
-                return n1 / n2;
+                return d1.dividedBy(d2);
             case '+':
-                return n1 + n2;
+                return d1.plus(d2);
             case '-':
-                return n1 - n2;
+                return d1.minus(d2);
             case '^':
-                return n1 ** n2;
+                return d1.toPower(d2);
         }
     }
 

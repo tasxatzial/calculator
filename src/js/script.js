@@ -7,6 +7,7 @@ const optionBtns = calc.querySelector('.calc-option-btns');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
+const evalButton = calc.querySelector('.calc-btn-equals');
 
 const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
@@ -18,6 +19,7 @@ const calculationView = new CalculationView(calc, calculationModel.getState());
         const data = calculationModel.getState();
         calculationView.update(data);
     })
+    evalButton.disabled = false;
     cursor.classList.add('js-blinking');
 })();
 
