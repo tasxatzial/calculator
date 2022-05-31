@@ -9,7 +9,7 @@ const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
 const evalButton = calc.querySelector('.calc-btn-equals');
 
-const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
+const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calculationModel = new CalculationModel();
 const calculationView = new CalculationView(calc, calculationModel.getState());
