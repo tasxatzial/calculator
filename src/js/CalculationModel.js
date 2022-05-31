@@ -147,7 +147,8 @@ export default class CalculatorModel extends Model {
 
     selectOperation(operation) {
         const la = this.getLastAdded(1);
-        if (this.isOperation(la)) {
+        if (this.isOperation(la) ||
+            ((la === '' || la === '(') && operation !== '-')) {
             return;
         }
         if (!this.isDigit(la) && operation === '-') {
