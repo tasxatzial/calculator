@@ -24,6 +24,7 @@ export default class CalculatorModel extends Model {
                c === '*' ||
                c === '+' ||
                c === '-' ||
+               c === '~' ||
                c === '^';
     }
     
@@ -51,12 +52,14 @@ export default class CalculatorModel extends Model {
                 return 2;
             case '^':
                 return 3;
+            case '~': //unary minus
+                return 4;
         }
     }
 
     getAssociativity(operation) {
         switch(operation) {
-            case '+':case '-':case '*':case '/':
+            case '+':case '-':case '*':case '/':case '~':
                 return 'left';
             case '^':
                 return 'right';
@@ -127,14 +130,14 @@ export default class CalculatorModel extends Model {
 
     selectOperation(operation) {
         const la = this.getLastAdded(1);
-        if (this.isOperation(la) ||
-           (operation !== '-' && (la === '' || la === '('))) {
+        if (this.isOperation(la)) {
             return;
         }
-        if (operation === '-' && (la === '' || la === '(')) {
-            this.expression += '0';
+        if (!this.isDigit(la) && operation === '-') {
+            this.expression += '~';
+        } else {
+            this.expression += operation;
         }
-        this.expression += operation;
         this.raiseChange();
     }
 
@@ -150,7 +153,7 @@ export default class CalculatorModel extends Model {
     }
 
     exprToTokens() {
-        return this.expression.split(/([/*+\-)(^])/)
+        return this.expression.split(/([/*+\-)(^~])/)
                               .filter(x => x);
     };
 
@@ -190,6 +193,8 @@ export default class CalculatorModel extends Model {
         for (let i = 0; i < postfixArr.length; i++) {
             if (!isNaN(postfixArr[i])) {
                 evalStack.push(postfixArr[i]);
+            } else if (postfixArr[i] === '~') {
+                evalStack.push(-evalStack.pop());
             } else {
                 const n1 = evalStack.pop();
                 const n2 = evalStack.pop();
