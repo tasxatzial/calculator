@@ -6,6 +6,14 @@ export default class CalculatorModel extends Model {
         super();
         Decimal.set({precision: 32});
         this.init();
+        this.opToFunc = {
+            '+': this.add,
+            '-': this.subtract,
+            '*': this.multiply,
+            '/': this.divide,
+            '^': this.pow,
+            '~': this.uminus,
+        }
     }
 
     init() {
@@ -44,6 +52,15 @@ export default class CalculatorModel extends Model {
         return this.getLastAdded(1) === '0' && !(this.isDigit(this.getLastAdded(2))); 
     }
 
+    getOperationArity(operation) {
+        switch(operation) {
+            case '+':case '-':case '*':case '/':case '^':
+                return 2;
+            case '~':
+                return 1;
+        }
+    }
+
     getPriority(operation) {
         switch(operation) {
             case '+':case '-':
@@ -52,7 +69,7 @@ export default class CalculatorModel extends Model {
                 return 2;
             case '^':
                 return 3;
-            case '~': //unary minus
+            case '~':
                 return 4;
         }
     }
@@ -188,37 +205,49 @@ export default class CalculatorModel extends Model {
         return postfixArr;
     }
 
+
     evaluatePostfix(postfixArr) {
         let evalStack = new Stack();
         for (let i = 0; i < postfixArr.length; i++) {
             if (!isNaN(postfixArr[i])) {
                 evalStack.push(postfixArr[i]);
-            } else if (postfixArr[i] === '~') {
-                evalStack.push(-evalStack.pop());
             } else {
-                const n1 = evalStack.pop();
-                const n2 = evalStack.pop();
-                evalStack.push(this.evaluate(postfixArr[i], n2, n1));
+                const op = postfixArr[i];
+                const n1 = new Decimal(evalStack.pop());
+                if (this.getOperationArity(op) === 2) {
+                    const n2 = new Decimal(evalStack.pop());
+                    evalStack.push(this.opToFunc[op](n2, n1));
+                } else if (this.getOperationArity(op) === 1) {
+                    evalStack.push(this.opToFunc[op](n1));
+                }
             }
         }
         return evalStack.top();
     }
 
-    evaluate(op, n1, n2) {
-        const d1 = new Decimal(n1);
-        const d2 = new Decimal(n2);
-        switch(op) {
-            case '*':
-                return d1.times(d2);
-            case '/':
-                return d1.dividedBy(d2);
-            case '+':
-                return d1.plus(d2);
-            case '-':
-                return d1.minus(d2);
-            case '^':
-                return d1.toPower(d2);
-        }
+    add(n1, n2) {
+        return Decimal.add(n1, n2);
+    }
+
+    subtract(n1, n2) {
+        return Decimal.sub(n1, n2);
+    }
+
+    multiply(n1, n2) {
+        return Decimal.mul(n1, n2);
+    }
+
+    divide(n1, n2) {
+        return Decimal.div(n1, n2);
+    }
+
+    //currently unused
+    pow(n, p) {
+        return Decimal.pow(n, p)
+    }
+
+    uminus(n) {
+        return -n;
     }
 
     /*
