@@ -5,7 +5,6 @@ export default class CalculatorModel extends Model {
     constructor() {
         super();
         Decimal.set({precision: 32});
-        this.init();
         this.opToFunc = {
             '+': this.add,
             '-': this.subtract,
@@ -14,9 +13,10 @@ export default class CalculatorModel extends Model {
             '^': this.pow,
             '~': this.uminus,
         }
+        this.initDefaults();
     }
 
-    init() {
+    initDefaults() {
         this.result = null;
         this.expression = '';
         this.leftParenCount = 0;
@@ -214,9 +214,9 @@ export default class CalculatorModel extends Model {
                 evalStack.push(postfixArr[i]);
             } else {
                 const op = postfixArr[i];
-                const n1 = new Decimal(evalStack.pop());
+                const n1 = evalStack.pop();
                 if (this.getOperationArity(op) === 2) {
-                    const n2 = new Decimal(evalStack.pop());
+                    const n2 = evalStack.pop();
                     evalStack.push(this.opToFunc[op](n2, n1));
                 } else if (this.getOperationArity(op) === 1) {
                     evalStack.push(this.opToFunc[op](n1));

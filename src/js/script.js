@@ -2,26 +2,15 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 
 const calc = document.querySelector('.calc');
-const cursor = calc.querySelector('.cursor');
 const optionBtns = calc.querySelector('.calc-option-btns');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
-const evalButton = calc.querySelector('.calc-btn-equals');
 
-const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
+const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calculationModel = new CalculationModel();
 const calculationView = new CalculationView(calc, calculationModel.getState());
-
-(function() {
-    calculationModel.addChangeListener(() => {
-        const data = calculationModel.getState();
-        calculationView.update(data);
-    })
-    evalButton.disabled = false;
-    cursor.classList.add('js-blinking');
-})();
 
 optionBtns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
@@ -45,22 +34,28 @@ btns.addEventListener('click', (event) => {
 
 document.addEventListener('click', (event) => {
     if (calc.contains(event.target)) {
-        cursor.classList.add('js-blinking');
+        calc.classList.add('js-calc-active');
     } else {
-        cursor.classList.remove('js-blinking');
+        calc.classList.remove('js-calc-active');
     }
 });
 
 document.addEventListener('keydown', (event) => {
-    if (cursor.classList.contains('js-blinking')) {
+    if (calc.classList.contains('js-calc-active')) {
         const keyName = pressedKey(event);
-        if (KEYNAMES.indexOf(keyName) !== -1) {
-            const btn = calc.querySelector(`[data-btn='${keyName}']`);
-            btn.focus();
+        if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
+            btns.querySelector(`[data-btn='${keyName}']`).focus();
             handleInput(keyName);
         }
     }
 });
+
+(function() {
+    calculationModel.addChangeListener(() => {
+        calculationView.update(calculationModel.getState());
+    });
+    calc.classList.add('js-calc-active');
+})();
 
 function pressedKey(event) {
     let pressedKey;
@@ -78,7 +73,7 @@ function handleInput(id) {
             calculationModel.delete();
             break;
         case 'Delete':
-            calculationModel.init();
+            calculationModel.initDefaults();
             break;
         case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
             calculationModel.selectDigit(id);
@@ -96,7 +91,6 @@ function handleInput(id) {
             calculationModel.selectEvaluate();
             break;
     }
-    calculationView.update(calculationModel.getState());
 }
 
 function changeToLightTheme() {

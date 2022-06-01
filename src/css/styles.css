@@ -32,7 +32,7 @@ body {
     color: var(--btn-option-active-clr);
 }
 
-.cursor.js-blinking {
+.js-calc-active .cursor {
     animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
 }
 
@@ -66,7 +66,7 @@ body {
     font-size: var(--btn-fs);
 }
 
-.calc-expression-parens {
+.calc-expression-missing-parens {
     opacity: 0.5;
 }
 
@@ -88,7 +88,7 @@ body {
 }
 
 .calc-btn:hover {
-    background: radial-gradient(circle, var(--btn-active-bgclr) 40%, rgba(255, 255, 255, 0) 75%);
+    background: radial-gradient(circle, var(--btn-active-bgclr) 35%, rgba(255, 255, 255, 0) 75%);
 }
 
 @media (hover:none), (hover:on-demand) {
@@ -162,8 +162,6 @@ body {
     left: calc(var(--padding) - var(--btn-option-padding));
     color: var(--btn-option-active-clr);
 }
-
-
 
 /*-------------------- CONTAINER --------------------*/
 

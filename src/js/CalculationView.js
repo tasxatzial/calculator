@@ -1,9 +1,8 @@
 export default class CalculationView {
     constructor(calcEl, modelData) {
         this.resultEl = calcEl.querySelector('.calc-result');
-        this.expressionContainer = calcEl.querySelector('.calc-expression-container');
-        this.expression = calcEl.querySelector('.calc-expression');
-        this.missingParensEl = calcEl.querySelector('.calc-expression-parens')
+        this.expressionEl = calcEl.querySelector('.calc-expression');
+        this.missingParensEl = calcEl.querySelector('.calc-expression-missing-parens');
         this.leftParenBtn = calcEl.querySelector('.calc-btn-left-paren');
         this.update(modelData);
     }
@@ -13,7 +12,7 @@ export default class CalculationView {
     }
 
     getExpression() {
-        return this.expression.textContent;
+        return this.expressionEl.textContent;
     }
 
     update(data) {
@@ -36,7 +35,7 @@ export default class CalculationView {
     updateExpression(expression) {
         let formattedExpression = this.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
-            this.expression.textContent = formattedExpression;
+            this.expressionEl.textContent = formattedExpression;
         }
     }
 
