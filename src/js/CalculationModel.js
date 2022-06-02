@@ -2,7 +2,7 @@ import Stack from './Stack.js';
 import Model from './Model.js';
 
 export default class CalculatorModel extends Model {
-    constructor() {
+    constructor(props) {
         super();
         Decimal.set({precision: 32});
         this.opToFunc = {
@@ -12,14 +12,24 @@ export default class CalculatorModel extends Model {
             '/': this.divide,
             '^': this.pow,
             '~': this.uminus,
+        };
+        if (props) {
+            this.result = props.result;
+            this.expression = props.expression;
+            this.leftParenCount = props.leftParenCount;
+        } else {
+            this.initDefaults();
         }
-        this.initDefaults();
     }
 
     initDefaults() {
         this.result = null;
         this.expression = '';
         this.leftParenCount = 0;
+    }
+
+    reset() {
+        this.initDefaults();
         this.raiseChange("changeState");
     }
 
