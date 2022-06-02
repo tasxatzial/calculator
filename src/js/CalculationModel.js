@@ -20,7 +20,7 @@ export default class CalculatorModel extends Model {
         this.result = null;
         this.expression = '';
         this.leftParenCount = 0;
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     isDigit(c) {
@@ -107,7 +107,7 @@ export default class CalculatorModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     selectDigit(digit) {
@@ -122,7 +122,7 @@ export default class CalculatorModel extends Model {
         } else {
             this.expression += digit;
         }
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     selectLeftParen() {
@@ -132,7 +132,7 @@ export default class CalculatorModel extends Model {
         }
         this.expression += '(';
         this.leftParenCount++;
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     selectRightParen() {
@@ -142,7 +142,7 @@ export default class CalculatorModel extends Model {
         }
         this.expression += ')';
         this.leftParenCount--;
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     selectOperation(operation) {
@@ -156,7 +156,7 @@ export default class CalculatorModel extends Model {
         } else {
             this.expression += operation;
         }
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     selectEvaluate() {
@@ -167,7 +167,7 @@ export default class CalculatorModel extends Model {
         const postfixExpr = this.exprToPostfix();
         this.result = this.evaluatePostfix(postfixExpr);
         //this.result = this.evaluateAsParsed();
-        this.raiseChange();
+        this.raiseChange("changeState");
     }
 
     exprToTokens() {

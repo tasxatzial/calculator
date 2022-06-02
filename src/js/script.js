@@ -55,7 +55,8 @@ document.addEventListener('keydown', (event) => {
 });
 
 (function() {
-    calculationModel.addChangeListener(() => {
+    calculationView.update(calculationModel.getState());
+    calculationModel.addChangeListener("changeState", () => {
         calculationView.update(calculationModel.getState());
     });
     calc.classList.add('js-calc-active');
