@@ -2,6 +2,7 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 
 const calc = document.querySelector('.calc');
+const historyBtn = document.querySelector('.calc-btn-history');
 const optionBtns = calc.querySelector('.calc-option-btns');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
@@ -22,6 +23,9 @@ optionBtns.addEventListener('click', (event) => {
             break;
         case 'dark-theme':
             changeToDarkTheme();
+            break;
+        case 'history':
+            toggleHistory();
             break;
     }
 });
@@ -106,5 +110,13 @@ function changeToDarkTheme() {
         calc.classList.remove('js-light-theme');
         lightModeBtn.classList.remove('js-active-theme');
         darkModeBtn.classList.add('js-active-theme');
+    }
+}
+
+function toggleHistory() {
+    if (calc.classList.contains('js-history-open')) {
+        calc.classList.remove('js-history-open');
+    } else {
+        calc.classList.add('js-history-open');
     }
 }

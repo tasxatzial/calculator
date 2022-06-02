@@ -36,6 +36,14 @@ body {
     animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
 }
 
+.js-history-open .calc-history {
+    transform: translateY(0);
+}
+
+.js-history-open .calc-history2 {
+    left: 100%;
+}
+
 .calc.js-light-theme {
     --btn-number-clr: #2F2F2F;
     --btn-erase-clr: rgb(200, 81, 60);
@@ -159,14 +167,23 @@ body {
 
 .calc-btn-history {
     position: absolute;
-    left: calc(var(--padding) - var(--btn-option-padding));
+    right: calc(var(--padding) - var(--btn-option-padding));
     color: var(--btn-option-active-clr);
 }
 
 /*-------------------- CONTAINER --------------------*/
 
 .calc {
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    width: var(--max-width);
+    min-width: var(--max-width);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+
     --padding: 1rem;
+    --border-radius: 7px;
     --btn-option-ff-size: 1.25rem;
     --btn-option-padding: calc(var(--btn-option-ff-size) / 2);
     --btn-width: 3.6rem;
@@ -192,24 +209,37 @@ body {
     --output-bgclr: black;
     --output-clr: rgb(218, 218, 218);
     --output-border: gray;
+}
 
-    overflow: hidden;
+.calc-history {
+    position: absolute;
+    overflow: auto;
+    height: 100%;
+    top: 0;
+    left: 0;
     width: var(--max-width);
     min-width: var(--max-width);
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+    border: 2px solid transparent;
+    background-color: aquamarine;
+    transform: translateY(-100%);
+    transition: transform 300ms;
 }
 
 .calc-option-btns {
     display: flex;
     justify-content: center;
     position: relative;
+    z-index: 10;
     padding: 0 var(--padding);
     background-color: var(--options-bgclr);
 }
 
 .calc-themes {
     display: flex;
+}
+
+.calc-btns {
+    position: relative;
 }
 
 .calc-output,
@@ -219,6 +249,8 @@ body {
 }
 
 .calc-output {
+    position: relative;
+    z-index: 10;
     border-bottom: 2px solid var(--output-border);
     border-top: 2px solid var(--output-border);
     color: var(--output-clr);
