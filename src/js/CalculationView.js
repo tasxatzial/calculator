@@ -1,10 +1,9 @@
 export default class CalculationView {
-    constructor(calcEl, modelData) {
+    constructor(calcEl) {
         this.resultEl = calcEl.querySelector('.calc-result');
         this.expressionEl = calcEl.querySelector('.calc-expression');
         this.missingParensEl = calcEl.querySelector('.calc-expression-missing-parens');
         this.leftParenBtn = calcEl.querySelector('.calc-btn-left-paren');
-        this.update(modelData);
     }
 
     getResult() {
