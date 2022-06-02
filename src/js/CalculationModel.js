@@ -97,7 +97,7 @@ export default class CalculatorModel extends Model {
         return this.expression.charAt(this.expression.length - i);
     }
 
-    getState() {
+    toJSON() {
         return {
             result: this.result,
             expression: this.expression,

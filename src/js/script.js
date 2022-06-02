@@ -11,7 +11,7 @@ const btns = calc.querySelector('.calc-btns');
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calculationModel = new CalculationModel();
-const calculationView = new CalculationView(calc, calculationModel.getState());
+const calculationView = new CalculationView(calc, calculationModel.toJSON());
 
 optionBtns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
@@ -55,9 +55,9 @@ document.addEventListener('keydown', (event) => {
 });
 
 (function() {
-    calculationView.update(calculationModel.getState());
+    calculationView.update(calculationModel.toJSON());
     calculationModel.addChangeListener("changeState", () => {
-        calculationView.update(calculationModel.getState());
+        calculationView.update(calculationModel.toJSON());
     });
     calc.classList.add('js-calc-active');
 })();
