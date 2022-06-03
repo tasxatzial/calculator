@@ -171,13 +171,14 @@ export default class CalculatorModel extends Model {
 
     selectEvaluate() {
         const la = this.getLastAdded(1);
-        if (this.isOperation(la) || this.leftParenCount !== 0) {
+        if (this.isOperation(la) || this.expression === '' || this.leftParenCount !== 0) {
             return;
         }
         const postfixExpr = this.exprToPostfix();
         this.result = this.evaluatePostfix(postfixExpr);
         //this.result = this.evaluateAsParsed();
         this.raiseChange("changeState");
+        this.raiseChange("evaluate");
     }
 
     exprToTokens() {

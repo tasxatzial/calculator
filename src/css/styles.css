@@ -33,15 +33,11 @@ body {
 }
 
 .js-calc-active .cursor {
-    animation: blinking 0.5s cubic-bezier(.25,1,.25, 1) infinite alternate;
+    animation: blinking 0.5s cubic-bezier(.25,1,.25,1) infinite alternate;
 }
 
 .js-history-open .calc-history {
     transform: translateY(0);
-}
-
-.js-history-open .calc-history2 {
-    left: 100%;
 }
 
 .calc.js-light-theme {

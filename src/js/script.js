@@ -1,17 +1,21 @@
 import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
+import CalculationHistoryModel from './CalculationHistoryModel.js';
+import CalculationHistoryView from './CalculationHistoryView.js';
 
 const calc = document.querySelector('.calc');
-const historyBtn = document.querySelector('.calc-btn-history');
 const optionBtns = calc.querySelector('.calc-option-btns');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const btns = calc.querySelector('.calc-btns');
+const calculationHistory = calc.querySelector('.calc-history');
 
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calculationModel = new CalculationModel();
 const calculationView = new CalculationView(calc, calculationModel.toJSON());
+const calculationHistoryModel = new CalculationHistoryModel();
+const calculationHistoryView = new CalculationHistoryView();
 
 optionBtns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
@@ -58,6 +62,14 @@ document.addEventListener('keydown', (event) => {
     calculationView.update(calculationModel.toJSON());
     calculationModel.addChangeListener("changeState", () => {
         calculationView.update(calculationModel.toJSON());
+    });
+    calculationModel.addChangeListener("evaluate", () => {
+        calculationHistoryModel.add(calculationModel.toJSON());
+    });
+    calculationHistoryModel.addChangeListener("changeState", () => {
+        if (calc.classList.contains('js-history-open')) {
+            renderHistory();
+        }
     });
     calc.classList.add('js-calc-active');
 })();
@@ -119,5 +131,12 @@ function toggleHistory() {
         calc.classList.remove('js-history-open');
     } else {
         calc.classList.add('js-history-open');
+        renderHistory();
     }
+}
+
+function renderHistory() {
+    const historyView = calculationHistoryView.update(calculationHistoryModel.toJSON());
+    calculationHistory.innerHTML = '';
+    calculationHistory.appendChild(historyView);
 }
