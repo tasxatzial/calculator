@@ -1,7 +1,7 @@
 import Stack from './Stack.js';
 import Model from './Model.js';
 
-export default class CalculatorModel extends Model {
+export default class CalculationModel extends Model {
     constructor(props) {
         super();
         this.Dec = Decimal.clone({precision: 32});
