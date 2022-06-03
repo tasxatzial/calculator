@@ -4,14 +4,14 @@ import Model from './Model.js';
 export default class CalculatorModel extends Model {
     constructor(props) {
         super();
-        Decimal.set({precision: 32});
+        this.Dec = Decimal.clone({precision: 32});
         this.opToFunc = {
-            '+': this.add,
-            '-': this.subtract,
-            '*': this.multiply,
-            '/': this.divide,
-            '^': this.pow,
-            '~': this.uminus,
+            '+': (n1, n2) => new this.Dec(n1).add(n2),
+            '-': (n1, n2) => new this.Dec(n1).minus(n2),
+            '*': (n1, n2) => new this.Dec(n1).times(n2),
+            '/': (n1, n2) => new this.Dec(n1).div(n2),
+            '^': (n, p) => new this.Dec(n).pow(p),
+            '~': (n) => new this.Dec(n).neg(),
         };
         if (props) {
             this.result = props.result;
@@ -176,7 +176,6 @@ export default class CalculatorModel extends Model {
         }
         const postfixExpr = this.exprToPostfix();
         this.result = this.evaluatePostfix(postfixExpr);
-        //this.result = this.evaluateAsParsed();
         this.raiseChange("changeState");
         this.raiseChange("evaluate");
     }
@@ -188,6 +187,7 @@ export default class CalculatorModel extends Model {
 
     exprToPostfix() {
         let postfixArr = [];
+        /* use a number stack instead of a postfixArr if we want evaluation while parsing */
         let operatorStack = new Stack();
         let tokens = this.exprToTokens();
         for (let i = 0; i < tokens.length; i++) {
@@ -202,17 +202,23 @@ export default class CalculatorModel extends Model {
                          (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
                            this.getAssociativity(tokens[i]) === 'left'))) {
                             postfixArr.push(operatorStack.pop());
+                            /* if we want evaluation while parsing: instead of pushing to the postfixArr,
+                            pop the operator stack and the appropriate operands from the number stack,
+                            do the evaluation and push the result back to the number stack. Do the same
+                            in lines marked with (1) */
                 }
                 operatorStack.push(tokens[i]);
             } else if (tokens[i] === ')') {
                 while(operatorStack.top() !== '(') {
                     postfixArr.push(operatorStack.pop());
+                    /* (1) */
                 }
                 operatorStack.pop();
             }
         }
         while (!operatorStack.isEmpty()) {
             postfixArr.push(operatorStack.pop());
+            /* (1) */
         }
         return postfixArr;
     }
@@ -236,80 +242,4 @@ export default class CalculatorModel extends Model {
         }
         return evalStack.top();
     }
-
-    add(n1, n2) {
-        return Decimal.add(n1, n2);
-    }
-
-    subtract(n1, n2) {
-        return Decimal.sub(n1, n2);
-    }
-
-    multiply(n1, n2) {
-        return Decimal.mul(n1, n2);
-    }
-
-    divide(n1, n2) {
-        return Decimal.div(n1, n2);
-    }
-
-    //currently unused
-    pow(n, p) {
-        return Decimal.pow(n, p)
-    }
-
-    uminus(n) {
-        return -n;
-    }
-
-    /*
-    evaluateAsParsed() {
-        let operatorStack = new Stack();
-        let numberStack = new Stack();
-        let tokens = this.exprToTokens();
-        for (let i = 0; i < tokens.length; i++) {
-            if (typeof(tokens[i]) === 'number') {
-                numberStack.push(tokens[i]);
-            } else if (tokens[i] === '(') {
-                operatorStack.push(tokens[i]);
-            } else if (this.isOperation(tokens[i])) {
-                while (!operatorStack.isEmpty() && operatorStack.top() !== '(' &&
-                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) ||
-                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
-                           this.getAssociativity(tokens[i]) === 'left'))) {
-                           numberStack.push(this.evaluateOnce(operatorStack, numberStack));
-                }
-                operatorStack.push(tokens[i]);
-            } else if (tokens[i] === ')') {
-                while(operatorStack.top() !== '(') {
-                    numberStack.push(this.evaluateOnce(operatorStack, numberStack));
-                }
-                operatorStack.pop();
-            }
-        }
-        while (!operatorStack.isEmpty()) {
-            numberStack.push(this.evaluateOnce(operatorStack, numberStack));
-        }
-
-        return numberStack.top();
-    }
-    
-    evaluateOnce(operatorStack, numberStack) {
-        let n2 = numberStack.pop();
-        let n1 = numberStack.pop();
-        let op = operatorStack.pop();
-        switch(op) {
-            case '*':
-                return n1 * n2;
-            case '/':
-                return n1 / n2;
-            case '+':
-                return n1 + n2;
-            case '-':
-                return n1 - n2;
-            case '^':
-                return n1 ** n2;
-        }
-    }
-    */
 }
