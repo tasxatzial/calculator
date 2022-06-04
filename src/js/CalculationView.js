@@ -1,23 +1,23 @@
 import View from './View.js';
 
 export default class CalculationView extends View {
-    constructor(calcEl) {
+    constructor(elements) {
         super();
-        this.resultEl = calcEl.querySelector('.calc-result');
-        this.expressionEl = calcEl.querySelector('.calc-expression');
-        this.missingParensEl = calcEl.querySelector('.calc-expression-missing-parens');
-        this.leftParenBtn = calcEl.querySelector('.calc-btn-left-paren');
+        this.result = elements.result;
+        this.expression = elements.expression;
+        this.missingParens = elements.missingParens;
+        this.leftParenBtn = elements.leftParenBtn;
     }
 
     getResult() {
-        return this.resultEl.textContent;
+        return this.result.textContent;
     }
 
     getExpression() {
-        return this.expressionEl.textContent;
+        return this.expression.textContent;
     }
 
-    update(data) {
+    render(data) {
         this.updateResult(data.result);
         this.updateExpression(data.expression)
         this.updateParensCount(data.leftParenCount); 
@@ -27,17 +27,17 @@ export default class CalculationView extends View {
         if (result !== null) {
             let formattedResult = this.formatNumber(result);
             if (this.getResult() !== formattedResult) {
-                this.resultEl.textContent = formattedResult;
+                this.result.textContent = formattedResult;
             }
         } else {
-            this.resultEl.textContent = '';
+            this.result.textContent = '';
         }
     }
 
     updateExpression(expression) {
         let formattedExpression = this.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
-            this.expressionEl.textContent = formattedExpression;
+            this.expression.textContent = formattedExpression;
         }
     }
 
@@ -47,12 +47,12 @@ export default class CalculationView extends View {
             for (let i = 0; i < count; i++) {
                 parentheses += ')';
             }
-            this.missingParensEl.textContent = parentheses;
+            this.missingParens.textContent = parentheses;
             const content = "'" + count.toString() + "'";
             this.leftParenBtn.style.setProperty("--content", content);
         } else {
             this.leftParenBtn.style.setProperty("--content", "''");
-            this.missingParensEl.textContent = '';
+            this.missingParens.textContent = '';
         }
     }
 }

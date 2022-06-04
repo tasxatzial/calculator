@@ -1,13 +1,16 @@
 export default class CalculationHistoryView {
-    constructor() {}
+    constructor(elements) {
+        this.calculationHistoryList = elements.calculationHistoryList;
+    }
 
-    update(data) {
+    render(data) {
         const ul = document.createElement('ul');
         for (let [key, value] of Object.entries(data)) {
-            const calculationEl = this.createCalculation(key, value);
-            ul.insertAdjacentHTML('beforeend', calculationEl);
+            const calculation = this.createCalculation(key, value);
+            ul.insertAdjacentHTML('beforeend', calculation);
         }
-        return ul;
+        this.calculationHistoryList.innerHTML = '';
+        this.calculationHistoryList.appendChild(ul);
     }
 
     createCalculation(key, value) {

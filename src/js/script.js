@@ -3,19 +3,30 @@ import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
 
-const calc = document.querySelector('.calc');
-const optionBtns = calc.querySelector('.calc-option-btns');
-const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
-const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
-const btns = calc.querySelector('.calc-btns');
-const calculationHistory = calc.querySelector('.calc-history');
-
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
+const calc = document.querySelector('.calc');
+const calculationBtns = calc.querySelector('.calc-btns');
+const output = calc.querySelector('.calc-output');
+
+const optionBtns = calc.querySelector('.calc-options');
+const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
+const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
+
+const calculationHistory = calc.querySelector('.calc-history');
+const calculationHistoryOptions = calculationHistory.querySelector('.calc-history-options');
+
 const calculationModel = new CalculationModel();
-const calculationView = new CalculationView(calc, calculationModel.toJSON());
+const calculationView = new CalculationView({
+    result: output.querySelector('.calc-result'),
+    expression: output.querySelector('.calc-expression'),
+    missingParens:  output.querySelector('.calc-expression-missing-parens'),
+    leftParenBtn: calculationBtns.querySelector('.calc-btn-left-paren')
+});
 const calculationHistoryModel = new CalculationHistoryModel();
-const calculationHistoryView = new CalculationHistoryView();
+const calculationHistoryView = new CalculationHistoryView({
+    calculationHistoryList: calculationHistory.querySelector('.calc-history-list')
+});
 
 optionBtns.addEventListener('click', (event) => {
     if (!event.target.closest('button')) {
@@ -34,7 +45,7 @@ optionBtns.addEventListener('click', (event) => {
     }
 });
 
-btns.addEventListener('click', (event) => {
+calculationBtns.addEventListener('click', (event) => {
     if (event.target.closest('button')) {
         handleInput(event.target.dataset.btn);
     }
@@ -52,23 +63,23 @@ document.addEventListener('keydown', (event) => {
     if (calc.classList.contains('js-calc-active')) {
         const keyName = pressedKey(event);
         if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
-            btns.querySelector(`[data-btn='${keyName}']`).focus();
+            calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
             handleInput(keyName);
         }
     }
 });
 
 (function() {
-    calculationView.update(calculationModel.toJSON());
+    calculationView.render(calculationModel.toJSON());
     calculationModel.addChangeListener("changeState", () => {
-        calculationView.update(calculationModel.toJSON());
+        calculationView.render(calculationModel.toJSON());
     });
     calculationModel.addChangeListener("evaluate", () => {
         calculationHistoryModel.add(calculationModel.toJSON());
     });
     calculationHistoryModel.addChangeListener("changeState", () => {
         if (calc.classList.contains('js-history-open')) {
-            renderHistory();
+            calculationHistoryView.render(calculationHistoryModel.toJSON());
         }
     });
     calc.classList.add('js-calc-active');
@@ -131,12 +142,6 @@ function toggleHistory() {
         calc.classList.remove('js-history-open');
     } else {
         calc.classList.add('js-history-open');
-        renderHistory();
+        calculationHistoryView.render(calculationHistoryModel.toJSON());
     }
-}
-
-function renderHistory() {
-    const historyView = calculationHistoryView.update(calculationHistoryModel.toJSON());
-    calculationHistory.innerHTML = '';
-    calculationHistory.appendChild(historyView);
 }

@@ -221,7 +221,7 @@ body {
     transition: transform 300ms;
 }
 
-.calc-option-btns {
+.calc-options {
     display: flex;
     justify-content: center;
     position: relative;
