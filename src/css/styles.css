@@ -207,20 +207,6 @@ body {
     --output-border: gray;
 }
 
-.calc-history {
-    position: absolute;
-    overflow: auto;
-    height: 100%;
-    top: 0;
-    left: 0;
-    width: var(--max-width);
-    min-width: var(--max-width);
-    border: 2px solid transparent;
-    background-color: aquamarine;
-    transform: translateY(-100%);
-    transition: transform 300ms;
-}
-
 .calc-options {
     display: flex;
     justify-content: center;
@@ -236,6 +222,13 @@ body {
 
 .calc-btns {
     position: relative;
+    background-color: var(--btns-bgclr);
+    background: var(--btns-bg);
+}
+
+.calc-btn-row {
+    display: flex;
+    justify-content: center;
 }
 
 .calc-output,
@@ -260,12 +253,22 @@ body {
     font-size: calc(0.75 * var(--btn-fs));
 }
 
-.calc-btns {
-    background-color: var(--btns-bgclr);
-    background: var(--btns-bg);
+.calc-history {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: var(--max-width);
+    min-width: var(--max-width);
+    background-color: aquamarine;
+    transform: translateY(-100%);
+    transition: transform 300ms;
 }
 
-.calc-btn-row {
-    display: flex;
-    justify-content: center;
+.calc-history-list {
+    overflow: auto;
+    height: calc(100% - 2rem);
+}
+.calc-history-options {
+    height: 2rem;
 }
