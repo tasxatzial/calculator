@@ -182,7 +182,6 @@ body {
 .calc-btn-history-list-item {
     width: 100%;
     height: 100%;
-    background-color: transparent;
     border: none;
     font-family: inherit;
     color: var(--btn-number-clr);
@@ -190,16 +189,26 @@ body {
 
 .calc-btn-history-list-item {
     padding: var(--padding);
+    background-color: transparent;
     text-align: left;
 }
 
 .calc-btn-history-clear {
+    --bgcolorPos: 0%;
+    padding: 0;
     background-color: var(--output-bgclr);
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), var(--output-bgclr) var(--bgcolorPos));
     font-size: calc(0.5 * var(--btn-fs));
+    transform: scale(1);
+    transition: transform 200ms;
+    user-select: none;
+}
+
+.calc-btn-history-clear:hover {
+    transform: scale(1.07);
 }
 
 .calc-btn-option:hover,
-.calc-btn-history-clear:hover,
 .calc-btn-history-list-item:hover {
     background-color: var(--btn-option-hover-clr);
 }
@@ -208,10 +217,6 @@ body {
     .calc-btn-option:hover,
     .calc-btn-history-list-item:hover {
         background-color: transparent;
-    }
-
-    .calc-btn-history-clear:hover {
-        background-color: var(--output-bgclr);
     }
 }
 
@@ -224,7 +229,6 @@ body {
 
 .calc {
     position: relative;
-    z-index: 5;
     overflow: hidden;
     width: var(--max-width);
     min-width: var(--max-width);
@@ -241,7 +245,7 @@ body {
     --btn-fs: 2rem;
     --display-min-height: 1.4em;
     --max-width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
-    --history-options-fs: var(--btn-fs);
+    --history-options-height: 2.5em;
     --output-separation: .25em;
 
     --btn-number-clr: rgb(218, 218, 218);
@@ -266,8 +270,6 @@ body {
 .calc-options {
     display: flex;
     justify-content: center;
-    position: relative;
-    z-index: 10;
     padding: 0 var(--padding);
     background-color: var(--options-bgclr);
 }
@@ -294,8 +296,6 @@ body {
 }
 
 .calc-output {
-    position: relative;
-    z-index: 10;
     border-bottom: 2px solid var(--output-border);
     border-top: 2px solid var(--output-border);
     color: var(--output-clr);
@@ -316,7 +316,6 @@ body {
     left: 0;
     width: var(--max-width);
     min-width: var(--max-width);
-    background-color: var(--options-bgclr);
     transform: translateY(100%);
     opacity: 0;
     transition: all 300ms;
@@ -324,7 +323,8 @@ body {
 
 .calc-history-list-container {
     overflow: auto;
-    height: calc(100% - var(--history-options-fs));
+    height: calc(100% - var(--history-options-height));
+    background-color: var(--options-bgclr);
 }
 
 .calc-history-list {
@@ -338,6 +338,8 @@ body {
 }
 
 .calc-history-options {
-    height: var(--history-options-fs);
+    overflow: hidden;
+    height: var(--history-options-height);
+    background-color: var(--output-bgclr);
     border-top: 2px solid var(--output-border);
 }

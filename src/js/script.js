@@ -2,6 +2,7 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
+import ClickAndHold from './ClickAndHold.js';
 
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
@@ -14,7 +15,7 @@ const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 
 const calculationHistory = calc.querySelector('.calc-history');
-const calculationHistoryOptions = calculationHistory.querySelector('.calc-history-options');
+const calculationHistoryClearBtn = calculationHistory.querySelector('.calc-btn-history-clear');
 
 const calculationModel = new CalculationModel();
 const calculationView = new CalculationView({
@@ -82,6 +83,11 @@ document.addEventListener('keydown', (event) => {
             calculationHistoryView.render(calculationHistoryModel.toJSON());
         }
     });
+    ClickAndHold.apply(calculationHistoryClearBtn, {
+        reset: resetClearHistoryBtnAnimation,
+        run: runClearHistoryBtnAnimation,
+        end: endClearHistoryBtnAnimation
+    });
     calc.classList.add('js-calc-active');
 })();
 
@@ -144,4 +150,17 @@ function toggleHistory() {
         calc.classList.add('js-history-open');
         calculationHistoryView.render(calculationHistoryModel.toJSON());
     }
+}
+
+function resetClearHistoryBtnAnimation(el) {
+    el.style.setProperty('--bgcolorPos', '0%');
+}
+
+function runClearHistoryBtnAnimation(el, count) {
+    el.style.setProperty('--bgcolorPos', count + '%');
+}
+
+function endClearHistoryBtnAnimation(el) {
+    resetClearHistoryBtnAnimation(el);
+    console.log('ended');
 }
