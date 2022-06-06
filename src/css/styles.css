@@ -39,6 +39,7 @@ body {
 
 .js-history-open .calc-history {
     transform: translateY(0);
+    opacity: 1;
 }
 
 .calc.js-light-theme {
@@ -316,8 +317,9 @@ body {
     width: var(--max-width);
     min-width: var(--max-width);
     background-color: var(--options-bgclr);
-    transform: translateY(-100%);
-    transition: transform 300ms;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 300ms;
 }
 
 .calc-history-list-container {
