@@ -18,11 +18,19 @@ export default class CalculationHistoryView extends View {
     }
 
     createCalculation(key, value) {
-        return `<li class='calc-history-list-item' id='${key}'>
-                  <button class='calc-btn-history-list-item'>
+        return `<li class='calc-history-item' data-id='${key}'>
+                  <button class='calc-btn-history-item'>
                     <div class='calc-history-expression'>${this.formatExpression(value.expression)}=</div>
                     <div class='calc-history-result'>${this.formatNumber(value.result)}</div>
                   </button>
                 </li>`;
+    }
+
+    bindLoadCalculation(handler) {
+        this.calculationHistoryListContainer.addEventListener('click', (event) => {
+            if (event.target.closest('li')) {
+                handler(event.target.closest('li').dataset.id);
+            }
+        });
     }
 }

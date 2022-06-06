@@ -17,7 +17,7 @@ const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const calculationHistory = calc.querySelector('.calc-history');
 const calculationHistoryClearBtn = calculationHistory.querySelector('.calc-btn-history-clear');
 
-const calculationModel = new CalculationModel();
+let calculationModel = new CalculationModel();
 const calculationView = new CalculationView({
     result: output.querySelector('.calc-result'),
     expression: output.querySelector('.calc-expression'),
@@ -68,6 +68,11 @@ document.addEventListener('keydown', (event) => {
             handleInput(keyName);
         }
     }
+});
+
+calculationHistoryView.bindLoadCalculation((id) => {
+    const calculationJSON = calculationHistoryModel.get(id);
+    calculationModel.load(calculationJSON);
 });
 
 (function() {

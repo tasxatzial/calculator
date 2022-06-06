@@ -33,6 +33,15 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
+    load(props) {
+        if (props) {
+            this.result = props.result;
+            this.expression = props.expression;
+            this.leftParenCount = props.leftParenCount;
+            this.raiseChange("changeState");
+        }
+    }
+
     isDigit(c) {
         return !isNaN(parseFloat(c)) || c === '.';
     }
@@ -106,6 +115,7 @@ export default class CalculationModel extends Model {
     }
 
     delete() {
+        
         if (this.expression === '') {
             return;
         }
@@ -117,6 +127,7 @@ export default class CalculationModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
+        console.log(1);
         this.raiseChange("changeState");
     }
 

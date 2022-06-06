@@ -179,7 +179,7 @@ body {
 }
 
 .calc-btn-history-clear,
-.calc-btn-history-list-item {
+.calc-btn-history-item {
     width: 100%;
     height: 100%;
     border: none;
@@ -187,7 +187,7 @@ body {
     color: var(--btn-number-clr);
 }
 
-.calc-btn-history-list-item {
+.calc-btn-history-item {
     padding: var(--padding);
     background-color: transparent;
     text-align: left;
@@ -209,19 +209,19 @@ body {
 }
 
 .calc-btn-option:hover,
-.calc-btn-history-list-item:hover {
+.calc-btn-history-item:hover {
     background-color: var(--btn-option-hover-clr);
 }
 
 @media (hover:none) {
     .calc-btn-option:hover,
-    .calc-btn-history-list-item:hover {
+    .calc-btn-history-item:hover {
         background-color: transparent;
     }
 }
 
 .calc-btn-option:active,
-.calc-btn-history-list-item:active {
+.calc-btn-history-item:active {
     background-color: var(--btn-option-active-clr);
 }
 
@@ -333,7 +333,7 @@ body {
     list-style: none;
 }
 
-.calc-history-list-item:not(:last-child) {
+.calc-history-item:not(:last-child) {
     border-bottom: 2px dashed var(--output-border);
 }
 
