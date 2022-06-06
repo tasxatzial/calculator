@@ -74,6 +74,18 @@ body {
     opacity: 0.5;
 }
 
+.calc-history-result {
+    word-break: break-all;
+    font-size: calc(0.8 * var(--btn-fs));
+}
+
+.calc-history-expression {
+    margin-bottom: var(--output-separation);
+    word-break: break-all;
+    font-size: calc(0.6 * var(--btn-fs));
+    letter-spacing: 1px;
+}
+
 /*-------------------- BUTTON --------------------*/
 
 .calc-btn {
@@ -150,7 +162,7 @@ body {
     padding: var(--btn-option-padding);
     border: 0;
     background-color: transparent;
-    font-size: var(--btn-option-ff-size);
+    font-size: var(--btn-option-fs);
 }
 
 .calc-btn-option:hover {
@@ -167,6 +179,26 @@ body {
     color: var(--btn-option-active-clr);
 }
 
+.calc-btn-history-clear,
+.calc-history-list-btn-item {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    color: var(--btn-number-clr);
+}
+
+.calc-history-list-btn-item {
+    padding: var(--padding);
+    text-align: left;
+}
+
+.calc-btn-history-clear {
+    background-color: var(--output-bgclr);
+    font-size: calc(0.5 * var(--btn-fs));
+}
+
 /*-------------------- CONTAINER --------------------*/
 
 .calc {
@@ -180,14 +212,16 @@ body {
 
     --padding: 1rem;
     --border-radius: 7px;
-    --btn-option-ff-size: 1.25rem;
-    --btn-option-padding: calc(var(--btn-option-ff-size) / 2);
+    --btn-option-fs: calc(0.625 * var(--btn-fs));
+    --btn-option-padding: calc(var(--btn-option-fs) / 2);
     --btn-width: 3.6rem;
     --btn-padding: .5rem;
     --btn-margin: .25rem;
     --btn-fs: 2rem;
     --display-min-height: 1.4em;
     --max-width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
+    --history-options-fs: var(--btn-fs);
+    --output-separation: .25em;
 
     --btn-number-clr: rgb(218, 218, 218);
     --btn-erase-clr: tomato;
@@ -249,7 +283,7 @@ body {
 
 .calc-expression-container {
     min-height: var(--display-min-height);
-    margin-bottom: .25em;
+    margin-bottom: var(--output-separation);
     font-size: calc(0.75 * var(--btn-fs));
 }
 
@@ -260,15 +294,27 @@ body {
     left: 0;
     width: var(--max-width);
     min-width: var(--max-width);
-    background-color: aquamarine;
+    background-color: var(--options-bgclr);
     transform: translateY(-100%);
     transition: transform 300ms;
 }
 
-.calc-history-list {
+.calc-history-list-container {
     overflow: auto;
-    height: calc(100% - 2rem);
+    height: calc(100% - var(--history-options-fs));
 }
+
+.calc-history-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.calc-history-list-item:not(:last-child) {
+    border-bottom: 2px dashed var(--output-border);
+}
+
 .calc-history-options {
-    height: 2rem;
+    height: var(--history-options-fs);
+    border-top: 2px solid var(--output-border);
 }

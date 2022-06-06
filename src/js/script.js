@@ -25,7 +25,7 @@ const calculationView = new CalculationView({
 });
 const calculationHistoryModel = new CalculationHistoryModel();
 const calculationHistoryView = new CalculationHistoryView({
-    calculationHistoryList: calculationHistory.querySelector('.calc-history-list')
+    calculationHistoryListContainer: calculationHistory.querySelector('.calc-history-list-container')
 });
 
 optionBtns.addEventListener('click', (event) => {
