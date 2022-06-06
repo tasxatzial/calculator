@@ -12,6 +12,11 @@ export default class CalculationHistoryModel extends Model {
         this.raiseChange("changeState");
     }
 
+    clearHistory() {
+        this.calculationList = {};
+        this.raiseChange("changeState");
+    }
+
     toJSON() {
         return this.calculationList;
     }

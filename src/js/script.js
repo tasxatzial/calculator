@@ -162,5 +162,5 @@ function runClearHistoryBtnAnimation(el, count) {
 
 function endClearHistoryBtnAnimation(el) {
     resetClearHistoryBtnAnimation(el);
-    console.log('ended');
+    calculationHistoryModel.clearHistory();
 }
