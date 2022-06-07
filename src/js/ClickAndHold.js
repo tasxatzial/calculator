@@ -1,4 +1,4 @@
-import Utils from './Utils.js';
+import KeyboardUtils from './KeyboardUtils.js';
 
 export default class ClickAndHold {
     constructor(element, callbacks) {
@@ -21,8 +21,8 @@ export default class ClickAndHold {
 
     keydownListener(e) {
         e.preventDefault();
-        const keyName = Utils.getKeyName(e);
-        if (Utils.hasPressedSpace(keyName) || Utils.hasPressedEnter(keyName)) {
+        const keyName = KeyboardUtils.getKeyName(e);
+        if (KeyboardUtils.hasPressedSpace(keyName) || KeyboardUtils.hasPressedEnter(keyName)) {
             this.element.removeEventListener('keydown', this.keydownListener);
             this.onHoldStart();
         }
@@ -41,8 +41,8 @@ export default class ClickAndHold {
         ['keyup']
         .forEach(type => this.element.addEventListener(type, (e) => {
             e.preventDefault();
-            const keyName = Utils.getKeyName(e);
-            if (Utils.hasPressedSpace(keyName) || Utils.hasPressedEnter(keyName)) {
+            const keyName = KeyboardUtils.getKeyName(e);
+            if (KeyboardUtils.hasPressedSpace(keyName) || KeyboardUtils.hasPressedEnter(keyName)) {
                 this.onHoldEnd(e.type);
             }
         }));

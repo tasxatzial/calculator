@@ -3,7 +3,7 @@ import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
 import ClickAndHold from './ClickAndHold.js';
-import Utils from './Utils.js';
+import KeyboardUtils from './KeyboardUtils.js';
 
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
@@ -63,7 +63,7 @@ document.addEventListener('click', (event) => {
 
 document.addEventListener('keydown', (event) => {
     if (calc.classList.contains('js-calc-active')) {
-        const keyName = Utils.getKeyName(event);
+        const keyName = KeyboardUtils.getKeyName(event);
         if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
             calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
             handleInput(keyName);
