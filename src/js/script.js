@@ -65,7 +65,9 @@ document.addEventListener('keydown', (event) => {
     if (calc.classList.contains('js-calc-active')) {
         const keyName = KeyboardUtils.getKeyName(event);
         if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
-            calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
+            if (!calc.classList.contains('js-history-open')) {
+                calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
+            }
             handleInput(keyName);
         }
     }
