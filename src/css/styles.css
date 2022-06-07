@@ -57,6 +57,7 @@ body {
     --btn-theme-selected-clr: #2F2F2F;
     --btn-option-hover-clr: rgb(210, 210, 210);
     --btn-option-active-clr: rgb(195, 195, 195);
+    --btn-history-clear-hover-clr: blue;
     --output-bgclr: white;
     --output-clr: #2F2F2F;
     --output-border: silver;
@@ -206,13 +207,11 @@ body {
     background-color: var(--output-bgclr);
     background: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), var(--output-bgclr) var(--bgcolorPos));
     font-size: calc(0.45 * var(--options-height));
-    transform: scale(1);
-    transition: transform 200ms;
     user-select: none;
 }
 
 .calc-btn-history-clear:hover {
-    transform: scale(1.05);
+    color: var(--btn-history-clear-hover-clr);
 }
 
 .calc-btn-option:hover,
@@ -220,16 +219,20 @@ body {
     background-color: var(--btn-option-hover-clr);
 }
 
+.calc-btn-option:active,
+.calc-btn-history-item:active {
+    background-color: var(--btn-option-active-clr);
+}
+
 @media (hover:none) {
     .calc-btn-option:hover,
     .calc-btn-history-item:hover {
         background-color: transparent;
     }
-}
 
-.calc-btn-option:active,
-.calc-btn-history-item:active {
-    background-color: var(--btn-option-active-clr);
+    .calc-btn-history-clear:hover {
+        color: var(--btn-number-clr);
+    }
 }
 
 /*-------------------- CONTAINER --------------------*/
@@ -257,6 +260,7 @@ body {
     --btn-theme-selected-clr: rgb(235, 235, 235);
     --btn-option-hover-clr: rgb(90, 90, 90);
     --btn-option-active-clr: rgb(105, 105, 105);
+    --btn-history-clear-hover-clr: gold;
     --output-bgclr: black;
     --output-clr: rgb(218, 218, 218);
     --output-border: gray;
