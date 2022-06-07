@@ -115,7 +115,6 @@ export default class CalculationModel extends Model {
     }
 
     delete() {
-        
         if (this.expression === '') {
             return;
         }
