@@ -89,6 +89,12 @@ body {
     letter-spacing: 1px;
 }
 
+.calc-no-history {
+    padding: var(--padding);
+    font-size: calc(0.5625 * var(--btn-fs));
+    color: var(--output-clr);
+    text-align: center;
+}
 /*-------------------- BUTTON --------------------*/
 
 .calc-btn {

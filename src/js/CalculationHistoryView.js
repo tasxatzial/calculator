@@ -13,8 +13,13 @@ export default class CalculationHistoryView extends View {
             const calculation = this.createCalculation(key, value);
             ul.insertAdjacentHTML('beforeend', calculation);
         }
-        this.calculationHistoryListContainer.innerHTML = '';
-        this.calculationHistoryListContainer.appendChild(ul);
+
+        if (ul.children.length === 0) {
+            this.calculationHistoryListContainer.innerHTML = `<p class='calc-no-history'>There's no history yet</p>`;
+        } else {
+            this.calculationHistoryListContainer.innerHTML = '';
+            this.calculationHistoryListContainer.appendChild(ul);
+        }
     }
 
     createCalculation(key, value) {
