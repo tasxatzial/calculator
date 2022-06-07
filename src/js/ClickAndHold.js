@@ -12,10 +12,14 @@ export default class ClickAndHold {
 
         this.step = this.step.bind(this);
 
-        ['mousedown', 'touchstart'].forEach(type => this.element.addEventListener(type, (e) => {
+        ['mousedown', 'touchstart']
+        .forEach(type => this.element.addEventListener(type, (e) => {
+            e.preventDefault();
             this.onHoldStart();
         }));
-        ['mouseup', 'mousleave', 'mouseout', 'touchend', 'touchcancel'].forEach(type => this.element.addEventListener(type, (e) => {
+        ['mouseup', 'mousleave', 'mouseout', 'touchend', 'touchcancel']
+        .forEach(type => this.element.addEventListener(type, (e) => {
+            e.preventDefault();
             this.onHoldEnd();
         }));
     }
