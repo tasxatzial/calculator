@@ -95,7 +95,7 @@ calculationHistoryView.bindLoadCalculation((id) => {
         reset: resetClearHistoryBtnAnimation,
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
-    });
+    }, 1000); //1s
     calc.classList.add('js-calc-active');
 })();
 
