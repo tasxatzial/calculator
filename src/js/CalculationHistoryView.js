@@ -9,8 +9,10 @@ export default class CalculationHistoryView extends View {
     render(data) {
         const ul = document.createElement('ul');
         ul.classList = 'calc-history-list';
-        for (let [key, value] of Object.entries(data)) {
-            const calculation = this.createCalculation(key, value);
+        const keys = Object.keys(data).sort((a,b) => b - a);
+
+        for (let key of keys) {
+            const calculation = this.createCalculation(key, data[key]);
             ul.insertAdjacentHTML('beforeend', calculation);
         }
 
