@@ -107,8 +107,14 @@ export default class CalculationModel extends Model {
     }
 
     toJSON() {
+        let resultJSON;
+        if (!this.result) {
+            resultJSON = '';
+        } else {
+            resultJSON = this.result.toString();
+        }
         return {
-            result: this.result,
+            result: resultJSON,
             expression: this.expression,
             leftParenCount: this.leftParenCount
         };

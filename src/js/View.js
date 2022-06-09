@@ -1,12 +1,14 @@
 export default class View {
     constructor() {}
 
-    formatNumber(number) {
-        const stringNumber = number.toString();
-        if (stringNumber.includes('e')) {
-            return stringNumber;
+    formatNumber(numberString) {
+        if (numberString === '') {
+            return '';
         }
-        const splitNumber = stringNumber.split('.');
+        if (numberString.includes('e')) {
+            return numberString;
+        }
+        const splitNumber = numberString.split('.');
         const integerPart = splitNumber[0];
         const decimalPart = splitNumber[1];
         const formattedIntegerPart = parseFloat(integerPart).toLocaleString('en', {
