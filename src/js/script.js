@@ -79,6 +79,12 @@ calculationHistoryView.bindLoadCalculation((id) => {
 });
 
 (function() {
+    const theme = localStorage.getItem('calc-theme');
+    if (theme === 'dark') {
+        changeToDarkTheme();
+    } else if (theme === 'light') {
+        changeToLightTheme();
+    }
     calculationView.render(calculationModel.toJSON());
     calculationModel.addChangeListener("changeState", () => {
         calculationView.render(calculationModel.toJSON());
@@ -130,6 +136,7 @@ function changeToLightTheme() {
         calc.classList.add('js-light-theme');
         darkModeBtn.classList.remove('js-active-theme');
         lightModeBtn.classList.add('js-active-theme');
+        localStorage.setItem('calc-theme', 'light');
     }
 }
 
@@ -138,6 +145,7 @@ function changeToDarkTheme() {
         calc.classList.remove('js-light-theme');
         lightModeBtn.classList.remove('js-active-theme');
         darkModeBtn.classList.add('js-active-theme');
+        localStorage.setItem('calc-theme', 'dark');
     }
 }
 
