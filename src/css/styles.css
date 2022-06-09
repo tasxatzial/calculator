@@ -70,7 +70,7 @@ body {
 }
 
 .calc-result {
-    min-height: var(--min-height);
+    min-height: var(--display-line-height);
     font-size: var(--btn-fs);
 }
 
@@ -99,7 +99,6 @@ body {
 /*-------------------- BUTTON --------------------*/
 
 .calc-btn {
-    flex-shrink: 0;
     width: var(--btn-width);
     height: var(--btn-width);;
     padding: var(--btn-padding);
@@ -186,15 +185,14 @@ body {
 }
 
 .calc-btn-history-clear,
-.calc-btn-history-item {
+.calc-btn-history-calculation {
     width: 100%;
-    height: 100%;
     border: none;
     font-family: inherit;
     color: var(--btn-number-clr);
 }
 
-.calc-btn-history-item {
+.calc-btn-history-calculation {
     padding: var(--padding);
     background-color: transparent;
     text-align: left;
@@ -206,7 +204,7 @@ body {
     padding: 0;
     background-color: var(--output-bgclr);
     background: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), var(--output-bgclr) var(--bgcolorPos));
-    font-size: calc(0.42 * var(--options-height));
+    font-size: calc(0.42 * var(--history-options-height));
     user-select: none;
 }
 
@@ -215,18 +213,18 @@ body {
 }
 
 .calc-btn-option:hover,
-.calc-btn-history-item:hover {
+.calc-btn-history-calculation:hover {
     background-color: var(--btn-option-hover-clr);
 }
 
 .calc-btn-option:active,
-.calc-btn-history-item:active {
+.calc-btn-history-calculation:active {
     background-color: var(--btn-option-active-clr);
 }
 
 @media (hover:none) {
     .calc-btn-option:hover,
-    .calc-btn-history-item:hover {
+    .calc-btn-history-calculation:hover {
         background-color: transparent;
     }
 
@@ -241,9 +239,9 @@ body {
     --btn-fs: 2rem; /* controls the calculator size */
 
     --padding: calc(0.5 * var(--btn-fs));
-    --btn-width: 1.8em;
-    --btn-padding: .25em;
-    --btn-margin: .125em;
+    --btn-width: calc(1.8 * var(--btn-fs));
+    --btn-padding: calc(0.25 * var(--btn-fs));
+    --btn-margin: calc(0.125 * var(--btn-fs));
     --expr-result-margin: .25em;
 
     --btn-number-clr: rgb(218, 218, 218);
@@ -267,6 +265,7 @@ body {
 
     position: relative;
     overflow: hidden;
+    width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
     border-radius: 7px;
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
@@ -279,14 +278,13 @@ body {
     padding: 0 var(--padding);
     background-color: var(--options-bgclr);
 }
-
+height
 .calc-themes {
     display: flex;
 }
 
 .calc-btns {
     position: relative;
-    width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
     background-color: var(--btns-bgclr);
     background: var(--btns-bg);
 }
@@ -298,27 +296,31 @@ body {
 
 .calc-output,
 .calc-btns {
-    width: 100%;
     padding: var(--padding);
 }
 
 .calc-output {
-    --min-height: 1.4em;
+    --display-line-height: 1.4em;
     border-bottom: 2px solid var(--output-border);
     border-top: 2px solid var(--output-border);
     background-color: var(--output-bgclr);
+    width: 100%;
     color: var(--output-clr);
     word-break: break-all;
 }
 
 .calc-expression-container {
-    min-height: var(--min-height);
+    min-height: var(--display-line-height);
     margin-bottom: var(--expr-result-margin);
     font-size: calc(0.75 * var(--btn-fs));
 }
 
+.calc-input {
+    position: relative;
+}
+
 .calc-history {
-    --options-height: calc(1.2 * var(--btn-fs));
+    --history-options-height: calc(1.2 *var(--btn-fs));
     position: absolute;
     top: 0;
     left: 0;
@@ -331,7 +333,7 @@ body {
 
 .calc-history-list-container {
     overflow: auto;
-    height: calc(100% - var(--options-height));
+    height: calc(100% - var(--history-options-height));
     background-color: var(--options-bgclr);
 }
 
@@ -341,14 +343,13 @@ body {
     list-style: none;
 }
 
-.calc-history-item:not(:last-child) {
+.calc-history-list-item:not(:last-child) {
     border-bottom: 2px dashed var(--output-border);
 }
 
 .calc-history-options {
     --border-width: 2px;
-    overflow: hidden;
+    height: var(--history-options-height);
     background-color: var(--output-bgclr);
     border-top: var(--border-width) solid var(--output-border);
-    height: var(--options-height);
 }
