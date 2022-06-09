@@ -18,14 +18,15 @@ const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
 const calculationHistory = calc.querySelector('.calc-history');
 const calculationHistoryClearBtn = calculationHistory.querySelector('.calc-btn-history-clear');
 
-let calculationModel = new CalculationModel();
+let calculationModel;
+let calculationHistoryModel;
+
 const calculationView = new CalculationView({
     result: output.querySelector('.calc-result'),
     expression: output.querySelector('.calc-expression'),
     missingParens:  output.querySelector('.calc-expression-missing-parens'),
     leftParenBtn: calculationBtns.querySelector('.calc-btn-left-paren')
 });
-let calculationHistoryModel;
 const calculationHistoryView = new CalculationHistoryView({
     calculationHistoryListContainer: calculationHistory.querySelector('.calc-history-list-container')
 });
@@ -85,11 +86,16 @@ calculationHistoryView.bindLoadCalculation((id) => {
     } else if (theme === 'light') {
         changeToLightTheme();
     }
+
     const history = localStorage.getItem('calc-history');
     calculationHistoryModel = new CalculationHistoryModel(JSON.parse(history));
+    const lastCalculation = localStorage.getItem('calc-last-calculation');
+    calculationModel = new CalculationModel(JSON.parse(lastCalculation));
     calculationView.render(calculationModel.toJSON());
+
     calculationModel.addChangeListener("changeState", () => {
         calculationView.render(calculationModel.toJSON());
+        localStorage.setItem('calc-last-calculation', JSON.stringify(calculationModel.toJSON()));
     });
     calculationModel.addChangeListener("evaluate", () => {
         calculationHistoryModel.add(calculationModel.toJSON());
@@ -105,6 +111,7 @@ calculationHistoryView.bindLoadCalculation((id) => {
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
     }, 1000); //1s
+
     calc.classList.add('js-calc-active');
 })();
 
