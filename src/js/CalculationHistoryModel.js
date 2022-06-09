@@ -1,10 +1,15 @@
 import Model from './Model.js';
 
 export default class CalculationHistoryModel extends Model {
-    constructor() {
+    constructor(calculationList) {
         super();
-        this.id = 0;
-        this.calculationList = {};
+        if (calculationList) {
+            this.calculationList = calculationList;
+            this.id = Object.keys(calculationList).length;
+        } else {
+            this.calculationList = {};
+            this.id = 0;
+        }
     }
 
     add(calculation) {
@@ -18,6 +23,7 @@ export default class CalculationHistoryModel extends Model {
 
     clearHistory() {
         this.calculationList = {};
+        this.id = 0;
         this.raiseChange("changeState");
     }
 

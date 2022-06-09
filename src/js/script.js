@@ -25,7 +25,7 @@ const calculationView = new CalculationView({
     missingParens:  output.querySelector('.calc-expression-missing-parens'),
     leftParenBtn: calculationBtns.querySelector('.calc-btn-left-paren')
 });
-const calculationHistoryModel = new CalculationHistoryModel();
+let calculationHistoryModel;
 const calculationHistoryView = new CalculationHistoryView({
     calculationHistoryListContainer: calculationHistory.querySelector('.calc-history-list-container')
 });
@@ -85,6 +85,8 @@ calculationHistoryView.bindLoadCalculation((id) => {
     } else if (theme === 'light') {
         changeToLightTheme();
     }
+    const history = localStorage.getItem('calc-history');
+    calculationHistoryModel = new CalculationHistoryModel(JSON.parse(history));
     calculationView.render(calculationModel.toJSON());
     calculationModel.addChangeListener("changeState", () => {
         calculationView.render(calculationModel.toJSON());
@@ -93,6 +95,7 @@ calculationHistoryView.bindLoadCalculation((id) => {
         calculationHistoryModel.add(calculationModel.toJSON());
     });
     calculationHistoryModel.addChangeListener("changeState", () => {
+        localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.toJSON()));
         if (calc.classList.contains('js-history-open')) {
             calculationHistoryView.render(calculationHistoryModel.toJSON());
         }
