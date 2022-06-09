@@ -31,54 +31,7 @@ const calculationHistoryView = new CalculationHistoryView({
     calculationHistoryListContainer: calculationHistory.querySelector('.calc-history-list-container')
 });
 
-optionBtns.addEventListener('click', (event) => {
-    if (!event.target.closest('button')) {
-        return;
-    }
-    switch(event.target.closest('button').dataset.btn) {
-        case 'light-theme':
-            changeToLightTheme();
-            break;
-        case 'dark-theme':
-            changeToDarkTheme();
-            break;
-        case 'history':
-            toggleHistory();
-            break;
-    }
-});
-
-calculationBtns.addEventListener('click', (event) => {
-    if (event.target.closest('button')) {
-        handleInput(event.target.dataset.btn);
-    }
-});
-
-document.addEventListener('click', (event) => {
-    if (calc.contains(event.target)) {
-        calc.classList.add('js-calc-active');
-    } else {
-        calc.classList.remove('js-calc-active');
-    }
-});
-
-document.addEventListener('keydown', (event) => {
-    if (calc.classList.contains('js-calc-active')) {
-        const keyName = KeyboardUtils.getKeyName(event);
-        if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
-            if (!calc.classList.contains('js-history-open')) {
-                calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
-            }
-            handleInput(keyName);
-        }
-    }
-});
-
-calculationHistoryView.bindLoadCalculation((id) => {
-    const calculationJSON = calculationHistoryModel.get(id);
-    calculationModel.load(calculationJSON);
-});
-
+/* initialize */
 (function() {
     const theme = localStorage.getItem('calc-theme');
     if (theme === 'dark') {
@@ -87,32 +40,88 @@ calculationHistoryView.bindLoadCalculation((id) => {
         changeToLightTheme();
     }
 
-    const history = localStorage.getItem('calc-history');
-    calculationHistoryModel = new CalculationHistoryModel(JSON.parse(history));
-    const lastCalculation = localStorage.getItem('calc-last-calculation');
-    calculationModel = new CalculationModel(JSON.parse(lastCalculation));
+    const history = JSON.parse(localStorage.getItem('calc-history'));
+    calculationHistoryModel = new CalculationHistoryModel(history);
+
+    const currCalculation = JSON.parse(localStorage.getItem('calc-current-calculation'));
+    calculationModel = new CalculationModel(currCalculation);
+
     calculationView.render(calculationModel.toJSON());
 
+    calc.classList.add('js-calc-active');
+})();
+
+/* add listeners */
+(function() {
+    optionBtns.addEventListener('click', (event) => {
+        if (!event.target.closest('button')) {
+            return;
+        }
+        switch(event.target.closest('button').dataset.btn) {
+            case 'light-theme':
+                changeToLightTheme();
+                break;
+            case 'dark-theme':
+                changeToDarkTheme();
+                break;
+            case 'history':
+                toggleHistory();
+                break;
+        }
+    });
+    
+    calculationBtns.addEventListener('click', (event) => {
+        if (event.target.closest('button')) {
+            handleInput(event.target.dataset.btn);
+        }
+    });
+    
+    document.addEventListener('click', (event) => {
+        if (calc.contains(event.target)) {
+            calc.classList.add('js-calc-active');
+        } else {
+            calc.classList.remove('js-calc-active');
+        }
+    });
+    
+    document.addEventListener('keydown', (event) => {
+        if (calc.classList.contains('js-calc-active')) {
+            const keyName = KeyboardUtils.getKeyName(event);
+            if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
+                if (!calc.classList.contains('js-history-open')) {
+                    calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
+                }
+                handleInput(keyName);
+            }
+        }
+    });
+    
+    calculationHistoryView.bindLoadCalculation((id) => {
+        const calculationJSON = calculationHistoryModel.get(id);
+        calculationModel.load(calculationJSON);
+    });
+    
     calculationModel.addChangeListener("changeState", () => {
         calculationView.render(calculationModel.toJSON());
-        localStorage.setItem('calc-last-calculation', JSON.stringify(calculationModel.toJSON()));
+        localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.toJSON()));
     });
+
     calculationModel.addChangeListener("evaluate", () => {
         calculationHistoryModel.add(calculationModel.toJSON());
     });
+
     calculationHistoryModel.addChangeListener("changeState", () => {
         localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.toJSON()));
         if (calc.classList.contains('js-history-open')) {
             calculationHistoryView.render(calculationHistoryModel.toJSON());
         }
     });
+
     ClickAndHold.apply(calculationHistoryClearBtn, {
         reset: resetClearHistoryBtnAnimation,
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
     }, 1000); //1s
-
-    calc.classList.add('js-calc-active');
 })();
 
 function handleInput(id) {
