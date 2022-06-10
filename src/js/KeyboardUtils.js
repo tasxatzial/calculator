@@ -11,11 +11,15 @@ export default class KeyboardUtils {
         return pressedKey;
     }
 
-    static hasPressedSpace(keyName) {
+    static hasPressed_Space(keyName) {
         return keyName === ' ' || keyName === 'Spacebar';
     }
 
-    static hasPressedEnter(keyName) {
+    static hasPressed_Enter(keyName) {
         return keyName === 'Enter';
+    }
+
+    static hasPressed_H(keyName) {
+        return keyName === 'H' || keyName === 'h';
     }
 }

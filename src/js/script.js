@@ -14,6 +14,7 @@ const output = calc.querySelector('.calc-output');
 const optionBtns = calc.querySelector('.calc-options');
 const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
 const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
+const toggleHistoryBtn = optionBtns.querySelector('.calc-btn-history');
 
 const calculationHistory = calc.querySelector('.calc-history');
 const calculationHistoryClearBtn = calculationHistory.querySelector('.calc-btn-history-clear');
@@ -87,7 +88,7 @@ const calculationHistoryView = new CalculationHistoryView({
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
-            if (KeyboardUtils.hasPressedEnter(keyName) &&
+            if (KeyboardUtils.hasPressed_Enter(keyName) &&
                (!calc.contains(document.activeElement) ||
                  calculationBtns.contains(document.activeElement))) {
                 keyName = '=';
@@ -97,6 +98,9 @@ const calculationHistoryView = new CalculationHistoryView({
                     calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
                 }
                 handleInput(keyName);
+            } else if (KeyboardUtils.hasPressed_H(keyName)) {
+                toggleHistoryBtn.focus();
+                toggleHistory();
             }
         }
     });
