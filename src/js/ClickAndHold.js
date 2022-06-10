@@ -21,9 +21,9 @@ export default class ClickAndHold {
     }
 
     keydownListener(e) {
-        e.preventDefault();
         const keyName = KeyboardUtils.getKeyName(e);
         if (KeyboardUtils.hasPressedSpace(keyName) || KeyboardUtils.hasPressedEnter(keyName)) {
+            e.preventDefault();
             this.element.removeEventListener('keydown', this.keydownListener);
             this.onHoldStart();
         }
@@ -41,9 +41,9 @@ export default class ClickAndHold {
     addHoldEndListeners() {
         ['keyup']
         .forEach(type => this.element.addEventListener(type, (e) => {
-            e.preventDefault();
             const keyName = KeyboardUtils.getKeyName(e);
             if (KeyboardUtils.hasPressedSpace(keyName) || KeyboardUtils.hasPressedEnter(keyName)) {
+                e.preventDefault();
                 this.onHoldEnd(e.type);
             }
         }));
