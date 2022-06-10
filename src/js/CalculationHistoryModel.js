@@ -13,8 +13,14 @@ export default class CalculationHistoryModel extends Model {
     }
 
     add(calculation) {
-        this.calculationList[this.id++] = calculation;
-        this.raiseChange("changeState");
+        const prevCalculation = this.calculationList[this.id - 1];
+        if (this.id === 0 ||
+            prevCalculation.result !== calculation.result ||
+            prevCalculation.expression !== calculation.expression ||
+            prevCalculation.leftParenCount !== calculation.leftParenCount) {
+              this.calculationList[this.id++] = calculation;
+              this.raiseChange("changeState");
+        }
     }
 
     get(id) {
