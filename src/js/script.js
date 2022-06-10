@@ -70,21 +70,28 @@ const calculationHistoryView = new CalculationHistoryView({
                 break;
         }
     });
-    
+
     calculationBtns.addEventListener('click', (event) => {
         if (event.target.closest('button')) {
             handleInput(event.target.dataset.btn);
         }
     });
-    
-    document.addEventListener('click', (event) => {
-        if (calc.contains(event.target)) {
-            calc.classList.add('js-calc-active');
-        } else {
-            calc.classList.remove('js-calc-active');
-        }
+
+    ['mousedown', 'touchstart', 'focusin']
+    .forEach(type => {
+        document.addEventListener(type, (event) => {
+            if (calc.contains(event.target)) {
+                calc.classList.add('js-calc-active');
+            } else {
+                calc.classList.remove('js-calc-active');
+            }
+        });
     });
-    
+
+    window.addEventListener('blur', () => {
+        calc.classList.remove('js-calc-active');
+    });
+
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
@@ -104,12 +111,12 @@ const calculationHistoryView = new CalculationHistoryView({
             }
         }
     });
-    
+
     calculationHistoryView.bindLoadCalculation((id) => {
         const calculationJSON = calculationHistoryModel.get(id);
         calculationModel.load(calculationJSON);
     });
-    
+
     calculationModel.addChangeListener("changeState", () => {
         calculationView.render(calculationModel.toJSON());
         localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.toJSON()));
