@@ -47,7 +47,7 @@ export default class ClickAndHold {
                 this.onHoldEnd(e.type);
             }
         }));
-        ['mouseup', 'mousleave', 'mouseout', 'touchend', 'touchcancel']
+        ['blur', 'mouseup', 'mousleave', 'mouseout', 'touchend', 'touchcancel']
         .forEach(type => this.element.addEventListener(type, (e) => {
             e.preventDefault();
             this.onHoldEnd(e.type);
@@ -86,7 +86,7 @@ export default class ClickAndHold {
         this.start = null;
         this.previousTimeStamp = null;
         this.done = true;
-        if (eventType === 'keyup') {
+        if (eventType === 'keyup' || eventType === 'blur') {
             this.element.addEventListener('keydown', this.keydownListener);
         }
         this.reset(this.element);
