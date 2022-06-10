@@ -86,7 +86,12 @@ const calculationHistoryView = new CalculationHistoryView({
     
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
-            const keyName = KeyboardUtils.getKeyName(event);
+            let keyName = KeyboardUtils.getKeyName(event);
+            if (KeyboardUtils.hasPressedEnter(keyName) &&
+               (!calc.contains(document.activeElement) ||
+                 calculationBtns.contains(document.activeElement))) {
+                keyName = '=';
+            }
             if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
                 if (!calc.classList.contains('js-history-open')) {
                     calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
