@@ -162,6 +162,7 @@ function handleInput(id) {
             break;
         case '=':
             calculationModel.selectEvaluate();
+            output.focus();
             break;
     }
 }
@@ -187,8 +188,12 @@ function changeToDarkTheme() {
 function toggleHistory() {
     if (calc.classList.contains('js-history-open')) {
         calc.classList.remove('js-history-open');
+        toggleHistoryBtn.setAttribute('aria-label', 'open history');
+        toggleHistoryBtn.setAttribute('aria-expanded', 'false');
     } else {
         calc.classList.add('js-history-open');
+        toggleHistoryBtn.setAttribute('aria-label', 'close history');
+        toggleHistoryBtn.setAttribute('aria-expanded', 'true');
         calculationHistoryView.render(calculationHistoryModel.toJSON());
     }
 }

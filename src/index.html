@@ -13,34 +13,37 @@
 </head>
 <body>
     <div class="calc">
-        <div class="calc-options">
+        <h2 hidden id="calc-options">calculator options.</h2>
+        <section aria-labelledby="calc-options" class="calc-options">
             <div class="calc-themes">
-                <button data-btn="light-theme" class="calc-btn-option calc-btn-theme calc-btn-light-theme">
+                <button aria-label="select light theme" data-btn="light-theme" class="calc-btn-option calc-btn-theme calc-btn-light-theme">
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <button data-btn="dark-theme" class="calc-btn-option calc-btn-theme calc-btn-dark-theme js-active-theme">
+                <button aria-label="select dark theme" data-btn="dark-theme" class="calc-btn-option calc-btn-theme calc-btn-dark-theme js-active-theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
-            <button data-btn="history" class="calc-btn-option calc-btn-history">
+            <button aria-label="open history" aria-controls="calc-history" aria-expanded="false" data-btn="history" class="calc-btn-option calc-btn-history">
                 <i class="fa-solid fa-clock-rotate-left"></i>
             </button>
-        </div>
-        <div class="calc-output">
+        </section>
+        <h2 hidden id="calc-display">calculator display.</h2>
+        <section aria-labelledby="calc-display" class="calc-output" tabindex="0">
             <div class="calc-expression-container">
                 <span class="calc-expression"></span>
                 <span class="cursor">_</span>
                 <span class="calc-expression-missing-parens"></span>
             </div>
             <div class="calc-result"></div>
-        </div>
+        </section>
         <div class="calc-input">
-            <div class="calc-btns">
+            <h2 hidden id="calc-btns">calculator input buttons.</h2>
+            <section aria-labelledby="calc-btns" class="calc-btns">
                 <div class="calc-btn-row">
-                    <button data-btn="Delete" class="calc-btn calc-btn-clear">C</button>
-                    <button data-btn="Backspace" class="calc-btn calc-btn-back">←</button>
-                    <button data-btn="(" class="calc-btn calc-btn-paren calc-btn-left-paren">(</button>
-                    <button data-btn=")" class="calc-btn calc-btn-paren">)</button>
+                    <button aria-label="clear all" data-btn="Delete" class="calc-btn calc-btn-clear">C</button>
+                    <button aria-label="delete last input" data-btn="Backspace" class="calc-btn calc-btn-back">←</button>
+                    <button aria-label="left parenthesis" data-btn="(" class="calc-btn calc-btn-paren calc-btn-left-paren">(</button>
+                    <button aria-label="right parenthesis" data-btn=")" class="calc-btn calc-btn-paren">)</button>
                 </div>
                 <div class="calc-btn-row">
                     <button data-btn="7" class="calc-btn calc-btn-number">7</button>
@@ -66,13 +69,14 @@
                     <button data-btn="=" class="calc-btn calc-btn-equals">=</button>
                     <button data-btn="+" class="calc-btn calc-btn-operation">+</button>
                 </div>
-            </div>
-            <div class="calc-history">
+            </section>
+            <h2 hidden id="calc-history">calculator history.</h2>
+            <section aria-labelledby="calc-history" class="calc-history">
                 <div class="calc-history-list-container"></div>
                 <div class="calc-history-options">
                     <button class="calc-btn-history-clear">Click & Hold to clear history</button>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Element.prototype.classList"></script>
