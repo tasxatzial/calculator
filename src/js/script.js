@@ -95,10 +95,12 @@ const calculationHistoryView = new CalculationHistoryView({
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
-            if (KeyboardUtils.hasPressed_Enter(keyName) &&
-               (!calc.contains(document.activeElement) ||
-                 calculationBtns.contains(document.activeElement))) {
-                keyName = '=';
+            if (KeyboardUtils.hasPressed_Enter(keyName)) {
+                if (calculationBtns.contains(document.activeElement)) {
+                    keyName = '=';
+                } else {
+                    return;
+                }
             }
             if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
                 if (!calc.classList.contains('js-history-open')) {
