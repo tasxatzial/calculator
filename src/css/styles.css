@@ -121,13 +121,9 @@ body {
     transition: background-color 500ms ease-out;
 }
 
-.calc-btn:hover {
-    background: radial-gradient(circle, var(--btn-active-bgclr) 35%, rgba(255, 255, 255, 0) 75%);
-}
-
-@media (hover:none) {
+@media (hover:hover) {
     .calc-btn:hover {
-        background: none;
+        background: radial-gradient(circle, var(--btn-active-bgclr) 35%, rgba(255, 255, 255, 0) 75%);
     }
 }
 
@@ -217,29 +213,20 @@ body {
     user-select: none;
 }
 
-.calc-btn-history-clear:hover {
-    color: var(--btn-history-clear-hover-clr);
-}
+@media (hover:hover) {
+    .calc-btn-option:hover,
+    .calc-btn-history-calculation:hover {
+        background-color: var(--btn-option-hover-clr);
+    }
 
-.calc-btn-option:hover,
-.calc-btn-history-calculation:hover {
-    background-color: var(--btn-option-hover-clr);
+    .calc-btn-history-clear:hover {
+        color: var(--btn-history-clear-hover-clr);
+    }
 }
 
 .calc-btn-option:active,
 .calc-btn-history-calculation:active {
     background-color: var(--btn-option-active-clr);
-}
-
-@media (hover:none) {
-    .calc-btn-option:hover,
-    .calc-btn-history-calculation:hover {
-        background-color: transparent;
-    }
-
-    .calc-btn-history-clear:hover {
-        color: var(--btn-number-clr);
-    }
 }
 
 /*-------------------- CONTAINER --------------------*/
