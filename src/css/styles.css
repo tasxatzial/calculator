@@ -193,18 +193,18 @@ body {
     background-color: transparent;
     border: none;
     font-family: inherit;
-    
 }
 
 .calc .btn-history-clear {
     --bgcolorPos: 0%;
     width: 100%;
-    height: 100%;
+    height: var(--btn-history-clear-height);
     padding: 0;
     background-color: var(--output-bgclr);
     background: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), var(--output-bgclr) var(--bgcolorPos));
     border: none;
-    font-size: calc(0.42 * var(--history-options-height));
+    border-top: 2px solid var(--output-border);
+    font-size: calc(0.42 * var(--btn-history-clear-height));
     font-family: inherit;
     color: var(--btn-number-clr);
     user-select: none;
@@ -325,7 +325,7 @@ body {
 }
 
 .calc .history {
-    --history-options-height: calc(1.2 * var(--btn-fs));
+    --btn-history-clear-height: calc(1.2 * var(--btn-fs));
     visibility: hidden;
     position: absolute;
     top: 0;
@@ -345,7 +345,7 @@ body {
 
 .calc .history-list-container {
     overflow: auto;
-    height: calc(100% - var(--history-options-height));
+    height: calc(100% - var(--btn-history-clear-height));
     background-color: var(--options-bgclr);
 }
 
@@ -357,11 +357,4 @@ body {
 
 .calc .history-list-item:not(:last-child) {
     border-bottom: 2px dashed var(--output-border);
-}
-
-.calc .history-options {
-    --border-width: 2px;
-    height: var(--history-options-height);
-    background-color: var(--output-bgclr);
-    border-top: var(--border-width) solid var(--output-border);
 }
