@@ -94,15 +94,11 @@ const calculationHistoryView = new CalculationHistoryView({
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
-            if (KeyboardUtils.hasPressed_Enter(keyName)) {
-                if (operationBtns.contains(document.activeElement)) {
-                    keyName = '=';
+            if (!calc.classList.contains('js-history-open') &&
+                OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
+                if (KeyboardUtils.hasPressed_Equals(keyName)) {
+                    output.focus();
                 } else {
-                    return;
-                }
-            }
-            if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
-                if (!calc.classList.contains('js-history-open')) {
                     operationBtns.querySelector(`[data-btn='${keyName}']`).focus();
                 }
                 handleInput(keyName);
@@ -163,7 +159,6 @@ function handleInput(id) {
             break;
         case '=':
             calculationModel.selectEvaluate();
-            output.focus();
             break;
     }
 }

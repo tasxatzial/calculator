@@ -15,8 +15,8 @@ export default class KeyboardUtils {
         return keyName === ' ' || keyName === 'Spacebar';
     }
 
-    static hasPressed_Enter(keyName) {
-        return keyName === 'Enter';
+    static hasPressed_Equals(keyName) {
+        return keyName === '=';
     }
 
     static hasPressed_H(keyName) {
