@@ -211,4 +211,5 @@ function runClearHistoryBtnAnimation(el, count) {
 function endClearHistoryBtnAnimation(el) {
     resetClearHistoryBtnAnimation(el);
     calculationHistoryModel.clearHistory();
+    localStorage.removeItem('calc-history');
 }
