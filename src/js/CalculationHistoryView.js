@@ -8,7 +8,7 @@ export default class CalculationHistoryView extends View {
 
     render(data) {
         const ul = document.createElement('ul');
-        ul.classList = 'calc-history-list';
+        ul.classList = 'history-list';
         const keys = Object.keys(data).sort((a,b) => b - a);
 
         for (let key of keys) {
@@ -17,7 +17,7 @@ export default class CalculationHistoryView extends View {
         }
 
         if (ul.children.length === 0) {
-            this.calculationHistoryListContainer.innerHTML = `<p class='calc-no-history'>There's no history yet</p>`;
+            this.calculationHistoryListContainer.innerHTML = `<p class='no-history-msg'>There's no history yet</p>`;
         } else {
             this.calculationHistoryListContainer.innerHTML = '';
             this.calculationHistoryListContainer.appendChild(ul);
@@ -25,10 +25,10 @@ export default class CalculationHistoryView extends View {
     }
 
     createCalculation(key, value) {
-        return `<li class='calc-history-list-item' data-id='${key}'>
-                  <button class='calc-btn-history-calculation'>
-                    <div class='calc-history-expression'>${this.formatExpression(value.expression)}=</div>
-                    <div class='calc-history-result'>${this.formatNumber(value.result)}</div>
+        return `<li class='history-list-item' data-id='${key}'>
+                  <button class='output output-history'>
+                    <div class='expression-container expression-container-history'>${this.formatExpression(value.expression)}=</div>
+                    <div class='result result-history'>${this.formatNumber(value.result)}</div>
                   </button>
                 </li>`;
     }

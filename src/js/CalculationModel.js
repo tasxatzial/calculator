@@ -132,7 +132,6 @@ export default class CalculationModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
-        console.log(1);
         this.raiseChange("changeState");
     }
 

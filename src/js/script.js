@@ -8,28 +8,27 @@ import KeyboardUtils from './KeyboardUtils.js';
 const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calc = document.querySelector('.calc');
-const calculationBtns = calc.querySelector('.calc-btns');
-const output = calc.querySelector('.calc-output');
+const operationBtns = calc.querySelector('.calc .btns');
+const output = calc.querySelector('.calc .output-current');
+const mainOptions = calc.querySelector('.calc .main-options');
+const darkModeBtn = mainOptions.querySelector('.calc .btn-dark-theme');
+const lightModeBtn = mainOptions.querySelector('.calc .btn-light-theme');
+const toggleHistoryBtn = mainOptions.querySelector('.calc .btn-toggle-history');
 
-const optionBtns = calc.querySelector('.calc-options');
-const darkModeBtn = optionBtns.querySelector('.calc-btn-dark-theme');
-const lightModeBtn = optionBtns.querySelector('.calc-btn-light-theme');
-const toggleHistoryBtn = optionBtns.querySelector('.calc-btn-history');
-
-const calculationHistory = calc.querySelector('.calc-history');
-const calculationHistoryClearBtn = calculationHistory.querySelector('.calc-btn-history-clear');
+const calculationHistory = calc.querySelector('.calc .history');
+const calculationHistoryClearBtn = calculationHistory.querySelector('.calc .btn-history-clear');
 
 let calculationModel;
 let calculationHistoryModel;
 
 const calculationView = new CalculationView({
-    result: output.querySelector('.calc-result'),
-    expression: output.querySelector('.calc-expression'),
-    missingParens:  output.querySelector('.calc-expression-missing-parens'),
-    leftParenBtn: calculationBtns.querySelector('.calc-btn-left-paren')
+    result: output.querySelector('.calc .result-current'),
+    expression: output.querySelector('.calc .expression-current'),
+    missingParens:  output.querySelector('.calc .missing-parens'),
+    leftParenBtn: operationBtns.querySelector('.calc .btn-left-paren')
 });
 const calculationHistoryView = new CalculationHistoryView({
-    calculationHistoryListContainer: calculationHistory.querySelector('.calc-history-list-container')
+    calculationHistoryListContainer: calculationHistory.querySelector('.calc .history-list-container')
 });
 
 /* initialize */
@@ -54,7 +53,7 @@ const calculationHistoryView = new CalculationHistoryView({
 
 /* add listeners */
 (function() {
-    optionBtns.addEventListener('click', (event) => {
+    mainOptions.addEventListener('click', (event) => {
         if (!event.target.closest('button')) {
             return;
         }
@@ -71,7 +70,7 @@ const calculationHistoryView = new CalculationHistoryView({
         }
     });
 
-    calculationBtns.addEventListener('click', (event) => {
+    operationBtns.addEventListener('click', (event) => {
         if (event.target.closest('button')) {
             handleInput(event.target.dataset.btn);
         }
@@ -96,7 +95,7 @@ const calculationHistoryView = new CalculationHistoryView({
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
             if (KeyboardUtils.hasPressed_Enter(keyName)) {
-                if (calculationBtns.contains(document.activeElement)) {
+                if (operationBtns.contains(document.activeElement)) {
                     keyName = '=';
                 } else {
                     return;
@@ -104,7 +103,7 @@ const calculationHistoryView = new CalculationHistoryView({
             }
             if (OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
                 if (!calc.classList.contains('js-history-open')) {
-                    calculationBtns.querySelector(`[data-btn='${keyName}']`).focus();
+                    operationBtns.querySelector(`[data-btn='${keyName}']`).focus();
                 }
                 handleInput(keyName);
             } else if (KeyboardUtils.hasPressed_H(keyName)) {

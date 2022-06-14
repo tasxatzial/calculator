@@ -13,68 +13,68 @@
 </head>
 <body>
     <div class="calc">
-        <h2 hidden id="calc-options">calculator options.</h2>
-        <section aria-labelledby="calc-options" class="calc-options">
-            <div class="calc-themes">
-                <button aria-label="select light theme" data-btn="light-theme" class="calc-btn-option calc-btn-theme calc-btn-light-theme">
+        <h2 hidden id="main-options">calculator options.</h2>
+        <section aria-labelledby="main-options" class="main-options">
+            <div class="themes">
+                <button aria-label="select light theme" data-btn="light-theme" class="btn-option btn-theme btn-light-theme">
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <button aria-label="select dark theme" data-btn="dark-theme" class="calc-btn-option calc-btn-theme calc-btn-dark-theme js-active-theme">
+                <button aria-label="select dark theme" data-btn="dark-theme" class="btn-option btn-theme btn-dark-theme js-active-theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
-            <button aria-label="open history" aria-controls="calc-history" aria-expanded="false" data-btn="history" class="calc-btn-option calc-btn-history">
+            <button aria-label="open history" aria-controls="history" aria-expanded="false" data-btn="history" class="btn-option btn-toggle-history">
                 <i class="fa-solid fa-clock-rotate-left"></i>
             </button>
         </section>
-        <h2 hidden id="calc-display">calculator display.</h2>
-        <section aria-labelledby="calc-display" class="calc-output" tabindex="-1">
-            <div class="calc-expression-container">
-                <span class="calc-expression"></span>
+        <h2 hidden id="output-current">calculator display.</h2>
+        <section aria-labelledby="output-current" class="output output-current" tabindex="-1">
+            <div class="expression-container expression-container-current">
+                <span class="expression-current"></span>
                 <span class="cursor">_</span>
-                <span class="calc-expression-missing-parens"></span>
+                <span class="missing-parens"></span>
             </div>
-            <div class="calc-result"></div>
+            <div class="result result-current"></div>
         </section>
-        <div class="calc-input">
-            <h2 hidden id="calc-btns">calculator input buttons.</h2>
-            <section aria-labelledby="calc-btns" class="calc-btns">
-                <div class="calc-btn-row">
-                    <button aria-label="clear all" data-btn="Delete" class="calc-btn calc-btn-clear">C</button>
-                    <button aria-label="delete last input" data-btn="Backspace" class="calc-btn calc-btn-back">←</button>
-                    <button aria-label="left parenthesis" data-btn="(" class="calc-btn calc-btn-paren calc-btn-left-paren">(</button>
-                    <button aria-label="right parenthesis" data-btn=")" class="calc-btn calc-btn-paren">)</button>
+        <div class="input">
+            <h2 hidden id="btns">calculator input buttons.</h2>
+            <section aria-labelledby="btns" class="btns">
+                <div class="btn-row">
+                    <button aria-label="clear all" data-btn="Delete" class="btn btn-clear">C</button>
+                    <button aria-label="delete last input" data-btn="Backspace" class="btn btn-back">←</button>
+                    <button aria-label="left parenthesis" data-btn="(" class="btn btn-paren btn-left-paren">(</button>
+                    <button aria-label="right parenthesis" data-btn=")" class="btn btn-paren">)</button>
                 </div>
-                <div class="calc-btn-row">
-                    <button data-btn="7" class="calc-btn calc-btn-number">7</button>
-                    <button data-btn="8" class="calc-btn calc-btn-number">8</button>
-                    <button data-btn="9" class="calc-btn calc-btn-number">9</button>
-                    <button data-btn="/" class="calc-btn calc-btn-operation">÷</button>
+                <div class="btn-row">
+                    <button data-btn="7" class="btn btn-number">7</button>
+                    <button data-btn="8" class="btn btn-number">8</button>
+                    <button data-btn="9" class="btn btn-number">9</button>
+                    <button data-btn="/" class="btn btn-operator">÷</button>
                 </div>
-                <div class="calc-btn-row">
-                    <button data-btn="4" class="calc-btn calc-btn-number">4</button>
-                    <button data-btn="5" class="calc-btn calc-btn-number">5</button>
-                    <button data-btn="6" class="calc-btn calc-btn-number">6</button>
-                    <button data-btn="*" class="calc-btn calc-btn-operation">×</button>
+                <div class="btn-row">
+                    <button data-btn="4" class="btn btn-number">4</button>
+                    <button data-btn="5" class="btn btn-number">5</button>
+                    <button data-btn="6" class="btn btn-number">6</button>
+                    <button data-btn="*" class="btn btn-operator">×</button>
                 </div>
-                <div class="calc-btn-row">
-                    <button data-btn="1" class="calc-btn calc-btn-number">1</button>
-                    <button data-btn="2" class="calc-btn calc-btn-number">2</button>
-                    <button data-btn="3" class="calc-btn calc-btn-number">3</button>
-                    <button data-btn="-" class="calc-btn calc-btn-operation">−</button>
+                <div class="btn-row">
+                    <button data-btn="1" class="btn btn-number">1</button>
+                    <button data-btn="2" class="btn btn-number">2</button>
+                    <button data-btn="3" class="btn btn-number">3</button>
+                    <button data-btn="-" class="btn btn-operator">−</button>
                 </div>
-                <div class="calc-btn-row">
-                    <button data-btn="0" class="calc-btn calc-btn-number">0</button>
-                    <button data-btn="." class="calc-btn calc-btn-dot">.</button>
-                    <button data-btn="=" class="calc-btn calc-btn-equals">=</button>
-                    <button data-btn="+" class="calc-btn calc-btn-operation">+</button>
+                <div class="btn-row">
+                    <button data-btn="0" class="btn btn-number">0</button>
+                    <button data-btn="." class="btn btn-dot">.</button>
+                    <button data-btn="=" class="btn btn-equals">=</button>
+                    <button data-btn="+" class="btn btn-operator">+</button>
                 </div>
             </section>
-            <h2 hidden id="calc-history">calculator history.</h2>
-            <section aria-labelledby="calc-history" class="calc-history">
-                <div class="calc-history-list-container"></div>
-                <div class="calc-history-options">
-                    <button class="calc-btn-history-clear">Click & Hold to clear history</button>
+            <h2 hidden id="history">calculator history.</h2>
+            <section aria-labelledby="history" class="history">
+                <div class="history-list-container"></div>
+                <div class="history-options">
+                    <button class="btn-history-clear">Click & Hold to clear history</button>
                 </div>
             </section>
         </div>
