@@ -29,10 +29,6 @@ body {
     outline-offset: -2px;
 }
 
-.calc .js-active-theme.btn-theme {
-    color: var(--btn-option-clr);
-}
-
 .calc.js-calc-active .cursor {
     animation: blinking 0.5s cubic-bezier(.25,1,.25,1) infinite alternate;
 }
@@ -176,16 +172,12 @@ body {
     border: 0;
     background-color: transparent;
     font-size: var(--btn-option-fs);
-}
-
-.calc .btn-theme {
-    color: var(--btn-option-inactive-clr);
+    color: var(--btn-option-clr);
 }
 
 .calc .btn-toggle-history {
-    position: absolute;
+    order: -1;
     left: calc(var(--padding) - var(--btn-option-padding));
-    color: var(--btn-option-clr);
 }
 
 .calc .output-history { /* it's a button */
@@ -269,14 +261,10 @@ body {
     --btn-option-fs: calc(0.625 * var(--btn-fs));
     --btn-option-padding: calc(0.45 * var(--btn-option-fs));
     display: flex;
-    justify-content: center;
-    padding: 0 var(--padding);
+    justify-content: space-between;
+    padding: 0 calc(var(--padding) - var(--btn-option-padding));
     background-color: var(--options-bgclr);
     border-bottom: 2px solid var(--output-border);
-}
-
-.calc .themes {
-    display: flex;
 }
 
 .calc .btns {

@@ -11,8 +11,7 @@ const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.calc .btns');
 const output = calc.querySelector('.calc .output-current');
 const mainOptions = calc.querySelector('.calc .main-options');
-const darkModeBtn = mainOptions.querySelector('.calc .btn-dark-theme');
-const lightModeBtn = mainOptions.querySelector('.calc .btn-light-theme');
+const toggleThemeBtn = calc.querySelector('.calc .btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.calc .btn-toggle-history');
 
 const calculationHistory = calc.querySelector('.calc .history');
@@ -34,10 +33,8 @@ const calculationHistoryView = new CalculationHistoryView({
 /* initialize */
 (function() {
     const theme = localStorage.getItem('calc-theme');
-    if (theme === 'dark') {
-        changeToDarkTheme();
-    } else if (theme === 'light') {
-        changeToLightTheme();
+    if (theme === 'light') {
+        toggleTheme();
     }
 
     const history = JSON.parse(localStorage.getItem('calc-history'));
@@ -58,11 +55,8 @@ const calculationHistoryView = new CalculationHistoryView({
             return;
         }
         switch(event.target.closest('button').dataset.btn) {
-            case 'light-theme':
-                changeToLightTheme();
-                break;
-            case 'dark-theme':
-                changeToDarkTheme();
+            case 'theme':
+                toggleTheme();
                 break;
             case 'history':
                 toggleHistory();
@@ -163,20 +157,14 @@ function handleInput(id) {
     }
 }
 
-function changeToLightTheme() {
+function toggleTheme() {
     if (!calc.classList.contains('js-light-theme')) {
         calc.classList.add('js-light-theme');
-        darkModeBtn.classList.remove('js-active-theme');
-        lightModeBtn.classList.add('js-active-theme');
+        toggleThemeBtn.innerHTML = `<i class="fa-solid fa-moon">`;
         localStorage.setItem('calc-theme', 'light');
-    }
-}
-
-function changeToDarkTheme() {
-    if (calc.classList.contains('js-light-theme')) {
+    } else {
         calc.classList.remove('js-light-theme');
-        lightModeBtn.classList.remove('js-active-theme');
-        darkModeBtn.classList.add('js-active-theme');
+        toggleThemeBtn.innerHTML = `<i class="fa-solid fa-sun">`;
         localStorage.setItem('calc-theme', 'dark');
     }
 }
