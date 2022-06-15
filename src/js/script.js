@@ -2,32 +2,32 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
-import ClickAndHold from './ClickAndHold.js';
+import PressAndHold from './PressAndHold.js';
 import KeyboardUtils from './KeyboardUtils.js';
 
-const OPERATION_KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
+const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
 
 const calc = document.querySelector('.calc');
-const operationBtns = calc.querySelector('.calc .btns');
-const output = calc.querySelector('.calc .output-current');
-const mainOptions = calc.querySelector('.calc .main-options');
-const toggleThemeBtn = calc.querySelector('.calc .btn-toggle-theme');
-const toggleHistoryBtn = mainOptions.querySelector('.calc .btn-toggle-history');
+const operationBtns = calc.querySelector('.btns');
+const output = calc.querySelector('.output-current');
+const mainOptions = calc.querySelector('.main-options');
+const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
+const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 
-const calculationHistory = calc.querySelector('.calc .history');
-const calculationHistoryClearBtn = calculationHistory.querySelector('.calc .btn-history-clear');
+const calculationHistory = calc.querySelector('.history');
+const calculationHistoryClearBtn = calculationHistory.querySelector('.btn-history-clear');
 
 let calculationModel;
 let calculationHistoryModel;
 
 const calculationView = new CalculationView({
-    result: output.querySelector('.calc .result-current'),
-    expression: output.querySelector('.calc .expression-current'),
-    missingParens:  output.querySelector('.calc .missing-parens'),
-    leftParenBtn: operationBtns.querySelector('.calc .btn-left-paren')
+    result: output.querySelector('.result-current'),
+    expression: output.querySelector('.expression-current'),
+    missingParens:  output.querySelector('.missing-parens'),
+    leftParenBtn: operationBtns.querySelector('.btn-left-paren')
 });
 const calculationHistoryView = new CalculationHistoryView({
-    calculationHistoryListContainer: calculationHistory.querySelector('.calc .history-list-container')
+    calculationHistoryListContainer: calculationHistory.querySelector('.history-list-container')
 });
 
 /* initialize */
@@ -89,7 +89,7 @@ const calculationHistoryView = new CalculationHistoryView({
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
             if (!calc.classList.contains('js-history-open') &&
-                OPERATION_KEYNAMES.indexOf(keyName) !== -1) {
+                KEYNAMES.indexOf(keyName) !== -1) {
                 if (KeyboardUtils.hasPressed_Equals(keyName)) {
                     output.focus();
                 } else {
@@ -124,11 +124,11 @@ const calculationHistoryView = new CalculationHistoryView({
         }
     });
 
-    ClickAndHold.apply(calculationHistoryClearBtn, {
+    PressAndHold.apply(calculationHistoryClearBtn, {
         reset: resetClearHistoryBtnAnimation,
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
-    }, 1000); //1s
+    }, 500); //0.5s
 })();
 
 function handleInput(id) {

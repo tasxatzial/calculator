@@ -27,8 +27,8 @@ export default class CalculationHistoryView extends View {
     createCalculation(key, value) {
         return `<li class='history-list-item' data-id='${key}'>
                   <button class='output output-history'>
-                    <div class='expression-container expression-container-history'>${this.formatExpression(value.expression)}=</div>
-                    <div class='result result-history'>${this.formatNumber(value.result)}</div>
+                    <span class='expression-container expression-container-history'>${this.formatExpression(value.expression)}=</span>
+                    <span class='result result-history'>${this.formatNumber(value.result)}</span>
                   </button>
                 </li>`;
     }

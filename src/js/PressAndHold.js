@@ -1,6 +1,6 @@
 import KeyboardUtils from './KeyboardUtils.js';
 
-export default class ClickAndHold {
+export default class PressAndHold {
     constructor(element, callbacks, duration) {
         this.element = element;
         this.duration = duration;
@@ -93,6 +93,6 @@ export default class ClickAndHold {
     }
 
     static apply(element, callbacks, duration) {
-        new ClickAndHold(element, callbacks, duration);
+        new PressAndHold(element, callbacks, duration);
     }
 }

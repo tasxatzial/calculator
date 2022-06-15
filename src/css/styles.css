@@ -56,7 +56,7 @@ body {
 
     --output-bgclr: white;
     --output-clr: #2F2F2F;
-    --output-border: silver;
+    --output-border-clr: silver;
 
     --btns-bgclr: whitesmoke;
     --btns-bg: linear-gradient(whitesmoke, silver);
@@ -91,7 +91,6 @@ body {
 
 .calc .history-expression {
     font-size: calc(0.6 * var(--btn-fs));
-    letter-spacing: 1px;
 }
 
 .calc .no-history-msg {
@@ -118,7 +117,7 @@ body {
 
 @media (hover:hover) {
     .calc .btn:hover {
-        background: radial-gradient(circle, var(--btn-bgclr-active) 35%, rgba(255, 255, 255, 0) 75%);
+        background-image: radial-gradient(circle, var(--btn-bgclr-active) 35%, rgba(255, 255, 255, 0) 75%);
     }
 }
 
@@ -193,9 +192,9 @@ body {
     height: var(--btn-history-clear-height);
     padding: 0;
     background-color: var(--output-bgclr);
-    background: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), var(--output-bgclr) var(--bgcolorPos));
+    background-image: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), transparent var(--bgcolorPos));
     border: none;
-    border-top: 2px solid var(--output-border);
+    border-top: var(--border-width) solid var(--output-border-clr);
     font-size: calc(0.42 * var(--btn-history-clear-height));
     font-family: inherit;
     color: var(--btn-number-clr);
@@ -204,12 +203,9 @@ body {
 
 @media (hover:hover) {
     .calc .btn-option:hover,
-    .calc .output-history:hover {
-        background-color: var(--btn-option-clr-hover);
-    }
-
+    .calc .output-history:hover,
     .calc .btn-history-clear:hover {
-        color: var(--btn-history-clear-clr-hover);
+        background-color: var(--btn-option-clr-hover);
     }
 }
 
@@ -227,6 +223,7 @@ body {
     --btn-width: calc(1.8 * var(--btn-fs));
     --btn-padding: calc(0.25 * var(--btn-fs));
     --btn-margin: calc(0.125 * var(--btn-fs));
+    --border-width: calc(0.0625 * var(--btn-fs));
 
     --options-bgclr: #2F2F2F;
     --btn-option-inactive-clr: rgba(255, 255, 255, 0.4);
@@ -236,7 +233,7 @@ body {
 
     --output-bgclr: black;
     --output-clr: rgb(218, 218, 218);
-    --output-border: gray;
+    --output-border-clr: gray;
 
     --btns-bgclr: #2F2F2F;
     --btns-bg: linear-gradient( #2F2F2F, black);
@@ -253,7 +250,7 @@ body {
     position: relative;
     overflow: hidden;
     width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
-    border-radius: 7px;
+    border-radius: calc(0.2 * var(--btn-fs));
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
 
@@ -264,12 +261,11 @@ body {
     justify-content: space-between;
     padding: 0 calc(var(--padding) - var(--btn-option-padding));
     background-color: var(--options-bgclr);
-    border-bottom: 2px solid var(--output-border);
 }
 
 .calc .btns {
     background-color: var(--btns-bgclr);
-    background: var(--btns-bg);
+    background-image: var(--btns-bg);
     transition-delay: 0s;
 }
 
@@ -285,6 +281,9 @@ body {
 
 .calc .output-current {
     background-color: var(--output-bgclr);
+    border-width: var(--border-width) 0;
+    border-style: solid;
+    border-color: var(--output-border-clr);
 }
 
 .calc .output {
@@ -300,6 +299,7 @@ body {
 }
 
 .calc .expression-container {
+    display: block;
     margin-bottom: var(--expr-result-margin);
 }
 
@@ -309,7 +309,6 @@ body {
 
 .calc .input {
     position: relative;
-    border-top: 2px solid var(--output-border);
 }
 
 .calc .history {
@@ -343,6 +342,6 @@ body {
     list-style: none;
 }
 
-.calc .history-list-item:not(:last-child) {
-    border-bottom: 2px dashed var(--output-border);
+.calc .history-list-item {
+    border-bottom: var(--border-width) dashed var(--output-border-clr);
 }
