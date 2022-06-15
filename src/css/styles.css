@@ -180,6 +180,8 @@ body {
 }
 
 .calc .output-history { /* it's a button */
+    display: flex;
+    flex-direction: column;
     width: 100%;
     background-color: transparent;
     border: none;
@@ -188,6 +190,7 @@ body {
 
 .calc .btn-history-clear {
     --bgcolorPos: 0%;
+    display: block;
     width: 100%;
     height: var(--btn-history-clear-height);
     padding: 0;
@@ -299,7 +302,6 @@ body {
 }
 
 .calc .expression-container {
-    display: block;
     margin-bottom: var(--expr-result-margin);
 }
 
