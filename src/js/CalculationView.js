@@ -10,6 +10,9 @@ export default class CalculationView extends View {
     }
 
     getResult() {
+        if (this.result.children[1]) {
+            return this.result.children[1].textContent;
+        }
         return this.result.textContent;
     }
 
@@ -30,7 +33,7 @@ export default class CalculationView extends View {
         }
         let formattedResult = this.formatNumber(result);
         if (this.getResult() !== formattedResult) {
-            this.result.textContent = formattedResult;
+            this.result.innerHTML = `<span class='sr-only'>=</span><span>${formattedResult}</span>`;
         }
     }
 
