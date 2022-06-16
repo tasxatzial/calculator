@@ -85,17 +85,14 @@ const calculationHistoryView = new CalculationHistoryView({
         calc.classList.remove('js-calc-active');
     });
 
+    /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
             if (!calc.classList.contains('js-history-open') &&
                 KEYNAMES.indexOf(keyName) !== -1) {
-                if (KeyboardUtils.hasPressed_Equals(keyName)) {
-                    output.focus();
-                } else {
-                    operationBtns.querySelector(`[data-btn='${keyName}']`).focus();
-                }
-                handleInput(keyName);
+                  operationBtns.querySelector(`[data-btn='${keyName}']`).focus();
+                  handleInput(keyName);
             } else if (KeyboardUtils.hasPressed_H(keyName)) {
                 toggleHistoryBtn.focus();
                 toggleHistory();
