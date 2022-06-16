@@ -24,6 +24,10 @@ export default class CalculationView extends View {
     }
 
     updateResult(result) {
+        if (result === null) {
+            this.result.textContent = 'Error';
+            return;
+        }
         let formattedResult = this.formatNumber(result);
         if (this.getResult() !== formattedResult) {
             this.result.textContent = formattedResult;

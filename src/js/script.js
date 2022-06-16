@@ -113,7 +113,7 @@ const calculationHistoryView = new CalculationHistoryView({
         localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.toJSON()));
     });
 
-    calculationModel.addChangeListener("evaluate", () => {
+    calculationModel.addChangeListener("evaluateSuccess", () => {
         calculationHistoryModel.add(calculationModel.toJSON());
     });
 

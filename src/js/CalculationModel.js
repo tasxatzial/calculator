@@ -23,7 +23,7 @@ export default class CalculationModel extends Model {
     }
 
     initDefaults() {
-        this.result = null;
+        this.result = '';
         this.expression = '';
         this.leftParenCount = 0;
     }
@@ -108,8 +108,8 @@ export default class CalculationModel extends Model {
 
     toJSON() {
         let resultJSON;
-        if (!this.result) {
-            resultJSON = '';
+        if (this.result === null) {
+            resultJSON = null;
         } else {
             resultJSON = this.result.toString();
         }
@@ -186,13 +186,21 @@ export default class CalculationModel extends Model {
 
     selectEvaluate() {
         const la = this.getLastAdded(1);
-        if (this.isOperation(la) || this.expression === '' || this.leftParenCount !== 0) {
+        if (this.expression === '') {
             return;
         }
-        const postfixExpr = this.exprToPostfix();
-        this.result = this.evaluatePostfix(postfixExpr);
+        if (this.isOperation(la) || this.leftParenCount !== 0) {
+            this.result = null;
+        } else {
+            try {
+                const postfixExpr = this.exprToPostfix();
+                this.result = this.evaluatePostfix(postfixExpr);
+                this.raiseChange("evaluateSuccess");
+            } catch (e) {
+                this.result = null;
+            }
+        }
         this.raiseChange("changeState");
-        this.raiseChange("evaluate");
     }
 
     exprToTokens() {
@@ -201,8 +209,9 @@ export default class CalculationModel extends Model {
     };
 
     exprToPostfix() {
-        let postfixArr = [];
         /* use a number stack instead of a postfixArr if we want evaluation while parsing */
+        let postfixArr = [];
+
         let operatorStack = new Stack();
         let tokens = this.exprToTokens();
         for (let i = 0; i < tokens.length; i++) {
