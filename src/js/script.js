@@ -64,8 +64,14 @@ const calculationHistoryView = new CalculationHistoryView({
         }
     });
 
+    /* operate calculator using clicks (mouse, space, enter) */
     operationBtns.addEventListener('click', (event) => {
         if (event.target.closest('button')) {
+            const id = event.target.dataset.btn;
+            if (document.activeElement === event.target &&
+                id === '=') {
+                    output.focus();
+            }
             handleInput(event.target.dataset.btn);
         }
     });
