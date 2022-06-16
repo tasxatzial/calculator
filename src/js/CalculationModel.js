@@ -132,6 +132,7 @@ export default class CalculationModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
+        this.result = '';
         this.raiseChange("changeState");
     }
 
@@ -147,6 +148,7 @@ export default class CalculationModel extends Model {
         } else {
             this.expression += digit;
         }
+        this.result = '';
         this.raiseChange("changeState");
     }
 
@@ -157,6 +159,7 @@ export default class CalculationModel extends Model {
         }
         this.expression += '(';
         this.leftParenCount++;
+        this.result = '';
         this.raiseChange("changeState");
     }
 
@@ -167,6 +170,7 @@ export default class CalculationModel extends Model {
         }
         this.expression += ')';
         this.leftParenCount--;
+        this.result = '';
         this.raiseChange("changeState");
     }
 
@@ -181,6 +185,7 @@ export default class CalculationModel extends Model {
         } else {
             this.expression += operation;
         }
+        this.result = '';
         this.raiseChange("changeState");
     }
 
