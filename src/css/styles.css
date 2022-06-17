@@ -50,7 +50,7 @@ body {
     transform: translateY(0);
     opacity: 1;
     transition: visibility 0ms,
-                opacity 300ms,
+                opacity 300ms ease-in,
                 transform 300ms;
 }
 
@@ -336,7 +336,7 @@ body {
     transform: translateY(100%);
     opacity: 0;
     transition: transform 300ms,
-                opacity 300ms,
+                opacity 300ms ease-out,
                 visibility 0s 300ms;
 }
 

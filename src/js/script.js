@@ -13,6 +13,7 @@ const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const calcHistory = calc.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
+const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
 
 let calcModel;
 let calcHistoryModel;
@@ -46,7 +47,7 @@ const KEYNAMES = [];
     calcView.render(calcModel.toJSON());
 
     calcHistoryView = new CalculationHistoryView({
-        calcHistoryListContainer: calcHistory.querySelector('.history-list-container')
+        calcHistoryListContainer: calcHistoryListContainer
     });
 
     calc.classList.add('js-calc-active');
@@ -112,6 +113,12 @@ const KEYNAMES = [];
         const calculationJSON = calcHistoryModel.get(id);
         calcModel.load(calculationJSON);
         output.focus();
+    });
+
+    calcHistory.addEventListener(getTransitionEndEventName(), (e) => {
+        if (calc.classList.contains('js-history-open')) {
+            calcHistoryListContainer.focus();
+        }
     });
 
     calcModel.addChangeListener("changeState", () => {
@@ -210,4 +217,18 @@ function endClearHistoryBtnAnimation(el) {
     resetClearHistoryBtnAnimation(el);
     calcHistoryModel.clearHistory();
     localStorage.removeItem('calc-history');
+}
+
+function getTransitionEndEventName() {
+    let transitions = {
+        "transition"      : "transitionend",
+        "OTransition"     : "oTransitionEnd",
+        "MozTransition"   : "transitionend",
+        "WebkitTransition": "webkitTransitionEnd"
+    };
+    for (let transition in transitions) {
+        if (document.body.style[transition] !== undefined) {
+            return transitions[transition];
+        }
+    }
 }
