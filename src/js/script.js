@@ -5,45 +5,49 @@ import CalculationHistoryView from './CalculationHistoryView.js';
 import PressAndHold from './PressAndHold.js';
 import KeyboardUtils from './KeyboardUtils.js';
 
-const KEYNAMES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', ')', '(', 'Backspace', 'Delete'];
-
 const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.btns');
 const output = calc.querySelector('.output-current');
 const mainOptions = calc.querySelector('.main-options');
 const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
+const calcHistory = calc.querySelector('.history');
+const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 
-const calculationHistory = calc.querySelector('.history');
-const calculationHistoryClearBtn = calculationHistory.querySelector('.btn-history-clear');
-
-let calculationModel;
-let calculationHistoryModel;
-
-const calculationView = new CalculationView({
-    result: output.querySelector('.result-current'),
-    expression: output.querySelector('.expression-current'),
-    missingParens:  output.querySelector('.missing-parens'),
-    leftParenBtn: operationBtns.querySelector('.btn-left-paren')
-});
-const calculationHistoryView = new CalculationHistoryView({
-    calculationHistoryListContainer: calculationHistory.querySelector('.history-list-container')
-});
+let calcModel;
+let calcHistoryModel;
+let calcView;
+let calcHistoryView;
+const KEYNAMES = [];
 
 /* initialize */
 (function() {
+    operationBtns.querySelectorAll('button').forEach(btn => {
+        KEYNAMES.push(btn.dataset.btn);
+    });
+
     const theme = localStorage.getItem('calc-theme');
     if (theme === 'light') {
         toggleTheme();
     }
 
     const history = JSON.parse(localStorage.getItem('calc-history'));
-    calculationHistoryModel = new CalculationHistoryModel(history);
+    calcHistoryModel = new CalculationHistoryModel(history);
 
     const currCalculation = JSON.parse(localStorage.getItem('calc-current-calculation'));
-    calculationModel = new CalculationModel(currCalculation);
+    calcModel = new CalculationModel(currCalculation);
 
-    calculationView.render(calculationModel.toJSON());
+    calcView = new CalculationView({
+        result: output.querySelector('.result-current'),
+        expression: output.querySelector('.expression-current'),
+        missingParens:  output.querySelector('.missing-parens'),
+        leftParenBtn: operationBtns.querySelector('.btn-left-paren')
+    });
+    calcView.render(calcModel.toJSON());
+
+    calcHistoryView = new CalculationHistoryView({
+        calcHistoryListContainer: calcHistory.querySelector('.history-list-container')
+    });
 
     calc.classList.add('js-calc-active');
 })();
@@ -67,10 +71,10 @@ const calculationHistoryView = new CalculationHistoryView({
     /* operate calculator using clicks (mouse, space, enter) */
     operationBtns.addEventListener('click', (event) => {
         if (event.target.closest('button')) {
-            const id = event.target.dataset.btn;
+            const keyname = event.target.dataset.btn;
             if (document.activeElement === event.target &&
-                id === '=') {
-                    output.focus();
+                keyname === '=') {
+                  output.focus();
             }
             handleInput(event.target.dataset.btn);
         }
@@ -94,66 +98,76 @@ const calculationHistoryView = new CalculationHistoryView({
     /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
-            let keyName = KeyboardUtils.getKeyName(event);
+            let keyName = getKeyName(event);
             if (!calc.classList.contains('js-history-open') &&
                 KEYNAMES.indexOf(keyName) !== -1) {
                   handleInput(keyName);
-            } else if (KeyboardUtils.hasPressed_H(keyName)) {
+            } else if (KeyboardUtils.is_H(keyName)) {
                 toggleHistory();
             }
         }
     });
 
-    calculationHistoryView.bindLoadCalculation((id) => {
-        const calculationJSON = calculationHistoryModel.get(id);
-        calculationModel.load(calculationJSON);
+    calcHistoryView.bindLoadCalculation((id) => {
+        const calculationJSON = calcHistoryModel.get(id);
+        calcModel.load(calculationJSON);
     });
 
-    calculationModel.addChangeListener("changeState", () => {
-        calculationView.render(calculationModel.toJSON());
-        localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.toJSON()));
+    calcModel.addChangeListener("changeState", () => {
+        calcView.render(calcModel.toJSON());
+        localStorage.setItem('calc-current-calculation', JSON.stringify(calcModel.toJSON()));
     });
 
-    calculationModel.addChangeListener("evaluateSuccess", () => {
-        calculationHistoryModel.add(calculationModel.toJSON());
+    calcModel.addChangeListener("evaluateSuccess", () => {
+        calcHistoryModel.add(calcModel.toJSON());
     });
 
-    calculationHistoryModel.addChangeListener("changeState", () => {
-        localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.toJSON()));
+    calcHistoryModel.addChangeListener("changeState", () => {
+        localStorage.setItem('calc-history', JSON.stringify(calcHistoryModel.toJSON()));
         if (calc.classList.contains('js-history-open')) {
-            calculationHistoryView.render(calculationHistoryModel.toJSON());
+            calcHistoryView.render(calcHistoryModel.toJSON());
         }
     });
 
-    PressAndHold.apply(calculationHistoryClearBtn, {
+    PressAndHold.apply(calcHistoryClearBtn, {
         reset: resetClearHistoryBtnAnimation,
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
     }, 500); //0.5s
 })();
 
+function getKeyName(event) {
+    let pressedKey;
+    if (event.key) {
+        pressedKey = event.key;
+    } else if (event.keyCode) {
+        pressedKey = String.fromCharCode(event.keyCode);
+    }
+    return pressedKey;
+}
+
 function handleInput(id) {
     switch(id) {
         case 'Backspace':
-            calculationModel.delete();
+            calcModel.delete();
             break;
         case 'Delete':
-            calculationModel.reset();
+            calcModel.reset();
             break;
         case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
-            calculationModel.selectDigit(id);
+            calcModel.selectDigit(id);
             break;
         case '(':
-            calculationModel.selectLeftParen();
+            calcModel.selectLeftParen();
             break;
         case ')':
-            calculationModel.selectRightParen();
+            calcModel.selectRightParen();
             break;
         case '+':case '/': case '*':case '-':
-            calculationModel.selectOperation(id);
+            calcModel.selectOperation(id);
             break;
         case '=':
-            calculationModel.selectEvaluate();
+            calcModel.selectEvaluate();
             break;
     }
 }
@@ -179,7 +193,7 @@ function toggleHistory() {
         calc.classList.add('js-history-open');
         toggleHistoryBtn.setAttribute('aria-label', 'close history');
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
-        calculationHistoryView.render(calculationHistoryModel.toJSON());
+        calcHistoryView.render(calcHistoryModel.toJSON());
     }
 }
 
@@ -193,6 +207,6 @@ function runClearHistoryBtnAnimation(el, count) {
 
 function endClearHistoryBtnAnimation(el) {
     resetClearHistoryBtnAnimation(el);
-    calculationHistoryModel.clearHistory();
+    calcHistoryModel.clearHistory();
     localStorage.removeItem('calc-history');
 }

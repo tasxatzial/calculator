@@ -1,39 +1,37 @@
 import Model from './Model.js';
 
 export default class CalculationHistoryModel extends Model {
-    constructor(calculationList) {
+    constructor(calcList) {
         super();
-        if (calculationList) {
-            this.calculationList = calculationList;
-            this.id = Object.keys(calculationList).length;
+        if (calcList) {
+            this.calcList = calcList;
+            this.id = Object.keys(calcList).length;
         } else {
-            this.calculationList = {};
+            this.calcList = {};
             this.id = 0;
         }
     }
 
     add(calculation) {
-        const prevCalculation = this.calculationList[this.id - 1];
+        const lastCalculation = this.calcList[this.id - 1];
         if (this.id === 0 ||
-            prevCalculation.result !== calculation.result ||
-            prevCalculation.expression !== calculation.expression ||
-            prevCalculation.leftParenCount !== calculation.leftParenCount) {
-              this.calculationList[this.id++] = calculation;
+            lastCalculation.expression !== calculation.expression) {
+              this.calcList[this.id++] = calculation;
               this.raiseChange("changeState");
         }
     }
 
     get(id) {
-        return this.calculationList[id];
+        return this.calcList[id];
     }
 
     clearHistory() {
-        this.calculationList = {};
+        this.calcList = {};
         this.id = 0;
         this.raiseChange("changeState");
     }
 
     toJSON() {
-        return this.calculationList;
+        return this.calcList;
     }
 }

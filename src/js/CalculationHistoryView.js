@@ -3,7 +3,7 @@ import View from './View.js';
 export default class CalculationHistoryView extends View {
     constructor(elements) {
         super();
-        this.calculationHistoryListContainer = elements.calculationHistoryListContainer;
+        this.calcHistoryListContainer = elements.calcHistoryListContainer;
     }
 
     render(data) {
@@ -17,10 +17,10 @@ export default class CalculationHistoryView extends View {
         }
 
         if (ul.children.length === 0) {
-            this.calculationHistoryListContainer.innerHTML = `<p class='no-history-msg'>There's no history yet</p>`;
+            this.calcHistoryListContainer.innerHTML = `<p class='no-history-msg'>There's no history yet</p>`;
         } else {
-            this.calculationHistoryListContainer.innerHTML = '';
-            this.calculationHistoryListContainer.appendChild(ul);
+            this.calcHistoryListContainer.innerHTML = '';
+            this.calcHistoryListContainer.appendChild(ul);
         }
     }
 
@@ -35,7 +35,7 @@ export default class CalculationHistoryView extends View {
     }
 
     bindLoadCalculation(handler) {
-        this.calculationHistoryListContainer.addEventListener('click', (event) => {
+        this.calcHistoryListContainer.addEventListener('click', (event) => {
             if (event.target.closest('li')) {
                 handler(event.target.closest('li').dataset.id);
             }
