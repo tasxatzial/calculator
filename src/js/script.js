@@ -97,10 +97,8 @@ const calculationHistoryView = new CalculationHistoryView({
             let keyName = KeyboardUtils.getKeyName(event);
             if (!calc.classList.contains('js-history-open') &&
                 KEYNAMES.indexOf(keyName) !== -1) {
-                  operationBtns.querySelector(`[data-btn='${keyName}']`).focus();
                   handleInput(keyName);
             } else if (KeyboardUtils.hasPressed_H(keyName)) {
-                toggleHistoryBtn.focus();
                 toggleHistory();
             }
         }
