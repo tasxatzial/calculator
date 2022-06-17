@@ -111,6 +111,7 @@ const KEYNAMES = [];
     calcHistoryView.bindLoadCalculation((id) => {
         const calculationJSON = calcHistoryModel.get(id);
         calcModel.load(calculationJSON);
+        output.focus();
     });
 
     calcModel.addChangeListener("changeState", () => {
