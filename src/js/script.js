@@ -101,7 +101,7 @@ const KEYNAMES = [];
     /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
-            let keyName = getKeyName(event);
+            let keyName = KeyboardUtils.getKeyName(event);
             if (!calc.classList.contains('js-history-open') &&
                 KEYNAMES.indexOf(keyName) !== -1) {
                   handleInput(keyName);
@@ -144,16 +144,6 @@ const KEYNAMES = [];
         end: endClearHistoryBtnAnimation
     }, 500); //0.5s
 })();
-
-function getKeyName(event) {
-    let pressedKey;
-    if (event.key) {
-        pressedKey = event.key;
-    } else if (event.keyCode) {
-        pressedKey = String.fromCharCode(event.keyCode);
-    }
-    return pressedKey;
-}
 
 function handleInput(id) {
     switch(id) {
