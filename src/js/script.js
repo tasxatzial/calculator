@@ -15,6 +15,7 @@ const toggleHelpBtn = mainOptions.querySelector('.btn-toggle-help');
 const calcHistory = calc.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
+const historyFocus = calcHistory.querySelector('.history-focus');
 
 let calcModel;
 let calcHistoryModel;
@@ -113,12 +114,11 @@ const KEYNAMES = [];
     calcHistoryView.bindLoadCalculation((id) => {
         const calculationJSON = calcHistoryModel.get(id);
         calcModel.load(calculationJSON);
-        output.focus();
     });
 
     calcHistory.addEventListener(getTransitionEndEventName(), (e) => {
         if (calc.classList.contains('js-history-open')) {
-            calcHistoryListContainer.focus();
+            historyFocus.focus();
         }
     });
 

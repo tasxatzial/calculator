@@ -28,8 +28,9 @@
         <section aria-labelledby="output-current" class="output output-current" tabindex="-1">
             <div class="expression-container expression-container-current">
                 <span class="expression-current"></span>
-                <span class="cursor">_</span>
-                <span class="missing-parens"></span>
+                <span class="cursor" aria-hidden="true">_</span>
+                <span class="missing-parens" aria-hidden="true"></span>
+                <span class="sr-only">=</span>
             </div>
             <div class="result result-current"></div>
         </section>
@@ -69,8 +70,9 @@
             </section>
             <h2 hidden id="history">calculator history.</h2>
             <section aria-labelledby="history" class="history">
-                <div class="history-list-container" tabindex="-1"></div>
-                <button class="btn-history-clear">Click & Hold to clear history</button>
+                <div class="sr-only history-focus" tabindex="-1"></div>
+                <div class="history-list-container"></div>
+                <button class="btn-history-clear">Press & Hold to clear history</button>
             </section>
         </div>
     </div>

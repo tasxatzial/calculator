@@ -33,7 +33,7 @@ export default class CalculationView extends View {
         }
         let formattedResult = this.formatNumber(result);
         if (this.getResult() !== formattedResult) {
-            this.result.innerHTML = `<span class='sr-only'>=</span><span>${formattedResult}</span>`;
+            this.result.innerText = formattedResult;
         }
     }
 
