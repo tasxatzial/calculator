@@ -83,6 +83,12 @@ body {
     --btn-history-clear-clr-hover: blue;
 }
 
+/*-------------------- IMAGE --------------------*/
+
+.btn-option > img {
+    width: 100%;
+    height: 100%;
+}
 /*-------------------- TEXT --------------------*/
 
 .calc .cursor {
@@ -179,11 +185,12 @@ body {
 }
 
 .calc .btn-option {
+    width: calc(1.2 * var(--btn-fs));
+    height: calc(1.2 * var(--btn-fs));
     padding: var(--btn-option-padding);
+    margin: 0;
     border: 0;
     background-color: transparent;
-    font-size: var(--btn-option-fs);
-    color: var(--btn-option-clr);
 }
 
 .calc .btn-toggle-history {
@@ -270,8 +277,7 @@ body {
 }
 
 .calc .main-options {
-    --btn-option-fs: calc(0.625 * var(--btn-fs));
-    --btn-option-padding: calc(0.45 * var(--btn-option-fs));
+    --btn-option-padding: calc(0.28125 * var(--btn-fs));
     display: flex;
     justify-content: space-between;
     padding: 0 calc(var(--padding) - var(--btn-option-padding));

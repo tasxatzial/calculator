@@ -9,8 +9,9 @@ const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.btns');
 const output = calc.querySelector('.output-current');
 const mainOptions = calc.querySelector('.main-options');
-const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
+const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
+const toggleHelpBtn = mainOptions.querySelector('.btn-toggle-help');
 const calcHistory = calc.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
@@ -183,11 +184,15 @@ function handleInput(id) {
 function toggleTheme() {
     if (!calc.classList.contains('js-light-theme')) {
         calc.classList.add('js-light-theme');
-        toggleThemeBtn.innerHTML = `<i class="fa-solid fa-moon">`;
+        toggleThemeBtn.children[0].src = 'img/sun-dark.svg';
+        toggleHistoryBtn.children[0].src = 'img/history-dark.svg';
+        toggleHelpBtn.children[0].src = 'img/question-mark-dark.svg';
         localStorage.setItem('calc-theme', 'light');
     } else {
         calc.classList.remove('js-light-theme');
-        toggleThemeBtn.innerHTML = `<i class="fa-solid fa-sun">`;
+        toggleThemeBtn.children[0].src = 'img/sun-light.svg';
+        toggleHistoryBtn.children[0].src = 'img/history-light.svg';
+        toggleHelpBtn.children[0].src = 'img/question-mark-light.svg';
         localStorage.setItem('calc-theme', 'dark');
     }
 }
