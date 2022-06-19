@@ -65,6 +65,13 @@ body {
     transition: opacity 200ms;
 }
 
+.calc.js-help-open .main-options,
+.calc.js-help-open .input,
+.calc.js-help-open .output {
+    visibility: hidden;
+    transition: visibility 0s 200ms;
+}
+
 .calc.js-light-theme {
     --options-bgclr: whitesmoke;
     --btn-option-inactive-clr: rgba(0, 0, 0, 0.4);
@@ -148,7 +155,7 @@ body {
 
 .calc .btn {
     width: var(--btn-width);
-    height: var(--btn-width);;
+    height: var(--btn-width);
     padding: var(--btn-padding);
     margin: var(--btn-margin);
     background-color: transparent;
@@ -316,6 +323,11 @@ body {
     background-color: var(--options-bgclr);
 }
 
+.calc .main-options {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
 .calc .btns {
     background-color: var(--btns-bgclr);
     background-image: var(--btns-bg);
@@ -345,6 +357,8 @@ body {
     color: var(--output-clr);
     text-align: left;
     word-break: break-all;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .calc .output > * {
@@ -361,6 +375,8 @@ body {
 
 .calc .input {
     position: relative;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .calc .history {

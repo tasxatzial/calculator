@@ -15,7 +15,8 @@ const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const openHelpBtn = mainOptions.querySelector('.btn-open-help');
 const closeHelpBtn = helpOptions.querySelector('.btn-close-help');
-const calcHistory = calc.querySelector('.history');
+const input = calc.querySelector('.input');
+const calcHistory = input.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
 
