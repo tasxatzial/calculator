@@ -12,6 +12,29 @@
 </head>
 <body>
     <div class="calc">
+        <section class="help">
+            <header class="help-options">
+                <button aria-label="close help" class="btn-option btn-close-help">
+                    <img src="img/x-light.svg" alt="">
+                </button>
+            </header>
+            <div class="help-body">
+                <p><strong>Note: </strong>If you are using a screen reader, some of the keyboard shortcuts described below will not be available.</p>
+                <section aria-labelledby="help-calculating" class="help-section">
+                    <h2 id="help-calculating" class="help-section-title">Calculating</h2>
+                    <div class="help-section-content">
+                        <p>Use the corresponding keys on the keyboard to input a symbol. The 'clear all' button corresponds to the delete key. The 'left arrow' or 'backspace' button corresponds to the backspace key.</p>
+                    </div>
+                </section>
+                <section aria-labelledby="help-history" class="help-section">
+                    <h2 id="help-history" class="help-section-title">History</h2>
+                    <div class="help-section-content">
+                        <p>Use the 'h' key to open the history.</p>
+                        <p>Click on a history item to load it into the calculation display area.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
         <h2 hidden id="main-options">calculator options.</h2>
         <section aria-labelledby="main-options" class="main-options">
             <button aria-label="toggle theme" data-btn="theme" class="btn-option btn-toggle-theme">
