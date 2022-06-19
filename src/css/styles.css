@@ -132,6 +132,13 @@ body {
     text-align: center;
 }
 
+.calc .help-title {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: calc(1.25 * var(--help-section-fs));
+    text-align: center;
+}
+
 .calc .help-section-title {
     margin-top: 0;
     margin-bottom: 0.4em;
@@ -427,7 +434,7 @@ body {
 
 .calc .help-body {
     --help-section-fs: calc(0.55 * var(--btn-fs));
-    padding: var(--padding);
+    padding: 0 var(--padding) var(--padding);
     color: var(--output-clr);
 }
 
