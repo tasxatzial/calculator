@@ -50,13 +50,13 @@ body {
     transform: translateY(0);
     opacity: 1;
     transition: visibility 0ms,
-                opacity 300ms ease-in,
-                transform 300ms;
+                opacity 200ms ease-in,
+                transform 200ms;
 }
 
 .calc.js-history-open .btns {
     visibility: hidden;
-    transition: visibility 0s 300ms;
+    transition: visibility 0s 200ms;
 }
 
 .calc.js-help-open .help {
@@ -92,6 +92,7 @@ body {
 /*-------------------- IMAGE --------------------*/
 
 .btn-option > img {
+    display: block;
     width: 100%;
     height: 100%;
 }
@@ -135,7 +136,7 @@ body {
 
 .calc .help-body p {
     margin: 0;
-    font-size: calc(0.8 * var(--help-section-fs));
+    font-size: calc(0.85 * var(--help-section-fs));
     word-spacing: 0.1em;
 }
 
@@ -247,7 +248,7 @@ body {
     background-image: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), transparent var(--bgcolorPos));
     border: none;
     border-top: var(--border-width) solid var(--output-border-clr);
-    font-size: calc(0.42 * var(--btn-history-clear-height));
+    font-size: calc(0.4 * var(--btn-history-clear-height));
     font-family: inherit;
     color: var(--btn-number-clr);
     user-select: none;
@@ -372,9 +373,9 @@ body {
     height: 100%;
     transform: translateY(100%);
     opacity: 0;
-    transition: transform 300ms,
-                opacity 300ms ease-out,
-                visibility 0s 300ms;
+    transition: transform 200ms,
+                opacity 200ms ease-out,
+                visibility 0s 200ms;
 }
 
 .calc .expression-container-history {
@@ -409,11 +410,11 @@ body {
 }
 
 .calc .help-body {
+    --help-section-fs: calc(0.55 * var(--btn-fs));
     padding: var(--padding);
     color: var(--output-clr);
 }
 
 .calc .help-section {
-    --help-section-fs: calc(0.6 * var(--btn-fs));
     margin-bottom: calc(0.5 * var(--btn-fs));
 }
