@@ -59,6 +59,12 @@ body {
     transition: visibility 0s 300ms;
 }
 
+.calc.js-help-open .help {
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
 .calc.js-light-theme {
     --options-bgclr: whitesmoke;
     --btn-option-inactive-clr: rgba(0, 0, 0, 0.4);
@@ -398,6 +404,8 @@ body {
     height: 100%;
     background-color: var(--options-bgclr);
     opacity: 0;
+    transition: opacity 200ms,
+                z-index 0s 200ms;
 }
 
 .calc .help-body {

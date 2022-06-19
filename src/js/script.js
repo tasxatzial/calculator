@@ -9,9 +9,12 @@ const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.btns');
 const output = calc.querySelector('.output-current');
 const mainOptions = calc.querySelector('.main-options');
+const help = calc.querySelector('.help');
+const helpOptions = help.querySelector('.help-options');
 const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
-const toggleHelpBtn = mainOptions.querySelector('.btn-toggle-help');
+const openHelpBtn = mainOptions.querySelector('.btn-open-help');
+const closeHelpBtn = helpOptions.querySelector('.btn-close-help');
 const calcHistory = calc.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
@@ -56,6 +59,13 @@ const KEYNAMES = [];
 
 /* add listeners */
 (function() {
+    openHelpBtn.addEventListener('click', (e) => {
+        calc.classList.add('js-help-open');
+    });
+    closeHelpBtn.addEventListener('click', (e) => {
+        calc.classList.remove('js-help-open');
+    });
+
     mainOptions.addEventListener('click', (event) => {
         if (!event.target.closest('button')) {
             return;
@@ -175,13 +185,15 @@ function toggleTheme() {
         calc.classList.add('js-light-theme');
         toggleThemeBtn.children[0].src = 'img/sun-dark.svg';
         toggleHistoryBtn.children[0].src = 'img/history-dark.svg';
-        toggleHelpBtn.children[0].src = 'img/question-mark-dark.svg';
+        openHelpBtn.children[0].src = 'img/question-mark-dark.svg';
+        closeHelpBtn.children[0].src = 'img/x-dark.svg';
         localStorage.setItem('calc-theme', 'light');
     } else {
         calc.classList.remove('js-light-theme');
         toggleThemeBtn.children[0].src = 'img/sun-light.svg';
         toggleHistoryBtn.children[0].src = 'img/history-light.svg';
-        toggleHelpBtn.children[0].src = 'img/question-mark-light.svg';
+        openHelpBtn.children[0].src = 'img/question-mark-light.svg';
+        closeHelpBtn.children[0].src = 'img/x-light.svg';
         localStorage.setItem('calc-theme', 'dark');
     }
 }
