@@ -184,7 +184,7 @@ function handleInput(id) {
 function toggleTheme() {
     if (!calc.classList.contains('js-light-theme')) {
         calc.classList.add('js-light-theme');
-        toggleThemeBtn.children[0].src = 'img/sun-dark.svg';
+        toggleThemeBtn.children[0].src = 'img/moon-dark.svg';
         toggleHistoryBtn.children[0].src = 'img/history-dark.svg';
         openHelpBtn.children[0].src = 'img/question-mark-dark.svg';
         closeHelpBtn.children[0].src = 'img/x-dark.svg';
