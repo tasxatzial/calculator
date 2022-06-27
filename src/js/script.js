@@ -19,6 +19,7 @@ const input = calc.querySelector('.input');
 const calcHistory = input.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
+const skipToClearHistoryBtn = calcHistory.querySelector('.skip-to-clear-history-btn');
 
 let calcModel;
 let calcHistoryModel;
@@ -60,6 +61,11 @@ const KEYNAMES = [];
 
 /* add listeners */
 (function() {
+    skipToClearHistoryBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        calcHistoryClearBtn.focus();
+    });
+
     openHelpBtn.addEventListener('click', (e) => {
         calc.classList.add('js-help-open');
     });
@@ -111,7 +117,6 @@ const KEYNAMES = [];
     /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
-            console.log(event.key)
             let keyName = KeyboardUtils.getKeyName(event);
             if (KeyboardUtils.is_H(keyName) &&
                 !calc.classList.contains('js-help-open')) {

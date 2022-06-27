@@ -157,6 +157,22 @@ body {
     margin-bottom: 0.5em;
 }
 
+/*-------------------- LINK --------------------*/
+
+.skip-to-clear-history-btn {
+    position: absolute;
+    z-index: -1;
+    background: white;
+    color: hsl( var(--clr-dark) ); 
+    padding: .5em 1em;
+    margin-inline: auto;
+    transition: transform 250ms ease-in;
+}
+
+.skip-to-clear-history-btn:focus {
+    z-index: 1;
+}
+
 /*-------------------- BUTTON --------------------*/
 
 .calc .btn {
