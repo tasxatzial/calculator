@@ -20,6 +20,7 @@ const calcHistory = input.querySelector('.history');
 const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
 const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
 const skipToClearHistoryBtn = calcHistory.querySelector('.skip-to-clear-history-btn');
+const historyFocus = calcHistory.querySelector('.history-focus');
 
 let calcModel;
 let calcHistoryModel;
@@ -143,7 +144,7 @@ const KEYNAMES = [];
 
     calcHistory.addEventListener(getTransitionEndEventName(), (e) => {
         if (calc.classList.contains('js-history-open')) {
-            calcHistory.focus();
+            historyFocus.focus();
         } else {
             toggleHistoryBtn.focus();
         }
