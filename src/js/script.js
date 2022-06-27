@@ -111,12 +111,20 @@ const KEYNAMES = [];
     /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
         if (calc.classList.contains('js-calc-active')) {
+            console.log(event.key)
             let keyName = KeyboardUtils.getKeyName(event);
-            if (!calc.classList.contains('js-history-open') &&
-                KEYNAMES.indexOf(keyName) !== -1) {
-                  handleInput(keyName);
-            } else if (KeyboardUtils.is_H(keyName)) {
+            if (KeyboardUtils.is_H(keyName) &&
+                !calc.classList.contains('js-help-open')) {
                 toggleHistory();
+            } else if (!calc.classList.contains('js-history-open') && !calc.classList.contains('js-help-open')) {
+                if (KEYNAMES.indexOf(keyName) !== -1) {
+                    handleInput(keyName);
+                } else if (KeyboardUtils.is_Enter(keyName) &&
+                          (!calc.contains(document.activeElement) ||
+                           document.activeElement === output)) {
+                    handleInput('Enter');
+                    output.focus();
+                }
             }
         }
     });
@@ -129,6 +137,8 @@ const KEYNAMES = [];
     calcHistory.addEventListener(getTransitionEndEventName(), (e) => {
         if (calc.classList.contains('js-history-open')) {
             calcHistory.focus();
+        } else {
+            toggleHistoryBtn.focus();
         }
     });
 
@@ -175,7 +185,7 @@ function handleInput(id) {
         case '+':case '/': case '*':case '-':
             calcModel.selectOperation(id);
             break;
-        case '=':
+        case '=':case 'Enter':
             calcModel.selectEvaluate();
             break;
     }
