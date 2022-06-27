@@ -59,14 +59,13 @@ body {
 }
 
 .calc.js-help-open .help {
+    visibility: visible;
     z-index: 10;
     opacity: 1;
     transition: opacity 200ms;
 }
 
-.calc.js-help-open .main-options,
-.calc.js-help-open .input,
-.calc.js-help-open .output {
+.calc.js-help-open .non-help {
     visibility: hidden;
     transition: visibility 0s 200ms;
 }
@@ -348,15 +347,9 @@ body {
     background-color: var(--options-bgclr);
 }
 
-.calc .main-options {
-    visibility: visible;
-    transition-delay: 0s;
-}
-
 .calc .btns {
     background-color: var(--btns-bgclr);
     background-image: var(--btns-bg);
-    transition-delay: 0s;
 }
 
 .calc .btn-row {
@@ -382,8 +375,6 @@ body {
     color: var(--output-clr);
     text-align: left;
     word-break: break-all;
-    visibility: visible;
-    transition-delay: 0s;
 }
 
 .calc .output > * {
@@ -400,8 +391,6 @@ body {
 
 .calc .input {
     position: relative;
-    visibility: visible;
-    transition-delay: 0s;
 }
 
 .calc .history {
@@ -440,6 +429,7 @@ body {
 }
 
 .calc .help {
+    visibility: hidden;
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -447,6 +437,7 @@ body {
     background-color: var(--options-bgclr);
     opacity: 0;
     transition: opacity 200ms,
+                visibility 200ms,
                 z-index 0s 200ms;
 }
 
@@ -458,4 +449,9 @@ body {
 
 .calc .help-section {
     margin-bottom: calc(0.5 * var(--btn-fs));
+}
+
+.calc .non-help {
+    visibility: visible;
+    transition-delay: 0s;
 }

@@ -68,9 +68,11 @@ const KEYNAMES = [];
 
     openHelpBtn.addEventListener('click', (e) => {
         calc.classList.add('js-help-open');
+        closeHelpBtn.focus();
     });
     closeHelpBtn.addEventListener('click', (e) => {
         calc.classList.remove('js-help-open');
+        openHelpBtn.focus();
     });
 
     mainOptions.addEventListener('click', (event) => {

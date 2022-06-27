@@ -36,68 +36,70 @@
                 </section>
             </div>
         </section>
-        <h2 hidden id="main-options">calculator options.</h2>
-        <section aria-labelledby="main-options" class="main-options">
-            <button aria-label="toggle theme" data-btn="theme" class="btn-option btn-toggle-theme">
-                <img src="img/sun-light.svg" alt="">
-            </button>
-            <button aria-label="open help" data-btn="help" aria-controls="history" aria-expanded="false" class="btn-option btn-open-help">
-                <img src="img/question-mark-light.svg" alt="">
-            </button>
-            <button aria-label="open history" data-btn="history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
-                <img src="img/history-light.svg" alt="">
-            </button>
-        </section>
-        <h2 hidden id="output-current">calculator display.</h2>
-        <section aria-labelledby="output-current" class="output output-current" tabindex="-1">
-            <div class="expression-container expression-container-current">
-                <span class="expression-current"></span>
-                <span class="cursor" aria-hidden="true">_</span>
-                <span class="missing-parens" aria-hidden="true"></span>
-                <span class="sr-only">=</span>
+        <div class="non-help">
+            <h2 hidden id="main-options">calculator options.</h2>
+            <section aria-labelledby="main-options" class="main-options">
+                <button aria-label="toggle theme" data-btn="theme" class="btn-option btn-toggle-theme">
+                    <img src="img/sun-light.svg" alt="">
+                </button>
+                <button aria-label="open help" data-btn="help" aria-controls="history" aria-expanded="false" class="btn-option btn-open-help">
+                    <img src="img/question-mark-light.svg" alt="">
+                </button>
+                <button aria-label="open history" data-btn="history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
+                    <img src="img/history-light.svg" alt="">
+                </button>
+            </section>
+            <h2 hidden id="output-current">calculator display.</h2>
+            <section aria-labelledby="output-current" class="output output-current" tabindex="-1">
+                <div class="expression-container expression-container-current">
+                    <span class="expression-current"></span>
+                    <span class="cursor" aria-hidden="true">_</span>
+                    <span class="missing-parens" aria-hidden="true"></span>
+                    <span class="sr-only">=</span>
+                </div>
+                <div class="result result-current"></div>
+            </section>
+            <div class="input">
+                <h2 hidden id="btns">calculator input buttons.</h2>
+                <section aria-labelledby="btns" class="btns">
+                    <div class="btn-row">
+                        <button aria-label="clear all" data-btn="Delete" class="btn btn-clear">C</button>
+                        <button aria-label="delete last input" data-btn="Backspace" class="btn btn-back">←</button>
+                        <button aria-label="left parenthesis" data-btn="(" class="btn btn-paren btn-left-paren">(</button>
+                        <button aria-label="right parenthesis" data-btn=")" class="btn btn-paren">)</button>
+                    </div>
+                    <div class="btn-row">
+                        <button data-btn="7" class="btn btn-number">7</button>
+                        <button data-btn="8" class="btn btn-number">8</button>
+                        <button data-btn="9" class="btn btn-number">9</button>
+                        <button data-btn="/" class="btn btn-operator">÷</button>
+                    </div>
+                    <div class="btn-row">
+                        <button data-btn="4" class="btn btn-number">4</button>
+                        <button data-btn="5" class="btn btn-number">5</button>
+                        <button data-btn="6" class="btn btn-number">6</button>
+                        <button data-btn="*" class="btn btn-operator">×</button>
+                    </div>
+                    <div class="btn-row">
+                        <button data-btn="1" class="btn btn-number">1</button>
+                        <button data-btn="2" class="btn btn-number">2</button>
+                        <button data-btn="3" class="btn btn-number">3</button>
+                        <button data-btn="-" class="btn btn-operator">−</button>
+                    </div>
+                    <div class="btn-row">
+                        <button data-btn="0" class="btn btn-number">0</button>
+                        <button data-btn="." class="btn btn-dot">.</button>
+                        <button data-btn="=" class="btn btn-equals">=</button>
+                        <button data-btn="+" class="btn btn-operator">+</button>
+                    </div>
+                </section>
+                <h2 hidden id="history">calculator history.</h2>
+                <section aria-labelledby="history" class="history" tabindex="-1">
+                    <a class="skip-to-clear-history-btn" href="#btn-history-clear">Skip to clear history button</a>
+                    <div class="history-list-container"></div>
+                    <button id="btn-history-clear" class="btn-history-clear" role="application">Press & Hold for 0.5s to clear history</button>
+                </section>
             </div>
-            <div class="result result-current"></div>
-        </section>
-        <div class="input">
-            <h2 hidden id="btns">calculator input buttons.</h2>
-            <section aria-labelledby="btns" class="btns">
-                <div class="btn-row">
-                    <button aria-label="clear all" data-btn="Delete" class="btn btn-clear">C</button>
-                    <button aria-label="delete last input" data-btn="Backspace" class="btn btn-back">←</button>
-                    <button aria-label="left parenthesis" data-btn="(" class="btn btn-paren btn-left-paren">(</button>
-                    <button aria-label="right parenthesis" data-btn=")" class="btn btn-paren">)</button>
-                </div>
-                <div class="btn-row">
-                    <button data-btn="7" class="btn btn-number">7</button>
-                    <button data-btn="8" class="btn btn-number">8</button>
-                    <button data-btn="9" class="btn btn-number">9</button>
-                    <button data-btn="/" class="btn btn-operator">÷</button>
-                </div>
-                <div class="btn-row">
-                    <button data-btn="4" class="btn btn-number">4</button>
-                    <button data-btn="5" class="btn btn-number">5</button>
-                    <button data-btn="6" class="btn btn-number">6</button>
-                    <button data-btn="*" class="btn btn-operator">×</button>
-                </div>
-                <div class="btn-row">
-                    <button data-btn="1" class="btn btn-number">1</button>
-                    <button data-btn="2" class="btn btn-number">2</button>
-                    <button data-btn="3" class="btn btn-number">3</button>
-                    <button data-btn="-" class="btn btn-operator">−</button>
-                </div>
-                <div class="btn-row">
-                    <button data-btn="0" class="btn btn-number">0</button>
-                    <button data-btn="." class="btn btn-dot">.</button>
-                    <button data-btn="=" class="btn btn-equals">=</button>
-                    <button data-btn="+" class="btn btn-operator">+</button>
-                </div>
-            </section>
-            <h2 hidden id="history">calculator history.</h2>
-            <section aria-labelledby="history" class="history" tabindex="-1">
-                <a class="skip-to-clear-history-btn" href="#btn-history-clear">Skip to clear history button</a>
-                <div class="history-list-container"></div>
-                <button id="btn-history-clear" class="btn-history-clear" role="application">Press & Hold for 0.5s to clear history</button>
-            </section>
         </div>
     </div>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Element.prototype.classList"></script>
