@@ -119,6 +119,7 @@ const KEYNAMES = [];
 
     /* operate calculator using keyboard shortcuts */
     document.addEventListener('keydown', (event) => {
+        console.log(KeyboardUtils.getKeyName(event))
         if (calc.classList.contains('js-calc-active')) {
             let keyName = KeyboardUtils.getKeyName(event);
             if (KeyboardUtils.is_H(keyName) &&

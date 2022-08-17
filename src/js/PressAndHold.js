@@ -22,7 +22,7 @@ export default class PressAndHold {
 
     keydownListener(e) {
         const keyName = KeyboardUtils.getKeyName(e);
-        if (KeyboardUtils.is_Space(keyName) || KeyboardUtils.is_Enter(keyName)) {
+        if (KeyboardUtils.is_Space(keyName)) {
             e.preventDefault();
             this.element.removeEventListener('keydown', this.keydownListener);
             this.onHoldStart();
@@ -42,7 +42,7 @@ export default class PressAndHold {
         ['keyup']
         .forEach(type => this.element.addEventListener(type, (e) => {
             const keyName = KeyboardUtils.getKeyName(e);
-            if (KeyboardUtils.is_Space(keyName) || KeyboardUtils.is_Enter(keyName)) {
+            if (KeyboardUtils.is_Space(keyName)) {
                 e.preventDefault();
                 this.onHoldEnd(e.type);
             }
