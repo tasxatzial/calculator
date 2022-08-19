@@ -9,11 +9,15 @@ export default class View {
             return numberString;
         }
         const splitNumber = numberString.split('.');
-        const integerPart = splitNumber[0];
-        const decimalPart = splitNumber[1];
-        const formattedIntegerPart = parseFloat(integerPart).toLocaleString('en', {
-            maximumFractionDigits: 0
+        const formattedIntegerPart = splitNumber[0].split('').reverse()
+        .reduce((res, val, index) => {
+            if ((index + 1) % 3 === 0 && index !== splitNumber[0].length - 1) {
+                return ',' + val + res;
+            } else {
+                return val + res;
+            }
         });
+        const decimalPart = splitNumber[1];
         if (decimalPart === undefined) {
             return formattedIntegerPart;
         } else {
