@@ -6,14 +6,17 @@ See it live [here](https://tasxatzial.github.io/calculator).
 
 ## Implementation
 
-### Frontend
-
 * [MVA](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter) pattern.
 * Works on desktop, mobile.
-* Screen reader friendly.
+
+
+## Features
+
 * Dark & light theme.
 * Calculations are saved in history and can be reloaded.
-* Remembers history even if page is refreshed (localstorage).
+* History is saved locally and is available when the page reloads.
+
+The app can be used by screen readers, but they won't be able to read the arithmetic expressions properly.
 
 ## Dependencies
 
