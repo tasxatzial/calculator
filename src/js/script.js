@@ -2,8 +2,8 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
-import PressAndHold from './PressAndHold.js';
 import KeyboardUtils from './KeyboardUtils.js';
+import ClickAndHold from './ClickAndHold.js';
 
 const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.btns');
@@ -167,7 +167,7 @@ const KEYNAMES = [];
         }
     });
 
-    PressAndHold.apply(calcHistoryClearBtn, {
+    ClickAndHold.apply(calcHistoryClearBtn, {
         reset: resetClearHistoryBtnAnimation,
         run: runClearHistoryBtnAnimation,
         end: endClearHistoryBtnAnimation
@@ -240,7 +240,6 @@ function runClearHistoryBtnAnimation(el, count) {
 }
 
 function endClearHistoryBtnAnimation(el) {
-    resetClearHistoryBtnAnimation(el);
     calcHistoryModel.clearHistory();
     localStorage.removeItem('calc-history');
 }

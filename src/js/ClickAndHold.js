@@ -1,6 +1,8 @@
+/* Source: https://github.com/tasxatzial/click-and-hold-component/blob/master/src/js/ClickAndHold.js */
+
 import KeyboardUtils from './KeyboardUtils.js';
 
-export default class PressAndHold {
+export default class ClickAndHold {
     constructor(element, callbacks, duration) {
         this.element = element;
         this.duration = duration;
@@ -8,16 +10,33 @@ export default class PressAndHold {
         this.run = callbacks.run;
         this.end = callbacks.end;
 
-        this.timerID = null;
-        this.start = null;
-        this.previousTimeStamp = null;
-        this.done = true;
-
+        this.initState();
+        
         this.step = this.step.bind(this);
         this.keydownListener = this.keydownListener.bind(this);
 
         this.addHoldStartListeners();
         this.addHoldEndListeners();
+    }
+
+    static apply(element, callbacks, duration) {
+        new ClickAndHold(element, callbacks, duration);
+    }
+
+    initState() {
+        this.done = true;
+        this.timerID = null;
+        this.start = null;
+        this.previousTimeStamp = null;
+    }
+
+    addHoldStartListeners() {
+        this.element.addEventListener('keydown', this.keydownListener);
+        ['mousedown', 'touchstart']
+        .forEach(type => this.element.addEventListener(type, (e) => {
+            e.preventDefault();
+            this.onHoldStart();
+        }));
     }
 
     keydownListener(e) {
@@ -29,13 +48,9 @@ export default class PressAndHold {
         }
     }
 
-    addHoldStartListeners() {
-        this.element.addEventListener('keydown', this.keydownListener);
-        ['mousedown', 'touchstart']
-        .forEach(type => this.element.addEventListener(type, (e) => {
-            e.preventDefault();
-            this.onHoldStart();
-        }));
+    onHoldStart() {
+        this.done = false;
+        window.requestAnimationFrame(this.step);
     }
 
     addHoldEndListeners() {
@@ -54,6 +69,17 @@ export default class PressAndHold {
         }));
     }
 
+    onHoldEnd(eventType) {
+        window.cancelAnimationFrame(this.timerID);
+        this.start = null;
+        this.previousTimeStamp = null;
+        this.done = true;
+        if (eventType === 'keyup' || eventType === 'blur') {
+            this.element.addEventListener('keydown', this.keydownListener);
+        }
+        this.reset(this.element);
+    }
+
     step(timestamp) {
         if (this.start === null) {
             this.start = timestamp;
@@ -69,30 +95,12 @@ export default class PressAndHold {
           }
         
           if (this.done) {
+              this.initState();
+              this.reset(this.element);
               this.end(this.element);
           } else {
-            this.previousTimeStamp = timestamp;
-            this.timerID = window.requestAnimationFrame(this.step);
+              this.previousTimeStamp = timestamp;
+              this.timerID = window.requestAnimationFrame(this.step);
           }
-    }
-
-    onHoldStart() {
-        this.done = false;
-        requestAnimationFrame(this.step);
-    }
-
-    onHoldEnd(eventType) {
-        cancelAnimationFrame(this.timerID);
-        this.start = null;
-        this.previousTimeStamp = null;
-        this.done = true;
-        if (eventType === 'keyup' || eventType === 'blur') {
-            this.element.addEventListener('keydown', this.keydownListener);
-        }
-        this.reset(this.element);
-    }
-
-    static apply(element, callbacks, duration) {
-        new PressAndHold(element, callbacks, duration);
     }
 }
