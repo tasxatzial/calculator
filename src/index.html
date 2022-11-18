@@ -15,7 +15,10 @@
         <section class="help">
             <header class="help-options">
                 <button aria-label="close help" class="btn-option btn-close-help">
-                    <img src="img/x-light.svg" alt="">
+                    <svg class="icon" aria-hidden="true">
+                        <title>Close help</title>
+                        <use xlink:href="img/sprite.svg#x"></use>
+                    </svg>
                 </button>
             </header>
             <div class="help-body">
@@ -39,13 +42,22 @@
         <div class="non-help">
             <section aria-label="calculator options" class="main-options">
                 <button aria-label="toggle theme" data-btn="theme" class="btn-option btn-toggle-theme">
-                    <img src="img/sun-light.svg" alt="">
+                    <svg class="icon" aria-hidden="true">
+                        <title>Toggle dark/light theme</title>
+                        <use xlink:href="img/sprite.svg#sun"></use>
+                    </svg>
                 </button>
                 <button aria-label="open help" data-btn="help" aria-controls="history" aria-expanded="false" class="btn-option btn-open-help">
-                    <img src="img/question-mark-light.svg" alt="">
+                    <svg class="icon" aria-hidden="true">
+                        <title>Open help</title>
+                        <use xlink:href="img/sprite.svg#question-mark"></use>
+                    </svg>
                 </button>
                 <button aria-label="open history" data-btn="history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
-                    <img src="img/history-light.svg" alt="">
+                    <svg class="icon" aria-hidden="true">
+                        <title>Toggle history</title>
+                        <use xlink:href="img/sprite.svg#history"></use>
+                    </svg>
                 </button>
             </section>
             <section aria-label="calculator display" class="output output-current" tabindex="-1">

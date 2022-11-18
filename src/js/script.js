@@ -203,17 +203,9 @@ function handleInput(id) {
 function toggleTheme() {
     if (!calc.classList.contains('js-light-theme')) {
         calc.classList.add('js-light-theme');
-        toggleThemeBtn.children[0].src = 'img/moon-dark.svg';
-        toggleHistoryBtn.children[0].src = 'img/history-dark.svg';
-        openHelpBtn.children[0].src = 'img/question-mark-dark.svg';
-        closeHelpBtn.children[0].src = 'img/x-dark.svg';
         localStorage.setItem('calc-theme', 'light');
     } else {
         calc.classList.remove('js-light-theme');
-        toggleThemeBtn.children[0].src = 'img/sun-light.svg';
-        toggleHistoryBtn.children[0].src = 'img/history-light.svg';
-        openHelpBtn.children[0].src = 'img/question-mark-light.svg';
-        closeHelpBtn.children[0].src = 'img/x-light.svg';
         localStorage.setItem('calc-theme', 'dark');
     }
 }
