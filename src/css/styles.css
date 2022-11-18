@@ -363,7 +363,10 @@ svg {
     justify-content: center;
 }
 
-.calc .output,
+.calc .output {
+    padding: calc(0.5 * var(--padding)) var(--padding);
+}
+
 .calc .btns {
     padding: var(--padding);
 }
@@ -376,7 +379,7 @@ svg {
 }
 
 .calc .output {
-    --output-line-height: 1.4em;
+    --output-line-height: 1.25em;
     --expr-result-margin: .25em;
     color: var(--output-clr);
     text-align: left;
