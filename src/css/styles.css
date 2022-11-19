@@ -386,11 +386,12 @@ svg {
     word-break: break-all;
 }
 
-.calc .output > * {
-    min-height: var(--output-line-height);
+.calc .result {
+    min-height: calc(2 * var(--output-line-height));
 }
 
 .calc .expression-container {
+    min-height: var(--output-line-height);
     margin-bottom: var(--expr-result-margin);
 }
 

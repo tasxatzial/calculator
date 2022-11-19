@@ -4,7 +4,8 @@ import Model from './Model.js';
 export default class CalculationModel extends Model {
     constructor(props) {
         super();
-        this.Dec = Decimal.clone({precision: 32});
+        this.precision = 16;
+        this.Dec = Decimal.clone({precision: this.precision});
         this.opToFunc = {
             '+': (n1, n2) => new this.Dec(n1).add(n2),
             '-': (n1, n2) => new this.Dec(n1).minus(n2),
@@ -16,6 +17,7 @@ export default class CalculationModel extends Model {
         if (props) {
             this.result = props.result;
             this.expression = props.expression;
+            this.setPrevNumber();
             this.leftParenCount = props.leftParenCount;
         } else {
             this.initDefaults();
@@ -25,6 +27,7 @@ export default class CalculationModel extends Model {
     initDefaults() {
         this.result = '';
         this.expression = '';
+        this.PrevNumber = '';
         this.leftParenCount = 0;
     }
 
@@ -37,8 +40,18 @@ export default class CalculationModel extends Model {
         if (props) {
             this.result = props.result;
             this.expression = props.expression;
+            this.setPrevNumber();
             this.leftParenCount = props.leftParenCount;
             this.raiseChange("changeState");
+        }
+    }
+
+    setPrevNumber() {
+        this.PrevNumber = '';
+        let i = this.expression.length - 1;
+        while (i >= 0 && this.isDigit(this.expression.charAt(i))) {
+            this.PrevNumber = this.expression.charAt(i) + this.PrevNumber;
+            i--;
         }
     }
 
@@ -69,6 +82,15 @@ export default class CalculationModel extends Model {
 
     isLastNumberZero() {
         return this.getLastAdded(1) === '0' && !(this.isDigit(this.getLastAdded(2))); 
+    }
+
+    hasPrevNumberMaxPrecision() {
+        let decimalSplit = this.PrevNumber.split('.');
+        if (decimalSplit.length === 2) {
+            return decimalSplit[0].length + decimalSplit[1].length === this.precision;
+        } else {
+            return decimalSplit[0].length === this.precision;
+        }
     }
 
     getOperationArity(operation) {
@@ -132,6 +154,7 @@ export default class CalculationModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
+        this.setPrevNumber();
         this.result = '';
         this.raiseChange("changeState");
     }
@@ -139,13 +162,16 @@ export default class CalculationModel extends Model {
     selectDigit(digit) {
         const la = this.getLastAdded(1);
         if (la === ')' ||
-           (digit !== '.' && this.isLastNumberZero()) ||
-           (digit === '.' && this.hasLastNumberDot('.'))) {
-            return;
+            (digit !== '.' && this.isLastNumberZero()) ||
+            (digit === '.' && this.hasLastNumberDot('.')) ||
+            this.hasPrevNumberMaxPrecision()) {
+                return;
         }
         if (!this.isDigit(la) && digit === '.') {
             this.expression += '0.';
+            this.PrevNumber = '0.' + this.PrevNumber;
         } else {
+            this.PrevNumber += digit;
             this.expression += digit;
         }
         this.result = '';
@@ -160,6 +186,7 @@ export default class CalculationModel extends Model {
         this.expression += '(';
         this.leftParenCount++;
         this.result = '';
+        this.PrevNumber = '';
         this.raiseChange("changeState");
     }
 
@@ -171,6 +198,7 @@ export default class CalculationModel extends Model {
         this.expression += ')';
         this.leftParenCount--;
         this.result = '';
+        this.PrevNumber = '';
         this.raiseChange("changeState");
     }
 
@@ -186,6 +214,7 @@ export default class CalculationModel extends Model {
             this.expression += operation;
         }
         this.result = '';
+        this.PrevNumber = '';
         this.raiseChange("changeState");
     }
 
