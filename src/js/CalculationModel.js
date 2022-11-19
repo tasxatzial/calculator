@@ -235,9 +235,7 @@ export default class CalculationModel extends Model {
     };
 
     exprToPostfix() {
-        /* use a number stack instead of a postfixArr if we want evaluation while parsing */
         let postfixArr = [];
-
         let operatorStack = new Stack();
         let tokens = this.exprToTokens();
         for (let i = 0; i < tokens.length; i++) {
@@ -252,23 +250,17 @@ export default class CalculationModel extends Model {
                          (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
                            this.getAssociativity(tokens[i]) === 'left'))) {
                             postfixArr.push(operatorStack.pop());
-                            /* if we want evaluation while parsing: instead of pushing to the postfixArr,
-                            pop the operator stack and the appropriate operands from the number stack,
-                            do the evaluation and push the result back to the number stack. Do the same
-                            in lines marked with (1) */
                 }
                 operatorStack.push(tokens[i]);
             } else if (tokens[i] === ')') {
                 while(operatorStack.top() !== '(') {
                     postfixArr.push(operatorStack.pop());
-                    /* (1) */
                 }
                 operatorStack.pop();
             }
         }
         while (!operatorStack.isEmpty()) {
             postfixArr.push(operatorStack.pop());
-            /* (1) */
         }
         return postfixArr;
     }
