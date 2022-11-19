@@ -1,14 +1,11 @@
 export default class View {
     constructor() {}
 
-    formatNumber(numberString) {
-        if (numberString === '') {
-            return '';
+    formatNumber(str) {
+        if (!this.isNumeric(str) || str.includes('e')) {
+            return str;
         }
-        if (numberString.includes('e')) {
-            return numberString;
-        }
-        const splitNumber = numberString.split('.');
+        const splitNumber = str.split('.');
         const formattedIntegerPart = splitNumber[0].split('').reverse()
         .reduce((res, val, index) => {
             if ((index + 1) % 3 === 0 && index !== splitNumber[0].length - 1) {
@@ -35,4 +32,14 @@ export default class View {
         expr = expr.replace(/\//g, '÷').replace(/\*/g, '×').replace(/[-~]/g, '−');
         return expr;
     }
+
+    // Source: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
+    isNumeric(str) {
+        if (typeof str != "string") {
+            return false;
+        }
+        return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+               !isNaN(parseFloat(str)) && // ...and ensure strings of whitespace fail
+               isFinite(str);
+      }
 }
