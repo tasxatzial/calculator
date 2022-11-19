@@ -49,39 +49,31 @@ export default class CalculationModel extends Model {
     setPrevNumber() {
         this.PrevNumber = '';
         let i = this.expression.length - 1;
-        while (i >= 0 && this.isDigit(this.expression.charAt(i))) {
+        while (i >= 0 && this.isDigitOrDot(this.expression.charAt(i))) {
             this.PrevNumber = this.expression.charAt(i) + this.PrevNumber;
             i--;
         }
     }
 
-    isDigit(c) {
-        return !isNaN(parseFloat(c)) || c === '.';
+    isDigitOrDot(char) {
+        return !isNaN(parseFloat(char)) || char === '.';
     }
 
-    isOperation(c) {
-        return c === '/' ||
-               c === '*' ||
-               c === '+' ||
-               c === '-' ||
-               c === '~' ||
-               c === '^';
-    }
-    
-    hasLastNumberDot() {
-        for (let i = this.expression.length - 1; i >= 0; i--) {
-            if (!this.isDigit(this.expression.charAt(i))) {
-                return false;
-            }
-            if (this.expression.charAt(i) === '.') {
-                return true;
-            }
-        }
-        return false;
+    isOperation(char) {
+        return char === '/' ||
+               char === '*' ||
+               char === '+' ||
+               char === '-' ||
+               char === '~' ||
+               char === '^';
     }
 
-    isLastNumberZero() {
-        return this.getLastAdded(1) === '0' && !(this.isDigit(this.getLastAdded(2))); 
+    hasPrevNumberDot() {
+        return this.PrevNumber.split('.').length === 2;
+    }
+
+    isPrevNumberZero() {
+        return this.PrevNumber === '0';
     }
 
     hasPrevNumberMaxPrecision() {
@@ -162,12 +154,12 @@ export default class CalculationModel extends Model {
     selectDigit(digit) {
         const la = this.getLastAdded(1);
         if (la === ')' ||
-            (digit !== '.' && this.isLastNumberZero()) ||
-            (digit === '.' && this.hasLastNumberDot('.')) ||
+            (digit !== '.' && this.isPrevNumberZero()) ||
+            (digit === '.' && this.hasPrevNumberDot('.')) ||
             this.hasPrevNumberMaxPrecision()) {
                 return;
         }
-        if (!this.isDigit(la) && digit === '.') {
+        if (!this.isDigitOrDot(la) && digit === '.') {
             this.expression += '0.';
             this.PrevNumber = '0.' + this.PrevNumber;
         } else {
@@ -180,7 +172,7 @@ export default class CalculationModel extends Model {
 
     selectLeftParen() {
         const la = this.getLastAdded(1);
-        if (la === ')' || this.isDigit(la)) {
+        if (la === ')' || this.isDigitOrDot(la)) {
             return;
         }
         this.expression += '(';
@@ -208,7 +200,7 @@ export default class CalculationModel extends Model {
             ((la === '' || la === '(') && operation !== '-')) {
             return;
         }
-        if (!this.isDigit(la) && operation === '-') {
+        if (!this.isDigitOrDot(la) && operation === '-') {
             this.expression += '~';
         } else {
             this.expression += operation;
