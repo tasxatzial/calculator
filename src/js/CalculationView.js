@@ -40,7 +40,7 @@ export default class CalculationView extends View {
     updateExpression(expression) {
         let formattedExpression = this.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
-            this.expression.textContent = formattedExpression;
+            this.expression.innerHTML = formattedExpression;
         }
     }
 

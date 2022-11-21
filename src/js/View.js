@@ -29,8 +29,32 @@ export default class View {
         for (let i = 0; i < numbers.length; i++) {
             expr = expr.replace(numbers[i], formattedNumbers[i]);
         }
-        expr = expr.replace(/\//g, '÷').replace(/\*/g, '×').replace(/[-~]/g, '−');
-        return expr;
+        let finalExpr = '';
+        for (let i = 0; i < expr.length; i++) {
+            switch(expr.charAt(i)) {
+                case '/':
+                    finalExpr += '<span class="sr-only">divided by</span><span aria-hidden="true">÷</span>';
+                    break;
+                case '*':
+                    finalExpr += '<span class="sr-only">times</span><span aria-hidden="true">×</span>';
+                    break;
+                case '+':
+                    finalExpr += '<span class="sr-only">plus</span><span aria-hidden="true">+</span>';
+                    break;
+                case '-':case '~':
+                    finalExpr += '<span class="sr-only">minus</span><span aria-hidden="true">−</span>';
+                    break;
+                case '(':
+                    finalExpr += '<span class="sr-only">left parenthesis</span><span aria-hidden="true">(</span>';
+                    break;
+                case ')':
+                    finalExpr += '<span class="sr-only">right parenthesis</span><span aria-hidden="true">)</span>';
+                    break;
+                default:
+                    finalExpr += expr.charAt(i);
+            }
+        }
+        return finalExpr;
     }
 
     // Source: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
