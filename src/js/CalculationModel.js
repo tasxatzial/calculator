@@ -200,7 +200,7 @@ export default class CalculationModel extends Model {
             ((la === '' || la === '(') && operation !== '-')) {
             return;
         }
-        if (!this.isDigitOrDot(la) && operation === '-') {
+        if (!this.isDigitOrDot(la) && la !== ')' && operation === '-') {
             this.expression += '~';
         } else {
             this.expression += operation;
