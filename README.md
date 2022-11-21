@@ -10,9 +10,10 @@ See it live [here](https://tasxatzial.github.io/calculator).
 
 ## Features
 
+* Screen reader friendly.
 * Dark & light theme.
-* Calculations are saved in history and can be reloaded.
-* History is saved locally and is available when the page reloads.
+* All calculations are saved in history and can be reloaded.
+* History persists when page reloads.
 
 ## Dependencies
 
