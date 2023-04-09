@@ -102,11 +102,13 @@
                         <button data-btn="+" class="btn btn-operator">+</button>
                     </div>
                 </section>
-                <section aria-label="calculator history" class="history">
+                <section id="history" aria-label="calculator history" class="history">
                     <div class="sr_only history-focus" tabindex="-1"></div>
                     <a class="skip-to-clear-history-btn" href="#btn-history-clear">Skip to clear history button</a>
                     <div class="history-list-container"></div>
-                    <button role="application" id="btn-history-clear" class="btn-history-clear">Press & Hold for 0.5s to clear history</button>
+                    <div role="application">
+                        <button id="btn-history-clear" class="btn-history-clear">Press & Hold for 0.5s to clear history</button>
+                    </div>
                 </section>
             </div>
         </div>
