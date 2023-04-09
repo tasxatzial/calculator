@@ -362,12 +362,9 @@ svg {
     justify-content: center;
 }
 
-.calc .output {
-    padding: calc(0.5 * var(--padding)) var(--padding);
-}
-
+.calc .output,
 .calc .btns {
-    padding: var(--padding);
+    padding: calc(0.5 * var(--padding)) var(--padding);
 }
 
 .calc .output-current {
@@ -452,7 +449,7 @@ svg {
 
 .calc .help-body {
     --help-section-fs: calc(0.55 * var(--btn-fs));
-    padding: 0 var(--padding) var(--padding);
+    padding: var(--padding);
     color: var(--output-clr);
 }
 
