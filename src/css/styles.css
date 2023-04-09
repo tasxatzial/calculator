@@ -275,16 +275,15 @@ svg {
 
 .calc .btn-history-clear {
     --bgcolorPos: 0%;
-    display: block;
-    width: 100%;
     height: var(--btn-history-clear-height);
-    padding: 0;
+    padding: 0.5em;
     background-color: var(--output-bgclr);
     background-image: linear-gradient(to right, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.4) var(--bgcolorPos), transparent var(--bgcolorPos));
     border: none;
     border-top: var(--border-width) solid var(--output-border-clr);
     font-size: calc(0.4 * var(--btn-history-clear-height));
     font-family: inherit;
+    text-align: center;
     color: var(--btn-number-clr);
     user-select: none;
 }
