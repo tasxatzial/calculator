@@ -167,13 +167,29 @@ function handleInput(id) {
     }
 }
 
+function getLightThemeSVG() {
+    return `<svg class="icon" aria-hidden="true">
+                <title>Switch to dark theme</title>
+                <use xlink:href="img/sprite.svg#sun"></use>
+            </svg>`;
+}
+
+function getDarkThemeSVG() {
+    return `<svg class="icon" aria-hidden="true">
+                <title>Switch to light theme</title>
+                <use xlink:href="img/sprite.svg#moon"></use>
+            </svg>`;
+}
+
 function toggleTheme() {
-    if (!calc.classList.contains('js-light-theme')) {
-        calc.classList.add('js-light-theme');
-        localStorage.setItem('calc-theme', 'light');
-    } else {
+    if (calc.classList.contains('js-light-theme')) {
+        toggleThemeBtn.innerHTML = getDarkThemeSVG();
         calc.classList.remove('js-light-theme');
         localStorage.setItem('calc-theme', 'dark');
+    } else {
+        toggleThemeBtn.innerHTML = getLightThemeSVG();
+        calc.classList.add('js-light-theme');
+        localStorage.setItem('calc-theme', 'light');
     }
 }
 
