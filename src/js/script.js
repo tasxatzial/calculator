@@ -3,7 +3,6 @@ import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
 import KeyboardUtils from './KeyboardUtils.js';
-import ClickAndHold from './ClickAndHold.js';
 
 const calc = document.querySelector('.calc');
 const operationBtns = calc.querySelector('.btns');
@@ -167,11 +166,10 @@ const KEYNAMES = [];
         }
     });
 
-    ClickAndHold.apply(calcHistoryClearBtn, {
-        reset: resetClearHistoryBtnAnimation,
-        run: runClearHistoryBtnAnimation,
-        end: endClearHistoryBtnAnimation
-    }, 500); //0.5s
+    calcHistoryClearBtn.addEventListener('click', () => {
+        calcHistoryModel.clearHistory();
+        localStorage.removeItem('calc-history');
+    });
 })();
 
 function handleInput(id) {
@@ -221,19 +219,6 @@ function toggleHistory() {
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
         calcHistoryView.render(calcHistoryModel.toJSON());
     }
-}
-
-function resetClearHistoryBtnAnimation(el) {
-    el.style.setProperty('--bgcolorPos', '0%');
-}
-
-function runClearHistoryBtnAnimation(el, count) {
-    el.style.setProperty('--bgcolorPos', count + '%');
-}
-
-function endClearHistoryBtnAnimation(el) {
-    calcHistoryModel.clearHistory();
-    localStorage.removeItem('calc-history');
 }
 
 function getTransitionEndEventName() {
