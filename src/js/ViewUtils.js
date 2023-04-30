@@ -1,8 +1,8 @@
-export default class View {
+export default class ViewUtils {
     constructor() {}
 
-    formatNumber(str) {
-        if (!this.isNumeric(str) || str.includes('e')) {
+    static formatNumber(str) {
+        if (!ViewUtils.isNumeric(str) || str.includes('e')) {
             return str;
         }
         const splitNumber = str.split('.');
@@ -22,9 +22,9 @@ export default class View {
         }
     }
 
-    formatExpression(expression) {
+    static formatExpression(expression) {
         let numbers = expression.split(/[/*+\-)(^~]/).filter(x => x !== '');
-        let formattedNumbers = numbers.map(n => this.formatNumber(n));
+        let formattedNumbers = numbers.map(n => ViewUtils.formatNumber(n));
         let expr = expression;
         for (let i = 0; i < numbers.length; i++) {
             expr = expr.replace(numbers[i], formattedNumbers[i]);
@@ -58,7 +58,7 @@ export default class View {
     }
 
     // Source: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
-    isNumeric(str) {
+    static isNumeric(str) {
         if (typeof str != "string") {
             return false;
         }

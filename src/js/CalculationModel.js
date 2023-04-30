@@ -120,7 +120,7 @@ export default class CalculationModel extends Model {
         return this.expression.charAt(this.expression.length - i);
     }
 
-    toJSON() {
+    getCalculation() {
         let resultJSON;
         if (this.result === null) {
             resultJSON = null;
@@ -153,10 +153,7 @@ export default class CalculationModel extends Model {
 
     selectDigit(digit) {
         const la = this.getLastAdded(1);
-        if (la === ')' ||
-            (digit !== '.' && this.isPrevNumberZero()) ||
-            (digit === '.' && this.hasPrevNumberDot('.')) ||
-            this.hasPrevNumberMaxPrecision()) {
+        if (la === ')' || (digit !== '.' && this.isPrevNumberZero()) || (digit === '.' && this.hasPrevNumberDot('.')) || this.hasPrevNumberMaxPrecision()) {
                 return;
         }
         if (!this.isDigitOrDot(la) && digit === '.') {
@@ -230,8 +227,7 @@ export default class CalculationModel extends Model {
     }
 
     exprToTokens() {
-        return this.expression.split(/([/*+\-)(^~])/)
-                              .filter(x => x);
+        return this.expression.split(/([/*+\-)(^~])/).filter(x => x);
     };
 
     exprToPostfix() {

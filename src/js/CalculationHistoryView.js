@@ -1,9 +1,8 @@
-import View from './View.js';
+import ViewUtils from './ViewUtils.js';
 
-export default class CalculationHistoryView extends View {
-    constructor(elements) {
-        super();
-        this.calcHistoryListContainer = elements.calcHistoryListContainer;
+export default class CalculationHistoryView {
+    constructor() {
+        this.calcHistoryListContainer = document.querySelector('.history-list-container');
     }
 
     render(data) {
@@ -27,9 +26,9 @@ export default class CalculationHistoryView extends View {
     createCalculation(key, value) {
         return `<li class='history-list-item' data-id='${key}'>
                   <button class='output output-history'>
-                    <span class='expression-container expression-container-history'>${this.formatExpression(value.expression)}</span>
+                    <span class='expression-container expression-container-history'>${ViewUtils.formatExpression(value.expression)}</span>
                     <span class='sr-only'>=</span>
-                    <span class='result result-history'>${this.formatNumber(value.result)}</span>
+                    <span class='result result-history'>${ViewUtils.formatNumber(value.result)}</span>
                   </button>
                 </li>`;
     }

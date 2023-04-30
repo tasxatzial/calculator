@@ -1,12 +1,11 @@
-import View from './View.js';
+import ViewUtils from './ViewUtils.js';
 
-export default class CalculationView extends View {
-    constructor(elements) {
-        super();
-        this.result = elements.result;
-        this.expression = elements.expression;
-        this.missingParens = elements.missingParens;
-        this.leftParenBtn = elements.leftParenBtn;
+export default class CalculationView {
+    constructor() {
+        this.result = document.querySelector('.result-current');
+        this.expression = document.querySelector('.expression-current');
+        this.missingParens = document.querySelector('.missing-parens');
+        this.leftParenBtn = document.querySelector('.btn-left-paren');
     }
 
     getResult() {
@@ -31,14 +30,14 @@ export default class CalculationView extends View {
             this.result.textContent = 'Error';
             return;
         }
-        let formattedResult = this.formatNumber(result);
+        let formattedResult = ViewUtils.formatNumber(result);
         if (this.getResult() !== formattedResult) {
             this.result.innerText = formattedResult;
         }
     }
 
     updateExpression(expression) {
-        let formattedExpression = this.formatExpression(expression);
+        let formattedExpression = ViewUtils.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
             this.expression.innerHTML = formattedExpression;
         }

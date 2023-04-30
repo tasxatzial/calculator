@@ -5,195 +5,164 @@ import CalculationHistoryView from './CalculationHistoryView.js';
 import KeyboardUtils from './KeyboardUtils.js';
 
 const calc = document.querySelector('.calc');
-const operationBtns = calc.querySelector('.btns');
-const output = calc.querySelector('.output-current');
+const calculationBtns = calc.querySelector('.calculation-btns');
+const currentOutput = calc.querySelector('.output-current');
 const mainOptions = calc.querySelector('.main-options');
-const help = calc.querySelector('.help');
-const helpOptions = help.querySelector('.help-options');
 const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const openHelpBtn = mainOptions.querySelector('.btn-open-help');
-const closeHelpBtn = helpOptions.querySelector('.btn-close-help');
-const input = calc.querySelector('.input');
-const calcHistory = input.querySelector('.history');
-const calcHistoryClearBtn = calcHistory.querySelector('.btn-history-clear');
-const calcHistoryListContainer = calcHistory.querySelector('.history-list-container');
-const skipToClearHistoryBtn = calcHistory.querySelector('.skip-to-clear-history-btn');
-const historyFocus = calcHistory.querySelector('.history-focus');
+const closeHelpBtn = document.querySelector('.btn-close-help');
+const history = document.querySelector('.history');
+const historyClearBtn = history.querySelector('.btn-history-clear');
+const skipToClearHistoryBtn = history.querySelector('.skip-to-clear-history-btn');
+const historyStart = history.querySelector('.history-focus');
 
-let calcModel;
-let calcHistoryModel;
-let calcView;
-let calcHistoryView;
-const KEYNAMES = [];
+/* collect names of input buttons */
+const INPUT_KEYNAMES = [];
+calculationBtns.querySelectorAll('button').forEach(btn => {
+    INPUT_KEYNAMES.push(btn.dataset.btn);
+});
 
-/* initialize */
-(function() {
-    operationBtns.querySelectorAll('button').forEach(btn => {
-        KEYNAMES.push(btn.dataset.btn);
-    });
+/* set the default theme */
+if (localStorage.getItem('calc-theme') === 'light') {
+    toggleTheme();
+}
 
-    const theme = localStorage.getItem('calc-theme');
-    if (theme === 'light') {
-        toggleTheme();
+/* initialize models and views */
+const calculationHistoryModel = new CalculationHistoryModel(JSON.parse(localStorage.getItem('calc-history')));
+const calcHistoryView = new CalculationHistoryView();
+const calculationModel = new CalculationModel(JSON.parse(localStorage.getItem('calc-current-calculation')));
+const calculationView = new CalculationView();
+calculationView.render(calculationModel.getCalculation());
+
+/* ---------------------------------- listeners ---------------------------------- */
+calculationModel.addChangeListener("changeState", () => {
+    localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.getCalculation()));
+    calculationView.render(calculationModel.getCalculation());
+});
+
+calculationHistoryModel.addChangeListener("changeState", () => {
+    localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
+    if (calc.classList.contains('js-history-open')) {
+        calcHistoryView.render(calculationHistoryModel.getHistory());
     }
+});
 
-    const history = JSON.parse(localStorage.getItem('calc-history'));
-    calcHistoryModel = new CalculationHistoryModel(history);
+skipToClearHistoryBtn.addEventListener('click', () => {
+    historyClearBtn.focus();
+});
 
-    const currCalculation = JSON.parse(localStorage.getItem('calc-current-calculation'));
-    calcModel = new CalculationModel(currCalculation);
+historyClearBtn.addEventListener('click', () => {
+    calculationHistoryModel.clearHistory();
+    localStorage.removeItem('calc-history');
+});
 
-    calcView = new CalculationView({
-        result: output.querySelector('.result-current'),
-        expression: output.querySelector('.expression-current'),
-        missingParens:  output.querySelector('.missing-parens'),
-        leftParenBtn: operationBtns.querySelector('.btn-left-paren')
-    });
-    calcView.render(calcModel.toJSON());
+history.addEventListener(getTransitionEndEventName(), () => {
+    if (calc.classList.contains('js-history-open')) {
+        historyStart.focus();
+    } else {
+        toggleHistoryBtn.focus();
+    }
+});
 
-    calcHistoryView = new CalculationHistoryView({
-        calcHistoryListContainer: calcHistoryListContainer
-    });
+openHelpBtn.addEventListener('click', () => {
+    calc.classList.add('js-help-open');
+    closeHelpBtn.focus();
+});
 
-    calc.classList.add('js-calc-active');
-})();
+closeHelpBtn.addEventListener('click', () => {
+    calc.classList.remove('js-help-open');
+    openHelpBtn.focus();
+});
 
-/* add listeners */
-(function() {
-    skipToClearHistoryBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        calcHistoryClearBtn.focus();
-    });
+mainOptions.addEventListener('click', (event) => {
+    if (!event.target.closest('button')) {
+        return;
+    }
+    switch(event.target.closest('button').dataset.btn) {
+        case 'theme':
+            toggleTheme();
+            break;
+        case 'history':
+            toggleHistory();
+            break;
+    }
+});
 
-    openHelpBtn.addEventListener('click', (e) => {
-        calc.classList.add('js-help-open');
-        closeHelpBtn.focus();
-    });
-    closeHelpBtn.addEventListener('click', (e) => {
-        calc.classList.remove('js-help-open');
-        openHelpBtn.focus();
-    });
+calcHistoryView.bindLoadCalculation((id) => {
+    calculationModel.load(calculationHistoryModel.get(id));
+});
 
-    mainOptions.addEventListener('click', (event) => {
-        if (!event.target.closest('button')) {
-            return;
+calculationModel.addChangeListener("evaluateSuccess", () => {
+    calculationHistoryModel.add(calculationModel.getCalculation());
+});
+
+calculationBtns.addEventListener('click', (event) => {
+    if (event.target.closest('button')) {
+        const keyname = event.target.dataset.btn;
+        if (document.activeElement === event.target && keyname === '=') {
+              currentOutput.focus();
         }
-        switch(event.target.closest('button').dataset.btn) {
-            case 'theme':
-                toggleTheme();
-                break;
-            case 'history':
-                toggleHistory();
-                break;
-        }
-    });
+        handleInput(event.target.dataset.btn);
+    }
+});
 
-    /* operate calculator using clicks (mouse, space, enter) */
-    operationBtns.addEventListener('click', (event) => {
-        if (event.target.closest('button')) {
-            const keyname = event.target.dataset.btn;
-            if (document.activeElement === event.target &&
-                keyname === '=') {
-                  output.focus();
-            }
-            handleInput(event.target.dataset.btn);
-        }
-    });
-
-    ['mousedown', 'touchstart', 'focusin']
-    .forEach(type => {
-        document.addEventListener(type, (event) => {
-            if (calc.contains(event.target)) {
-                calc.classList.add('js-calc-active');
-            } else {
-                calc.classList.remove('js-calc-active');
-            }
-        });
-    });
-
-    window.addEventListener('blur', () => {
-        calc.classList.remove('js-calc-active');
-    });
-
-    /* operate calculator using keyboard shortcuts */
-    document.addEventListener('keydown', (event) => {
-        console.log(KeyboardUtils.getKeyName(event))
-        if (calc.classList.contains('js-calc-active')) {
-            let keyName = KeyboardUtils.getKeyName(event);
-            if (KeyboardUtils.is_H(keyName) &&
-                !calc.classList.contains('js-help-open')) {
-                toggleHistory();
-            } else if (!calc.classList.contains('js-history-open') && !calc.classList.contains('js-help-open')) {
-                if (KEYNAMES.indexOf(keyName) !== -1) {
-                    handleInput(keyName);
-                } else if (KeyboardUtils.is_Enter(keyName) &&
-                          (!calc.contains(document.activeElement) ||
-                           document.activeElement === output)) {
-                    handleInput('Enter');
-                    output.focus();
-                }
+document.addEventListener('keydown', (event) => {
+    if (calc.classList.contains('js-calc-active')) {
+        let keyName = KeyboardUtils.getKeyName(event);
+        if (KeyboardUtils.is_H(keyName) && !calc.classList.contains('js-help-open')) {
+            toggleHistory();
+        } else if (!calc.classList.contains('js-history-open') && !calc.classList.contains('js-help-open')) {
+            if (INPUT_KEYNAMES.indexOf(keyName) !== -1) {
+                handleInput(keyName);
+            } else if (KeyboardUtils.is_Enter(keyName) &&
+                       (!calc.contains(document.activeElement) || document.activeElement === currentOutput)) {
+                handleInput('Enter');
+                currentOutput.focus();
             }
         }
-    });
+    }
+});
 
-    calcHistoryView.bindLoadCalculation((id) => {
-        const calculationJSON = calcHistoryModel.get(id);
-        calcModel.load(calculationJSON);
-    });
+window.addEventListener('blur', () => {
+    calc.classList.remove('js-calc-active');
+});
 
-    calcHistory.addEventListener(getTransitionEndEventName(), (e) => {
-        if (calc.classList.contains('js-history-open')) {
-            historyFocus.focus();
+['mousedown', 'touchstart', 'focusin'].forEach(type => {
+    document.addEventListener(type, (event) => {
+        if (calc.contains(event.target)) {
+            calc.classList.add('js-calc-active');
         } else {
-            toggleHistoryBtn.focus();
+            calc.classList.remove('js-calc-active');
         }
     });
+});
 
-    calcModel.addChangeListener("changeState", () => {
-        calcView.render(calcModel.toJSON());
-        localStorage.setItem('calc-current-calculation', JSON.stringify(calcModel.toJSON()));
-    });
+calc.classList.add('js-calc-active');
 
-    calcModel.addChangeListener("evaluateSuccess", () => {
-        calcHistoryModel.add(calcModel.toJSON());
-    });
-
-    calcHistoryModel.addChangeListener("changeState", () => {
-        localStorage.setItem('calc-history', JSON.stringify(calcHistoryModel.toJSON()));
-        if (calc.classList.contains('js-history-open')) {
-            calcHistoryView.render(calcHistoryModel.toJSON());
-        }
-    });
-
-    calcHistoryClearBtn.addEventListener('click', () => {
-        calcHistoryModel.clearHistory();
-        localStorage.removeItem('calc-history');
-    });
-})();
-
+/* ------------------------ functions ------------------------ */
 function handleInput(id) {
     switch(id) {
         case 'Backspace':
-            calcModel.delete();
+            calculationModel.delete();
             break;
         case 'Delete':
-            calcModel.reset();
+            calculationModel.reset();
             break;
         case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
-            calcModel.selectDigit(id);
+            calculationModel.selectDigit(id);
             break;
         case '(':
-            calcModel.selectLeftParen();
+            calculationModel.selectLeftParen();
             break;
         case ')':
-            calcModel.selectRightParen();
+            calculationModel.selectRightParen();
             break;
         case '+':case '/': case '*':case '-':
-            calcModel.selectOperation(id);
+            calculationModel.selectOperation(id);
             break;
         case '=':case 'Enter':
-            calcModel.selectEvaluate();
+            calculationModel.selectEvaluate();
             break;
     }
 }
@@ -217,7 +186,7 @@ function toggleHistory() {
         calc.classList.add('js-history-open');
         toggleHistoryBtn.setAttribute('aria-label', 'close history');
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
-        calcHistoryView.render(calcHistoryModel.toJSON());
+        calcHistoryView.render(calculationHistoryModel.getHistory());
     }
 }
 

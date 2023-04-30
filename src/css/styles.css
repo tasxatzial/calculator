@@ -53,7 +53,7 @@ body {
                 transform 200ms;
 }
 
-.calc.js-history-open .btns {
+.calc.js-history-open .calculation-btns {
     visibility: hidden;
     transition: visibility 0s 200ms;
 }
@@ -81,8 +81,8 @@ body {
     --output-clr: #2F2F2F;
     --output-border-clr: silver;
 
-    --btns-bgclr: whitesmoke;
-    --btns-bg: linear-gradient(whitesmoke, silver);
+    --calculation-btns-bgclr: whitesmoke;
+    --calculation-btns-bg: linear-gradient(whitesmoke, silver);
 
     --btn-number-clr: #2F2F2F;
     --btn-erase-clr: rgb(200, 81, 60);
@@ -323,8 +323,8 @@ svg {
     --output-clr: rgb(218, 218, 218);
     --output-border-clr: gray;
 
-    --btns-bgclr: #2F2F2F;
-    --btns-bg: linear-gradient( #2F2F2F, black);
+    --calculation-btns-bgclr: #2F2F2F;
+    --calculation-btns-bg: linear-gradient( #2F2F2F, black);
 
     --btn-number-clr: rgb(218, 218, 218);
     --btn-erase-clr: tomato;
@@ -353,9 +353,9 @@ svg {
     background-color: var(--options-bgclr);
 }
 
-.calc .btns {
-    background-color: var(--btns-bgclr);
-    background-image: var(--btns-bg);
+.calc .calculation-btns {
+    background-color: var(--calculation-btns-bgclr);
+    background-image: var(--calculation-btns-bg);
 }
 
 .calc .btn-row {
@@ -364,7 +364,7 @@ svg {
 }
 
 .calc .output,
-.calc .btns {
+.calc .calculation-btns {
     padding: calc(0.5 * var(--padding)) var(--padding);
 }
 
