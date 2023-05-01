@@ -256,12 +256,11 @@ svg {
 }
 
 .calc .btn-toggle-history {
-    order: -1;
     left: calc(var(--padding) - var(--btn-option-padding));
 }
 
 .calc .btn-close-help {
-    margin-left: auto;
+    margin-right: auto;
 }
 
 .calc .output-history { /* it's a button */
