@@ -5,23 +5,13 @@ import CalculationHistoryView from './CalculationHistoryView.js';
 import KeyboardUtils from './KeyboardUtils.js';
 
 const calc = document.querySelector('.calc');
-const calculationBtns = calc.querySelector('.calculation-btns');
 const currentOutput = calc.querySelector('.output-current');
 const mainOptions = calc.querySelector('.main-options');
 const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const openHelpBtn = mainOptions.querySelector('.btn-open-help');
 const closeHelpBtn = document.querySelector('.btn-close-help');
-const history = document.querySelector('.history');
-const historyClearBtn = history.querySelector('.btn-history-clear');
-const skipToClearHistoryBtn = history.querySelector('.skip-to-clear-history-btn');
-const historyStart = history.querySelector('.history-focus');
-
-/* collect names of input buttons */
-const INPUT_KEYNAMES = [];
-calculationBtns.querySelectorAll('button').forEach(btn => {
-    INPUT_KEYNAMES.push(btn.dataset.btn);
-});
+const historyClearBtn = document.querySelector('.btn-history-clear');
 
 /* set the default theme */
 if (localStorage.getItem('calc-theme') === 'light') {
@@ -41,6 +31,10 @@ calculationModel.addChangeListener("changeState", () => {
     calculationView.render(calculationModel.getCalculation());
 });
 
+calculationModel.addChangeListener("evaluateSuccess", () => {
+    calculationHistoryModel.add(calculationModel.getCalculation());
+});
+
 calculationHistoryModel.addChangeListener("changeState", () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
     if (calc.classList.contains('js-history-open')) {
@@ -48,79 +42,52 @@ calculationHistoryModel.addChangeListener("changeState", () => {
     }
 });
 
-skipToClearHistoryBtn.addEventListener('click', () => {
-    historyClearBtn.focus();
-});
-
-historyClearBtn.addEventListener('click', () => {
-    calculationHistoryModel.clearHistory();
-    localStorage.removeItem('calc-history');
-});
-
-history.addEventListener(getTransitionEndEventName(), () => {
-    if (calc.classList.contains('js-history-open')) {
-        historyStart.focus();
-    } else {
-        toggleHistoryBtn.focus();
-    }
-});
-
-openHelpBtn.addEventListener('click', () => {
-    calc.classList.add('js-help-open');
-    closeHelpBtn.focus();
-});
-
-closeHelpBtn.addEventListener('click', () => {
-    calc.classList.remove('js-help-open');
-    openHelpBtn.focus();
-});
-
-mainOptions.addEventListener('click', (event) => {
-    if (!event.target.closest('button')) {
-        return;
-    }
-    switch(event.target.closest('button').dataset.btn) {
-        case 'theme':
-            toggleTheme();
-            break;
-        case 'history':
-            toggleHistory();
-            break;
-    }
-});
-
-calcHistoryView.bindLoadCalculation((id) => {
+calcHistoryView.bindLoadCalculation(id => {
     calculationModel.load(calculationHistoryModel.get(id));
 });
 
-calculationModel.addChangeListener("evaluateSuccess", () => {
-    calculationHistoryModel.add(calculationModel.getCalculation());
-});
-
-calculationBtns.addEventListener('click', (event) => {
-    if (event.target.closest('button')) {
-        const keyname = event.target.dataset.btn;
-        if (document.activeElement === event.target && keyname === '=') {
-              currentOutput.focus();
-        }
-        handleInput(event.target.dataset.btn);
+calc.addEventListener('click', (event) => {
+    const el = event.target.closest('button') || event.target.closest('a');
+    if (!el) {
+        return;
+    }
+    const targetData = el.tagName === 'BUTTON' ? el.dataset.btn : el.dataset.link;
+    switch(targetData) {
+        case 'switch-theme':
+            toggleTheme();
+            break;
+        case 'clear-history':
+            calculationHistoryModel.clearHistory();
+            localStorage.removeItem('calc-history');
+            break;
+        case 'skip-to-clear-history':
+            event.preventDefault();
+            historyClearBtn.focus();
+            break;
+        case 'toggle-history':
+            toggleHistory();
+            break;
+        case 'close-help':
+            calc.classList.remove('js-help-open');
+            openHelpBtn.focus();
+            break;
+        case 'open-help':
+            calc.classList.add('js-help-open');
+            closeHelpBtn.focus();
+            break;
+        default:
+            if (targetData === '=') {
+                currentOutput.focus();
+            }
+            handleInput(targetData);
     }
 });
 
-document.addEventListener('keydown', (event) => {
-    if (calc.classList.contains('js-calc-active')) {
-        let keyName = KeyboardUtils.getKeyName(event);
-        if (KeyboardUtils.is_H(keyName) && !calc.classList.contains('js-help-open')) {
-            toggleHistory();
-        } else if (!calc.classList.contains('js-history-open') && !calc.classList.contains('js-help-open')) {
-            if (INPUT_KEYNAMES.indexOf(keyName) !== -1) {
-                handleInput(keyName);
-            } else if (KeyboardUtils.is_Enter(keyName) &&
-                       (!calc.contains(document.activeElement) || document.activeElement === currentOutput)) {
-                handleInput('Enter');
-                currentOutput.focus();
-            }
-        }
+calc.addEventListener('keydown', (event) => {
+    const keyName = KeyboardUtils.getKeyName(event);
+    if (KeyboardUtils.is_H(keyName)) {
+        toggleHistory();
+        toggleHistoryBtn.focus();
     }
 });
 
@@ -203,19 +170,5 @@ function toggleHistory() {
         toggleHistoryBtn.setAttribute('aria-label', 'close history');
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
         calcHistoryView.render(calculationHistoryModel.getHistory());
-    }
-}
-
-function getTransitionEndEventName() {
-    let transitions = {
-        "transition"      : "transitionend",
-        "OTransition"     : "oTransitionEnd",
-        "MozTransition"   : "transitionend",
-        "WebkitTransition": "webkitTransitionEnd"
-    };
-    for (let transition in transitions) {
-        if (document.body.style[transition] !== undefined) {
-            return transitions[transition];
-        }
     }
 }

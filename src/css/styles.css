@@ -164,7 +164,7 @@ svg {
 
 /*-------------------- LINK --------------------*/
 
-.skip-to-clear-history-btn {
+.skip-to-clear-history {
     position: absolute;
     z-index: -1;
     background: white;
@@ -174,7 +174,7 @@ svg {
     transition: transform 250ms ease-in;
 }
 
-.skip-to-clear-history-btn:focus {
+.skip-to-clear-history:focus {
     z-index: 1;
 }
 

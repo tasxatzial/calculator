@@ -14,10 +14,10 @@
     <script defer src="js/script.js" type="module"></script>
 </head>
 <body>
-    <div class="calc">
+    <div class="calc" tabindex="-1">
         <section class="help">
             <header class="help-options">
-                <button aria-label="close help" class="btn-option btn-close-help">
+                <button aria-label="close help" data-btn="close-help" class="btn-option btn-close-help">
                     <svg class="icon" aria-hidden="true">
                         <title>Close help</title>
                         <use xlink:href="img/sprite.svg#x"></use>
@@ -44,19 +44,19 @@
         </section>
         <div class="non-help">
             <section aria-label="calculator options" class="main-options">
-                <button aria-label="open help" data-btn="help" aria-controls="history" aria-expanded="false" class="btn-option btn-open-help">
+                <button aria-label="open help" data-btn="open-help" aria-controls="history" aria-expanded="false" class="btn-option btn-open-help">
                     <svg class="icon" aria-hidden="true">
                         <title>Open help</title>
                         <use xlink:href="img/sprite.svg#question-mark"></use>
                     </svg>
                 </button>
-                <button aria-label="toggle theme" data-btn="theme" class="btn-option btn-toggle-theme">
+                <button aria-label="toggle theme" data-btn="switch-theme" class="btn-option btn-toggle-theme">
                     <svg class="icon" aria-hidden="true">
                         <title>Switch to light theme</title>
                         <use xlink:href="img/sprite.svg#moon"></use>
                     </svg>
                 </button>
-                <button aria-label="open history" data-btn="history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
+                <button aria-label="open history" data-btn="toggle-history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
                     <svg class="icon" aria-hidden="true">
                         <title>Toggle history</title>
                         <use xlink:href="img/sprite.svg#history"></use>
@@ -106,10 +106,9 @@
                     </div>
                 </section>
                 <section id="history" aria-label="calculator history" class="history">
-                    <div class="sr_only history-focus" tabindex="-1"></div>
-                    <a class="skip-to-clear-history-btn" href="#btn-history-clear">Skip to clear history button</a>
+                    <a href="#btn-history-clear" data-link="skip-to-clear-history" class="skip-to-clear-history">Skip to clear history button</a>
                     <div class="history-list-container"></div>
-                    <button id="btn-history-clear" class="btn-history-clear">Clear history</div>
+                    <button id="btn-history-clear" data-btn="clear-history" class="btn-history-clear">Clear history</div>
                 </section>
             </div>
         </div>
