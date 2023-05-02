@@ -8,8 +8,8 @@ export default class Stack {
     }
 
     top() {
-        if (this.stack.length === 0) {
-            return null;
+        if (this.isEmpty()) {
+            throw new Error('stack is empty');
         }
         return this.stack[this.stack.length - 1];
     }
