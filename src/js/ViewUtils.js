@@ -5,20 +5,24 @@ export default class ViewUtils {
         if (!ViewUtils.isNumeric(str) || str.includes('e')) {
             return str;
         }
-        const splitNumber = str.split('.');
-        const formattedIntegerPart = splitNumber[0].split('').reverse()
-        .reduce((res, val, index) => {
-            if ((index + 1) % 3 === 0 && index !== splitNumber[0].length - 1) {
-                return ',' + val + res;
-            } else {
-                return val + res;
-            }
-        });
-        const decimalPart = splitNumber[1];
-        if (decimalPart === undefined) {
-            return formattedIntegerPart;
+        const [wholePart, fractionalPart] = str.split('.');
+        const isNegative = wholePart[0] === '-';
+        const positiveNumber = isNegative ? wholePart.substring(1) : wholePart;
+        let formattedIntegerPart = positiveNumber.split('').reverse()
+            .reduce((res, val, index) => {
+                if ((index + 1) % 3 === 0 && index !== positiveNumber.length - 1) {
+                    return ',' + val + res;
+                } else {
+                    return val + res;
+                }
+            });
+        if (isNegative) {
+            formattedIntegerPart = '-' + formattedIntegerPart;
+        }
+        if (fractionalPart) {
+            return formattedIntegerPart + '.' + fractionalPart;
         } else {
-            return formattedIntegerPart + '.' + decimalPart;
+            return formattedIntegerPart;
         }
     }
 
