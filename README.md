@@ -1,19 +1,17 @@
 # Calculator
 
-A very simple calculator.
-
-See it live [here](https://tasxatzial.github.io/calculator).
+A simple calculator that supports the 4 basic operations on decimal numbers and grouping of terms using parentheses.
 
 ## Implementation
 
-* [MVA](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter) pattern.
+* [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern.
+* Screen reader friendly.
 
 ## Features
 
-* Screen reader friendly.
 * Dark & light theme.
-* All calculations are saved in history and can be reloaded.
-* History persists when page reloads.
+* Calculations are saved in history and can be reloaded.
+* History persists when the page reloads.
 
 ## Dependencies
 
@@ -22,7 +20,29 @@ See it live [here](https://tasxatzial.github.io/calculator).
 
 ## Run locally
 
-Download the 'src' folder and setup a local web server to serve its contents.
+Install the required dependencies:
+
+```bash
+npm install
+```
+
+Run the development version:
+
+```bash
+npm run dev
+```
+
+Build the project:
+
+```bash
+npm run build
+```
+
+Build & serve the production version:
+
+```bash
+npm run serve
+```
 
 ## Screenshots
 
