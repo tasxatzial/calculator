@@ -12,6 +12,7 @@ const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const openHelpBtn = mainOptions.querySelector('.btn-open-help');
 const closeHelpBtn = document.querySelector('.btn-close-help');
 const historyClearBtn = document.querySelector('.btn-history-clear');
+const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 
 /* set the default theme */
 if (localStorage.getItem('calc-theme') === 'light') {
@@ -137,14 +138,14 @@ function handleInput(id) {
 function getLightThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
                 <title>Switch to dark theme</title>
-                <use xlink:href="img/sprite.svg#sun"></use>
+                <use xlink:href=${spritePath}#sun></use>
             </svg>`;
 }
 
 function getDarkThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
                 <title>Switch to light theme</title>
-                <use xlink:href="img/sprite.svg#moon"></use>
+                <use xlink:href=${spritePath}#moon></use>
             </svg>`;
 }
 
