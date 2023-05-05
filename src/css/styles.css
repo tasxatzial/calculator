@@ -1,5 +1,7 @@
 body {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
@@ -160,6 +162,11 @@ svg {
 
 .calc .help-body p:not(:last-child) {
     margin-bottom: 0.5em;
+}
+
+.github-text {
+    margin-top: 2em;
+    font-size: 1.1rem;
 }
 
 /*-------------------- LINK --------------------*/
