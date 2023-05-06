@@ -1,8 +1,8 @@
 import ViewUtils from './ViewUtils.js';
 
 export default class CalculationHistoryView {
-    constructor() {
-        this.calcHistoryListContainer = document.querySelector('.history-list-container');
+    constructor(calcElement) {
+        this.calcHistoryListContainer = calcElement.querySelector('.history-list-container');
     }
 
     render(data) {

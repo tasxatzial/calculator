@@ -1,11 +1,11 @@
 import ViewUtils from './ViewUtils.js';
 
 export default class CalculationView {
-    constructor() {
-        this.result = document.querySelector('.result-current');
-        this.expression = document.querySelector('.expression-current');
-        this.missingParens = document.querySelector('.missing-parens');
-        this.leftParenBtn = document.querySelector('.btn-left-paren');
+    constructor(calcElement) {
+        this.result = calcElement.querySelector('.result-current');
+        this.expression = calcElement.querySelector('.expression-current');
+        this.missingParens = calcElement.querySelector('.missing-parens');
+        this.leftParenBtn = calcElement.querySelector('.btn-left-paren');
     }
 
     getResult() {

@@ -6,13 +6,12 @@ import KeyboardUtils from './KeyboardUtils.js';
 
 const calc = document.querySelector('.calc');
 const currentOutput = calc.querySelector('.output-current');
-const mainOptions = calc.querySelector('.main-options');
-const toggleThemeBtn = mainOptions.querySelector('.btn-toggle-theme');
-const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
-const openHelpBtn = mainOptions.querySelector('.btn-open-help');
-const closeHelpBtn = document.querySelector('.btn-close-help');
-const historyClearBtn = document.querySelector('.btn-history-clear');
-const historyListContainer = document.querySelector('.history-list-container');
+const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
+const toggleHistoryBtn = calc.querySelector('.btn-toggle-history');
+const openHelpBtn = calc.querySelector('.btn-open-help');
+const closeHelpBtn = calc.querySelector('.btn-close-help');
+const historyClearBtn = calc.querySelector('.btn-history-clear');
+const historyListContainer = calc.querySelector('.history-list-container');
 const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 
 /* set the default theme */
@@ -22,9 +21,9 @@ if (localStorage.getItem('calc-theme') === 'light') {
 
 /* initialize models and views */
 const calculationHistoryModel = new CalculationHistoryModel(JSON.parse(localStorage.getItem('calc-history')));
-const calcHistoryView = new CalculationHistoryView();
+const calcHistoryView = new CalculationHistoryView(calc);
 const calculationModel = new CalculationModel(JSON.parse(localStorage.getItem('calc-current-calculation')));
-const calculationView = new CalculationView();
+const calculationView = new CalculationView(calc);
 calculationView.render(calculationModel.getCalculation());
 
 /* ---------------------------------- listeners ---------------------------------- */
