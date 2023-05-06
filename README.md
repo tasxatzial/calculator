@@ -4,7 +4,7 @@ A simple calculator that supports the 4 basic operations on decimal numbers and 
 
 ## Implementation
 
-* [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern.
+* Variation of the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern.
 * Screen reader friendly.
 
 ## Features
