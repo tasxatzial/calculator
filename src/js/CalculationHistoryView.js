@@ -32,12 +32,4 @@ export default class CalculationHistoryView {
                   </button>
                 </li>`;
     }
-
-    bindLoadCalculation(handler) {
-        this.calcHistoryListContainer.addEventListener('click', (event) => {
-            if (event.target.closest('li')) {
-                handler(event.target.closest('li').dataset.id);
-            }
-        });
-    }
 }

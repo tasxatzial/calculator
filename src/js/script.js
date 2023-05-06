@@ -12,6 +12,7 @@ const toggleHistoryBtn = mainOptions.querySelector('.btn-toggle-history');
 const openHelpBtn = mainOptions.querySelector('.btn-open-help');
 const closeHelpBtn = document.querySelector('.btn-close-help');
 const historyClearBtn = document.querySelector('.btn-history-clear');
+const historyListContainer = document.querySelector('.history-list-container');
 const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 
 /* set the default theme */
@@ -43,8 +44,11 @@ calculationHistoryModel.addChangeListener("changeState", () => {
     }
 });
 
-calcHistoryView.bindLoadCalculation(id => {
-    calculationModel.load(calculationHistoryModel.get(id));
+historyListContainer.addEventListener('click', (event) => {
+    const el = event.target.closest('li');
+    if (el) {
+        calculationModel.load(calculationHistoryModel.get(el.dataset.id));
+    }
 });
 
 calc.addEventListener('click', (event) => {
