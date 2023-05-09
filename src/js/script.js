@@ -1,3 +1,7 @@
+/*!
+ * Calc
+ */
+
 import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
