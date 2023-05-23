@@ -19,7 +19,7 @@ export default class ViewUtils {
         if (isNegative) {
             formattedIntegerPart = '-' + formattedIntegerPart;
         }
-        if (fractionalPart) {
+        if (fractionalPart !== undefined) {
             return formattedIntegerPart + '.' + fractionalPart;
         } else {
             return formattedIntegerPart;
