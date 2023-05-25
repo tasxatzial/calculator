@@ -1,7 +1,3 @@
-/*!
- * Calc
- */
-
 import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
@@ -113,7 +109,7 @@ window.addEventListener('blur', () => {
     });
 });
 
-calc.classList.add('js-calc-active');
+calc.focus();
 
 /* ------------------------ functions ------------------------ */
 function handleInput(id) {
