@@ -6,6 +6,7 @@ export default class CalculationView {
         this.expression = calcElement.querySelector('.expression-current');
         this.missingParens = calcElement.querySelector('.missing-parens');
         this.leftParenBtn = calcElement.querySelector('.btn-left-paren');
+        this.equalsSign = calcElement.querySelector('.expression-current-equals-sign');
     }
 
     getResult() {
@@ -20,9 +21,9 @@ export default class CalculationView {
     }
 
     render(data) {
+        this.updateExpression(data.expression);
+        this.updateParensCount(data.leftParenCount);
         this.updateResult(data.result);
-        this.updateExpression(data.expression)
-        this.updateParensCount(data.leftParenCount); 
     }
 
     updateResult(result) {
@@ -33,6 +34,11 @@ export default class CalculationView {
         let formattedResult = ViewUtils.formatNumber(result);
         if (this.getResult() !== formattedResult) {
             this.result.innerText = formattedResult;
+        }
+        if (result === '') {
+            this.equalsSign.setAttribute('aria-hidden', true);
+        } else {
+            this.equalsSign.removeAttribute('aria-hidden');
         }
     }
 
