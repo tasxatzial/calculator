@@ -11,7 +11,7 @@ export default class Model {
     }
 
     raiseChange(name) {
-        var listeners = this[name];
+        const listeners = this[name];
         if (listeners) {
             listeners.forEach(listener => listener());
         }

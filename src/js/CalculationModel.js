@@ -7,7 +7,7 @@ export default class CalculationModel extends Model {
         super();
         this.precision = 16;
         this.Dec = Decimal.clone({precision: this.precision});
-        this.opToFunc = {
+        this.opToFn = {
             '+': (n1, n2) => new this.Dec(n1).add(n2),
             '-': (n1, n2) => new this.Dec(n1).minus(n2),
             '*': (n1, n2) => new this.Dec(n1).times(n2),
@@ -28,7 +28,7 @@ export default class CalculationModel extends Model {
     initDefaults() {
         this.result = '';
         this.expression = '';
-        this.PrevNumber = '';
+        this.prevNumber = '';
         this.leftParenCount = 0;
     }
 
@@ -48,10 +48,10 @@ export default class CalculationModel extends Model {
     }
 
     setPrevNumber() {
-        this.PrevNumber = '';
+        this.prevNumber = '';
         let i = this.expression.length - 1;
         while (i >= 0 && this.isDigitOrDot(this.expression.charAt(i))) {
-            this.PrevNumber = this.expression.charAt(i) + this.PrevNumber;
+            this.prevNumber = this.expression.charAt(i) + this.prevNumber;
             i--;
         }
     }
@@ -70,15 +70,15 @@ export default class CalculationModel extends Model {
     }
 
     hasPrevNumberDot() {
-        return this.PrevNumber.split('.').length === 2;
+        return this.prevNumber.split('.').length === 2;
     }
 
     isPrevNumberZero() {
-        return this.PrevNumber === '0';
+        return this.prevNumber === '0';
     }
 
     hasPrevNumberMaxPrecision() {
-        let decimalSplit = this.PrevNumber.split('.');
+        const decimalSplit = this.prevNumber.split('.');
         if (decimalSplit.length === 2) {
             return decimalSplit[0].length + decimalSplit[1].length === this.precision;
         } else {
@@ -122,14 +122,9 @@ export default class CalculationModel extends Model {
     }
 
     getCalculation() {
-        let resultJSON;
-        if (this.result === null) {
-            resultJSON = null;
-        } else {
-            resultJSON = this.result.toString();
-        }
+        const result = (this.result === null) ? null : this.result.toString();
         return {
-            result: resultJSON,
+            result: result,
             expression: this.expression,
             leftParenCount: this.leftParenCount
         };
@@ -159,9 +154,9 @@ export default class CalculationModel extends Model {
         }
         if (!this.isDigitOrDot(la) && digit === '.') {
             this.expression += '0.';
-            this.PrevNumber = '0.' + this.PrevNumber;
+            this.prevNumber = '0.' + this.prevNumber;
         } else {
-            this.PrevNumber += digit;
+            this.prevNumber += digit;
             this.expression += digit;
         }
         this.result = '';
@@ -176,7 +171,7 @@ export default class CalculationModel extends Model {
         this.expression += '(';
         this.leftParenCount++;
         this.result = '';
-        this.PrevNumber = '';
+        this.prevNumber = '';
         this.raiseChange("changeState");
     }
 
@@ -188,7 +183,7 @@ export default class CalculationModel extends Model {
         this.expression += ')';
         this.leftParenCount--;
         this.result = '';
-        this.PrevNumber = '';
+        this.prevNumber = '';
         this.raiseChange("changeState");
     }
 
@@ -204,7 +199,7 @@ export default class CalculationModel extends Model {
             this.expression += operation;
         }
         this.result = '';
-        this.PrevNumber = '';
+        this.prevNumber = '';
         this.raiseChange("changeState");
     }
 
@@ -227,25 +222,19 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
-    exprToTokens() {
-        return this.expression.split(/([/*+\-)(^~])/).filter(x => x);
-    };
-
     exprToPostfix() {
-        let postfixArr = [];
-        let operatorStack = new Stack();
-        let tokens = this.exprToTokens();
+        const postfixArr = [];
+        const operatorStack = new Stack();
+        const tokens = this.expression.split(/([/*+\-)(^~])/).filter(x => x);
         for (let i = 0; i < tokens.length; i++) {
             if (!isNaN(tokens[i])) {
                 postfixArr.push(tokens[i]);
             } else if (tokens[i] === '(') {
                 operatorStack.push(tokens[i]);
             } else if (this.isOperation(tokens[i])) {
-                while (!operatorStack.isEmpty() &&
-                       operatorStack.top() !== '(' &&
+                while (!operatorStack.isEmpty() && operatorStack.top() !== '(' &&
                        (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) ||
-                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) &&
-                           this.getAssociativity(tokens[i]) === 'left'))) {
+                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) && this.getAssociativity(tokens[i]) === 'left'))) {
                             postfixArr.push(operatorStack.pop());
                 }
                 operatorStack.push(tokens[i]);
@@ -264,7 +253,7 @@ export default class CalculationModel extends Model {
 
 
     evaluatePostfix(postfixArr) {
-        let evalStack = new Stack();
+        const evalStack = new Stack();
         for (let i = 0; i < postfixArr.length; i++) {
             if (!isNaN(postfixArr[i])) {
                 evalStack.push(postfixArr[i]);
@@ -273,9 +262,9 @@ export default class CalculationModel extends Model {
                 const n1 = evalStack.pop();
                 if (this.getOperationArity(op) === 2) {
                     const n2 = evalStack.pop();
-                    evalStack.push(this.opToFunc[op](n2, n1));
+                    evalStack.push(this.opToFn[op](n2, n1));
                 } else if (this.getOperationArity(op) === 1) {
-                    evalStack.push(this.opToFunc[op](n1));
+                    evalStack.push(this.opToFn[op](n1));
                 }
             }
         }

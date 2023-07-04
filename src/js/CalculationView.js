@@ -31,7 +31,7 @@ export default class CalculationView {
             this.result.textContent = 'Error';
             return;
         }
-        let formattedResult = ViewUtils.formatNumber(result);
+        const formattedResult = ViewUtils.formatNumber(result);
         if (this.getResult() !== formattedResult) {
             this.result.innerText = formattedResult;
         }
@@ -43,7 +43,7 @@ export default class CalculationView {
     }
 
     updateExpression(expression) {
-        let formattedExpression = ViewUtils.formatExpression(expression);
+        const formattedExpression = ViewUtils.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
             this.expression.innerHTML = formattedExpression;
         }
