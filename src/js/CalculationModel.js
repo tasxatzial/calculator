@@ -111,9 +111,9 @@ export default class CalculationModel extends Model {
     getAssociativity(operation) {
         switch(operation) {
             case '+':case '-':case '*':case '/':case '~':
-                return 'left';
+                return 'L';
             case '^':
-                return 'right';
+                return 'R';
         }
     }
 
@@ -149,7 +149,10 @@ export default class CalculationModel extends Model {
 
     selectDigit(digit) {
         const la = this.getLastAdded(1);
-        if (la === ')' || (digit !== '.' && this.isPrevNumberZero()) || (digit === '.' && this.hasPrevNumberDot('.')) || this.hasPrevNumberMaxPrecision()) {
+        if (la === ')'
+            || (digit !== '.' && this.isPrevNumberZero())
+            || (digit === '.' && this.hasPrevNumberDot('.'))
+            || this.hasPrevNumberMaxPrecision()) {
                 return;
         }
         if (!this.isDigitOrDot(la) && digit === '.') {
@@ -223,34 +226,42 @@ export default class CalculationModel extends Model {
     }
 
     exprToPostfix() {
-        const postfixArr = [];
-        const operatorStack = new Stack();
+        const postfix = [];
+        const stack = new Stack();
         const tokens = this.expression.split(/([/*+\-)(^~])/).filter(x => x);
         for (let i = 0; i < tokens.length; i++) {
-            if (!isNaN(tokens[i])) {
-                postfixArr.push(tokens[i]);
-            } else if (tokens[i] === '(') {
-                operatorStack.push(tokens[i]);
-            } else if (this.isOperation(tokens[i])) {
-                while (!operatorStack.isEmpty() && operatorStack.top() !== '(' &&
-                       (this.getPriority(tokens[i]) < this.getPriority(operatorStack.top()) ||
-                         (this.getPriority(tokens[i]) === this.getPriority(operatorStack.top()) && this.getAssociativity(tokens[i]) === 'left'))) {
-                            postfixArr.push(operatorStack.pop());
+            const tok = tokens[i];
+            if (!isNaN(tok)) {
+                postfix.push(tok);
+            } else if (tok === '(') {
+                stack.push(tok);
+            } else if (this.isOperation(tok)) {
+                while(!stack.isEmpty()) {
+                    const top = stack.top();
+                    if (top === '(') {
+                        break;
+                    }
+                    if (this.getPriority(tok) < this.getPriority(top) ||
+                        (this.getPriority(tok) === this.getPriority(top) && this.getAssociativity(tok) === 'L')) {
+                        postfix.push(top);
+                        stack.pop();
+                    } else {
+                        break;
+                    }
                 }
-                operatorStack.push(tokens[i]);
-            } else if (tokens[i] === ')') {
-                while(operatorStack.top() !== '(') {
-                    postfixArr.push(operatorStack.pop());
+                stack.push(tok);
+            } else if (tok === ')') {
+                while(stack.top() !== '(') {
+                    postfix.push(stack.pop());
                 }
-                operatorStack.pop();
+                stack.pop();
             }
         }
-        while (!operatorStack.isEmpty()) {
-            postfixArr.push(operatorStack.pop());
+        while (!stack.isEmpty()) {
+            postfix.push(stack.pop());
         }
-        return postfixArr;
+        return postfix;
     }
-
 
     evaluatePostfix(postfixArr) {
         const evalStack = new Stack();
