@@ -109,13 +109,9 @@ body {
 
 /*-------------------- IMAGE --------------------*/
 
-.btn-option > img {
+.calc .btn-option > img,
+.calc svg {
     display: block;
-    width: 100%;
-    height: 100%;
-}
-
-svg {
     width: 100%;
     height: 100%;
 }
@@ -184,7 +180,7 @@ svg {
 
 /*-------------------- LINK --------------------*/
 
-.skip-to-clear-history {
+.calc .skip-to-clear-history {
     position: absolute;
     z-index: -1;
     background: white;
@@ -194,7 +190,7 @@ svg {
     transition: transform 250ms ease-in;
 }
 
-.skip-to-clear-history:focus {
+.calc .skip-to-clear-history:focus {
     z-index: 1;
 }
 
