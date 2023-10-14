@@ -33,22 +33,22 @@ body {
 
 /*-------------------- JS --------------------*/
 
-.js-focus-visible :focus:not(.focus-visible) {
+.calc .js-focus-visible :focus:not(.focus-visible) {
     outline: none;
 }
 
-.js-focus-visible .focus-visible {
-    outline: 2px solid red;
+.calc .js-focus-visible .focus-visible {
+    outline: 2px solid limegreen;
     outline-offset: -2px;
 }
 
 @supports selector(:focus-visible) {
-    :focus:not(:focus-visible) {
+    .calc :focus:not(:focus-visible) {
         outline: none;
     }
 
-    :focus-visible {
-        outline: 2px solid red;
+    .calc :focus-visible {
+        outline: 2px solid limegreen;
         outline-offset: -2px;
     }
 }
