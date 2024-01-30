@@ -2,7 +2,6 @@ import CalculationView from './CalculationView.js';
 import CalculationModel from './CalculationModel.js';
 import CalculationHistoryModel from './CalculationHistoryModel.js';
 import CalculationHistoryView from './CalculationHistoryView.js';
-import KeyboardUtils from './KeyboardUtils.js';
 
 const calc = document.querySelector('.calc');
 const currentOutput = calc.querySelector('.output-current');
@@ -84,14 +83,6 @@ calc.addEventListener('click', (event) => {
                 currentOutput.focus();
             }
             handleInput(targetData);
-    }
-});
-
-calc.addEventListener('keydown', (event) => {
-    const keyName = KeyboardUtils.getKeyName(event);
-    if (KeyboardUtils.is_H(keyName)) {
-        toggleHistory();
-        toggleHistoryBtn.focus();
     }
 });
 
