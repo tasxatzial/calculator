@@ -14,48 +14,49 @@
     <script src="node_modules/focus-visible/dist/focus-visible.js" type="module"></script>
 </head>
 <body>
-    <div class="calc" tabindex="-1">
-        <section aria-labelledby="help-title" id="help" class="help">
-            <header class="help-options">
+    <section aria-labelledby="calculator-app" class="calc" tabindex="-1">
+        <h2 hidden id="calculator-app">Calculator app</h2>
+        <section id="calculator-help" aria-labelledby="calculator-help-title" class="help">
+            <div class="help-options">
                 <button aria-label="close help" data-btn="close-help" class="btn-option btn-close-help">
                     <svg class="icon" aria-hidden="true">
                         <title>Close help</title>
                         <use xlink:href="img/sprite.svg#x"></use>
                     </svg>
                 </button>
-            </header>
+            </div>
             <div class="help-body">
-                <h2 id="help-title" class="help-title">Help</h2>
-                <section aria-labelledby="help-history" class="help-topic">
-                    <h3 id="help-history" class="help-topic-title">History</h3>
-                    <div>
-                        <p>Click on a history item to load it into the calculation display area.</p>
-                    </div>
+                <h3 id="calculator-help-title" class="help-title">Help</h3>
+                <section aria-labelledby="calculator-help-history-title" class="help-topic">
+                    <h4 id="calculator-help-history-title" class="help-topic-title">History</h4>
+                    <p>Click on a history item to load it into the calculation display area.</p>
                 </section>
             </div>
         </section>
         <div class="non-help">
-            <section aria-label="calculator options" class="main-options">
-                <button aria-labelledby="help-btn-text" data-btn="open-help" aria-controls="help" aria-expanded="false" class="btn-option btn-open-help">
+            <section aria-labelledby="calculator-options-title" class="main-options">
+                <h3 hidden id="calculator-options-title">Options</h3>
+                <button aria-labelledby="calculator-toggle-help-btn-title" data-btn="open-help" aria-controls="calculator-help" aria-expanded="false" class="btn-option btn-open-help">
                     <svg class="icon" aria-hidden="true">
-                        <title id="help-btn-text">Open help</title>
+                        <title id="calculator-toggle-help-btn-title">Open help</title>
                         <use xlink:href="img/sprite.svg#question-mark"></use>
                     </svg>
                 </button>
-                <button aria-labelledby="theme-btn-text" data-btn="switch-theme" class="btn-option btn-toggle-theme">
+                <button aria-labelledby="calculator-toggle-theme-btn-title" data-btn="switch-theme" class="btn-option btn-toggle-theme">
                     <svg class="icon" aria-hidden="true">
-                        <title id="theme-btn-text">Switch to light theme</title>
+                        <title id="calculator-toggle-theme-btn-title">Switch to light theme</title>
                         <use xlink:href="img/sprite.svg#moon"></use>
                     </svg>
                 </button>
-                <button aria-labelledby="history-btn-text" data-btn="toggle-history" aria-controls="history" aria-expanded="false"  class="btn-option btn-toggle-history">
+                <button aria-labelledby="calculator-toggle-history-btn-title" data-btn="toggle-history" aria-controls="calculator-history" aria-expanded="false"  class="btn-option btn-toggle-history">
                     <svg class="icon" aria-hidden="true">
-                        <title id="history-btn-text">Open history</title>
+                        <title id="calculator-toggle-history-btn-title" class="toggle-history-btn-title">Open history</title>
                         <use xlink:href="img/sprite.svg#history"></use>
                     </svg>
                 </button>
             </section>
-            <section aria-label="calculator display" class="output output-current" tabindex="-1">
+            <section aria-labelledby="calculator-display-title" class="output output-current" tabindex="-1">
+                <h3 hidden id="calculator-display-title">Display</h3>
                 <div class="expression-container expression-container-current">
                     <span class="expression-current"></span>
                     <span class="cursor" aria-hidden="true">_</span>
@@ -65,7 +66,8 @@
                 <div class="result result-current"></div>
             </section>
             <div class="input">
-                <section aria-label="calculator input buttons" class="calculation-btns">
+                <section aria-labelledby="calculator-input-buttons-title" class="calculation-btns">
+                    <h3 hidden id="calculator-input-buttons-title">Input buttons</h3>
                     <div class="btn-row">
                         <button aria-label="clear all" data-btn="Delete" class="btn btn-clear">C</button>
                         <button aria-label="delete last input" data-btn="Backspace" class="btn btn-back">←</button>
@@ -97,14 +99,15 @@
                         <button data-btn="+" class="btn btn-operator">+</button>
                     </div>
                 </section>
-                <section id="history" aria-label="calculator history" class="history">
+                <section id="calculator-history" aria-labelledby="calculator-history-title" class="history">
+                    <h3 hidden id="calculator-history-title">History</h3>
                     <a href="#btn-history-clear" data-link="skip-to-clear-history" class="skip-to-clear-history">Skip to clear history button</a>
-                    <div id="history-list-container" aria-live="polite" class="history-list-container"></div>
-                    <button id="btn-history-clear" aria-controls="history-list-container" data-btn="clear-history" class="btn-history-clear">Clear history</button>
+                    <div id="calculator-history-list-container" aria-live="polite" class="history-list-container"></div>
+                    <button aria-controls="calculator-history-list-container" data-btn="clear-history" class="btn-history-clear">Clear history</button>
                 </section>
             </div>
         </div>
-    </div>
+    </section>
     <p class="github-text"><a href="https://github.com/tasxatzial/calculator">See the project on GitHub</a></p>
 </body>
 </html>

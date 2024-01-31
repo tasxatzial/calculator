@@ -7,7 +7,7 @@ const calc = document.querySelector('.calc');
 const currentOutput = calc.querySelector('.output-current');
 const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = calc.querySelector('.btn-toggle-history');
-const toggleHistoryBtnText = calc.querySelector('#history-btn-text');
+const toggleHistoryBtnText = calc.querySelector('.toggle-history-btn-title');
 const openHelpBtn = calc.querySelector('.btn-open-help');
 const closeHelpBtn = calc.querySelector('.btn-close-help');
 const historyClearBtn = calc.querySelector('.btn-history-clear');
@@ -137,14 +137,14 @@ function handleInput(id) {
 
 function getLightThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
-                <title id="theme-btn-text">Switch to dark theme</title>
+                <title id="calculator-toggle-theme-btn-title">Switch to dark theme</title>
                 <use xlink:href=${spritePath}#sun></use>
             </svg>`;
 }
 
 function getDarkThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
-                <title id="theme-btn-text">Switch to light theme</title>
+                <title id="calculator-toggle-theme-btn-title">Switch to light theme</title>
                 <use xlink:href=${spritePath}#moon></use>
             </svg>`;
 }
