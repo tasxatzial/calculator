@@ -16,11 +16,19 @@ export default class CalculationHistoryView {
         }
 
         if (ul.children.length === 0) {
-            this.calcHistoryListContainer.innerHTML = `<p class='no-history-msg'>There's no history yet</p>`;
+            this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('There\'s no history yet');
         } else {
             this.calcHistoryListContainer.innerHTML = '';
             this.calcHistoryListContainer.appendChild(ul);
         }
+    }
+
+    getNoHistoryHtml(msg) {
+        return `<p class='no-history-msg'>${msg}</p>`;
+    }
+
+    clear() {
+        this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('History cleared');
     }
 
     createCalculation(key, value) {

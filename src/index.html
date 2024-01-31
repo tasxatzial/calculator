@@ -99,8 +99,8 @@
                 </section>
                 <section id="history" aria-label="calculator history" class="history">
                     <a href="#btn-history-clear" data-link="skip-to-clear-history" class="skip-to-clear-history">Skip to clear history button</a>
-                    <div class="history-list-container"></div>
-                    <button id="btn-history-clear" data-btn="clear-history" class="btn-history-clear">Clear history</button>
+                    <div id="history-list-container" aria-live="polite" class="history-list-container"></div>
+                    <button id="btn-history-clear" aria-controls="history-list-container" data-btn="clear-history" class="btn-history-clear">Clear history</button>
                 </section>
             </div>
         </div>

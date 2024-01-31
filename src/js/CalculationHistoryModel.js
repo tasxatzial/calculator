@@ -27,7 +27,7 @@ export default class CalculationHistoryModel extends Model {
     clearHistory() {
         this.calcList = {};
         this.id = 0;
-        this.raiseChange("changeState");
+        this.raiseChange("historyClear");
     }
 
     getHistory() {

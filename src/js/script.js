@@ -42,6 +42,11 @@ calculationHistoryModel.addChangeListener("changeState", () => {
     }
 });
 
+calculationHistoryModel.addChangeListener("historyClear", () => {
+    localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
+    calcHistoryView.clear();
+});
+
 historyListContainer.addEventListener('click', (event) => {
     const el = event.target.closest('li');
     if (el) {
