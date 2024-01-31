@@ -7,6 +7,7 @@ const calc = document.querySelector('.calc');
 const currentOutput = calc.querySelector('.output-current');
 const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
 const toggleHistoryBtn = calc.querySelector('.btn-toggle-history');
+const toggleHistoryBtnText = calc.querySelector('#history-btn-text');
 const openHelpBtn = calc.querySelector('.btn-open-help');
 const closeHelpBtn = calc.querySelector('.btn-close-help');
 const historyClearBtn = calc.querySelector('.btn-history-clear');
@@ -136,14 +137,14 @@ function handleInput(id) {
 
 function getLightThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
-                <title>Switch to dark theme</title>
+                <title id="theme-btn-text">Switch to dark theme</title>
                 <use xlink:href=${spritePath}#sun></use>
             </svg>`;
 }
 
 function getDarkThemeSVG() {
     return `<svg class="icon" aria-hidden="true">
-                <title>Switch to light theme</title>
+                <title id="theme-btn-text">Switch to light theme</title>
                 <use xlink:href=${spritePath}#moon></use>
             </svg>`;
 }
@@ -163,12 +164,12 @@ function toggleTheme() {
 function toggleHistory() {
     if (calc.classList.contains('js-history-open')) {
         calc.classList.remove('js-history-open');
-        toggleHistoryBtn.setAttribute('aria-label', 'open history');
         toggleHistoryBtn.setAttribute('aria-expanded', 'false');
+        toggleHistoryBtnText.textContent = 'Open history';
     } else {
         calc.classList.add('js-history-open');
-        toggleHistoryBtn.setAttribute('aria-label', 'close history');
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
+        toggleHistoryBtnText.textContent = 'Close history';
         calcHistoryView.render(calculationHistoryModel.getHistory());
     }
 }
