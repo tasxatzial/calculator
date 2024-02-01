@@ -106,8 +106,6 @@ window.addEventListener('blur', () => {
     });
 });
 
-calc.focus();
-
 /* ------------------------ functions ------------------------ */
 function handleInput(id) {
     switch(id) {
