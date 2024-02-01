@@ -14,8 +14,7 @@ const historyClearBtn = calc.querySelector('.btn-history-clear');
 const historyListContainer = calc.querySelector('.history-list-container');
 const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 
-/* set the default theme */
-if (localStorage.getItem('calc-theme') === 'light') {
+if (localStorage.getItem('calc-theme') === 'dark') {
     toggleTheme();
 }
 
@@ -148,14 +147,14 @@ function getDarkThemeSVG() {
 }
 
 function toggleTheme() {
-    if (calc.classList.contains('js-light-theme')) {
-        toggleThemeBtn.innerHTML = getDarkThemeSVG();
-        calc.classList.remove('js-light-theme');
-        localStorage.setItem('calc-theme', 'dark');
-    } else {
+    if (calc.classList.contains('js-dark-theme')) {
         toggleThemeBtn.innerHTML = getLightThemeSVG();
-        calc.classList.add('js-light-theme');
+        calc.classList.remove('js-dark-theme');
         localStorage.setItem('calc-theme', 'light');
+    } else {
+        toggleThemeBtn.innerHTML = getDarkThemeSVG();
+        calc.classList.add('js-dark-theme');
+        localStorage.setItem('calc-theme', 'dark');
     }
 }
 

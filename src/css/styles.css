@@ -83,28 +83,28 @@ body {
     transition: visibility 0s 100ms;
 }
 
-.calc.js-light-theme {
-    --options-bgclr: whitesmoke;
-    --btn-option-inactive-clr: rgba(0, 0, 0, 0.4);
-    --btn-option-clr: #2F2F2F;
-    --btn-option-clr-hover: rgb(210, 210, 210);
-    --btn-option-clr-active: rgb(195, 195, 195);
+.calc.js-dark-theme {
+    --options-bgclr: #2F2F2F;
+    --btn-option-inactive-clr: rgba(255, 255, 255, 0.4);
+    --btn-option-clr: rgb(235, 235, 235);
+    --btn-option-clr-hover: rgb(90, 90, 90);
+    --btn-option-clr-active: rgb(105, 105, 105);
 
-    --output-bgclr: white;
-    --output-clr: #2F2F2F;
-    --output-border-clr: silver;
+    --output-bgclr: black;
+    --output-clr: rgb(218, 218, 218);
+    --output-border-clr: gray;
 
-    --calculation-btns-bgclr: whitesmoke;
-    --calculation-btns-bg: linear-gradient(whitesmoke, silver);
+    --calculation-btns-bgclr: #2F2F2F;
+    --calculation-btns-bg: linear-gradient( #2F2F2F, black);
 
-    --btn-number-clr: #2F2F2F;
-    --btn-erase-clr: rgb(200, 81, 60);
-    --btn-paren-clr: rgb(182, 58, 182);
-    --btn-equals-clr: rgb(1, 139, 70);
-    --btn-operator-clr: #a77a00;
-    --btn-bgclr-active: rgba(0, 0, 0, .1);
+    --btn-number-clr: rgb(218, 218, 218);
+    --btn-erase-clr: tomato;
+    --btn-paren-clr: violet;
+    --btn-equals-clr: rgb(117, 255, 186);
+    --btn-operator-clr: #FCBE16;
+    --btn-bgclr-active: rgba(255, 255, 255, 0.2);
 
-    --btn-history-clear-clr-hover: blue;
+    --btn-history-clear-clr-hover: gold;
 }
 
 /*-------------------- IMAGE --------------------*/
@@ -320,33 +320,35 @@ body {
 .calc {
     --btn-fs: 2rem; /* controls the calculator size */
 
+    --options-bgclr: whitesmoke;
+    --btn-option-inactive-clr: rgba(0, 0, 0, 0.4);
+    --btn-option-clr: #2F2F2F;
+    --btn-option-clr-hover: rgb(210, 210, 210);
+    --btn-option-clr-active: rgb(195, 195, 195);
+
+    --output-bgclr: white;
+    --output-clr: #2F2F2F;
+    --output-border-clr: silver;
+
+    --calculation-btns-bgclr: whitesmoke;
+    --calculation-btns-bg: linear-gradient(whitesmoke, silver);
+
+    --btn-number-clr: #2F2F2F;
+    --btn-erase-clr: rgb(200, 81, 60);
+    --btn-paren-clr: rgb(182, 58, 182);
+    --btn-equals-clr: rgb(1, 139, 70);
+    --btn-operator-clr: #a77a00;
+    --btn-bgclr-active: rgba(0, 0, 0, .1);
+
+    --btn-history-clear-clr-hover: blue;
+
     --padding: calc(0.5 * var(--btn-fs));
     --btn-width: calc(1.8 * var(--btn-fs));
     --btn-padding: calc(0.25 * var(--btn-fs));
     --btn-margin: calc(0.125 * var(--btn-fs));
     --border-width: calc(0.0625 * var(--btn-fs));
 
-    --options-bgclr: #2F2F2F;
-    --btn-option-inactive-clr: rgba(255, 255, 255, 0.4);
-    --btn-option-clr: rgb(235, 235, 235);
-    --btn-option-clr-hover: rgb(90, 90, 90);
-    --btn-option-clr-active: rgb(105, 105, 105);
 
-    --output-bgclr: black;
-    --output-clr: rgb(218, 218, 218);
-    --output-border-clr: gray;
-
-    --calculation-btns-bgclr: #2F2F2F;
-    --calculation-btns-bg: linear-gradient( #2F2F2F, black);
-
-    --btn-number-clr: rgb(218, 218, 218);
-    --btn-erase-clr: tomato;
-    --btn-paren-clr: violet;
-    --btn-equals-clr: rgb(117, 255, 186);
-    --btn-operator-clr: #FCBE16;
-    --btn-bgclr-active: rgba(255, 255, 255, 0.2);
-
-    --btn-history-clear-clr-hover: gold;
 
     position: relative;
     overflow: hidden;
