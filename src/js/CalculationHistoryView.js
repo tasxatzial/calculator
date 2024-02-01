@@ -6,6 +6,7 @@ export default class CalculationHistoryView {
     }
 
     render(data) {
+        this.calcHistoryListContainer.removeAttribute('aria-live');
         const ul = document.createElement('ul');
         ul.classList = 'history-list';
         const keys = Object.keys(data).sort((a,b) => b - a);
@@ -28,6 +29,7 @@ export default class CalculationHistoryView {
     }
 
     clear() {
+        this.calcHistoryListContainer.setAttribute('aria-live', 'polite');
         this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('History cleared');
     }
 
