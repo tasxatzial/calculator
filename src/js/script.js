@@ -13,9 +13,18 @@ const closeHelpBtn = calc.querySelector('.btn-close-help');
 const historyClearBtn = calc.querySelector('.btn-history-clear');
 const historyListContainer = calc.querySelector('.history-list-container');
 const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
+const darkThemeMatchMedia = window.matchMedia('(prefers-color-scheme: dark)');
+const themeKey = 'calc-key';
+const darkThemeValue = 'dark';
+const lightThemeValue = 'light';
 
-if (localStorage.getItem('calc-theme') === 'dark') {
-    toggleTheme();
+/* set theme */
+if (localStorage.getItem(themeKey)) {
+    if (localStorage.getItem(themeKey) === darkThemeValue) {
+        setDarkTheme();
+    }
+} else if (darkThemeMatchMedia.matches) {
+    setDarkTheme();
 }
 
 /* initialize models and views */
@@ -26,6 +35,11 @@ const calculationView = new CalculationView(calc);
 calculationView.render(calculationModel.getCalculation());
 
 /* ---------------------------------- listeners ---------------------------------- */
+
+if (darkThemeMatchMedia.addEventListener && !localStorage.getItem(themeKey)) {
+    darkThemeMatchMedia.addEventListener('change', darkThemeMatchMediaHandler);
+}
+
 calculationModel.addChangeListener("changeState", () => {
     localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.getCalculation()));
     calculationView.render(calculationModel.getCalculation());
@@ -62,7 +76,14 @@ calc.addEventListener('click', (event) => {
     const targetData = el.tagName === 'BUTTON' ? el.dataset.btn : el.dataset.link;
     switch(targetData) {
         case 'switch-theme':
-            toggleTheme();
+            darkThemeMatchMedia.removeEventListener('change', darkThemeMatchMediaHandler);
+            if (calc.classList.contains('js-dark-theme')) {
+                setLightTheme();
+                localStorage.setItem(themeKey, lightThemeValue);
+            } else {
+                setDarkTheme();
+                localStorage.setItem(themeKey, darkThemeValue);
+            }
             break;
         case 'clear-history':
             calculationHistoryModel.clearHistory();
@@ -146,15 +167,21 @@ function getDarkThemeSVG() {
             </svg>`;
 }
 
-function toggleTheme() {
-    if (calc.classList.contains('js-dark-theme')) {
-        toggleThemeBtn.innerHTML = getLightThemeSVG();
-        calc.classList.remove('js-dark-theme');
-        localStorage.setItem('calc-theme', 'light');
+function setDarkTheme() {
+    toggleThemeBtn.innerHTML = getDarkThemeSVG();
+    calc.classList.add('js-dark-theme');
+}
+
+function setLightTheme() {
+    toggleThemeBtn.innerHTML = getLightThemeSVG();
+    calc.classList.remove('js-dark-theme');
+}
+
+function darkThemeMatchMediaHandler(event) {
+    if (event.matches) {
+        setDarkTheme();
     } else {
-        toggleThemeBtn.innerHTML = getDarkThemeSVG();
-        calc.classList.add('js-dark-theme');
-        localStorage.setItem('calc-theme', 'dark');
+        setLightTheme();
     }
 }
 
