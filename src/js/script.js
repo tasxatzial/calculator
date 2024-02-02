@@ -5,14 +5,14 @@ import CalculationHistoryView from './CalculationHistoryView.js';
 
 const calc = document.querySelector('.calc');
 const currentOutput = calc.querySelector('.output-current');
-const toggleThemeBtn = calc.querySelector('.btn-toggle-theme');
+const toggleThemeBtnText = calc.querySelector('#calculator-toggle-theme-btn-title');
+const toggleThemeBtnIcon = calc.querySelector('#calculator-toggle-theme-btn-icon');
 const toggleHistoryBtn = calc.querySelector('.btn-toggle-history');
 const toggleHistoryBtnText = calc.querySelector('.toggle-history-btn-title');
 const openHelpBtn = calc.querySelector('.btn-open-help');
 const closeHelpBtn = calc.querySelector('.btn-close-help');
 const historyClearBtn = calc.querySelector('.btn-history-clear');
 const historyListContainer = calc.querySelector('.history-list-container');
-const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 const darkThemeMatchMedia = window.matchMedia('(prefers-color-scheme: dark)');
 const themeKey = 'calc-key';
 const darkThemeValue = 'dark';
@@ -21,7 +21,8 @@ const lightThemeValue = 'light';
 /* theme has already been set in theme.js but this also needs to be
    reflected in the toggle theme button */
 if (document.documentElement.classList.contains('js-dark-theme')) {
-    toggleThemeBtn.innerHTML = getDarkThemeSVG();
+    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#moon');
+    toggleThemeBtnText.textContent = 'Switch to light theme';
 }
 
 /* initialize models and views */
@@ -150,27 +151,15 @@ function handleInput(id) {
     }
 }
 
-function getLightThemeSVG() {
-    return `<svg class="icon" aria-hidden="true">
-                <title id="calculator-toggle-theme-btn-title">Switch to dark theme</title>
-                <use xlink:href=${spritePath}#sun></use>
-            </svg>`;
-}
-
-function getDarkThemeSVG() {
-    return `<svg class="icon" aria-hidden="true">
-                <title id="calculator-toggle-theme-btn-title">Switch to light theme</title>
-                <use xlink:href=${spritePath}#moon></use>
-            </svg>`;
-}
-
 function setDarkTheme() {
-    toggleThemeBtn.innerHTML = getDarkThemeSVG();
+    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#moon');
+    toggleThemeBtnText.textContent = 'Switch to light theme';
     document.documentElement.classList.add('js-dark-theme');
 }
 
 function setLightTheme() {
-    toggleThemeBtn.innerHTML = getLightThemeSVG();
+    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#sun');
+    toggleThemeBtnText.textContent = 'Switch to dark theme';
     document.documentElement.classList.remove('js-dark-theme');
 }
 
