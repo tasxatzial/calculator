@@ -4,9 +4,10 @@ A simple calculator that supports the 4 basic operations on decimal numbers and 
 
 ## Features
 
-* Dark & light theme.
+* Dark & light theme. The selected theme is restored when the page reloads.
+* If the user has not selected a theme, the applied theme is always synchronized with the system theme.
 * Calculations are saved in history and can be reloaded.
-* History persists when the page reloads.
+* History is restored when the page reloads.
 * Screen reader friendly.
 
 ## Implementation
