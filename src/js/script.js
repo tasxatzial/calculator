@@ -18,13 +18,10 @@ const themeKey = 'calc-key';
 const darkThemeValue = 'dark';
 const lightThemeValue = 'light';
 
-/* set theme */
-if (localStorage.getItem(themeKey)) {
-    if (localStorage.getItem(themeKey) === darkThemeValue) {
-        setDarkTheme();
-    }
-} else if (darkThemeMatchMedia.matches) {
-    setDarkTheme();
+/* theme has already been set in theme.js but this also needs to be
+   reflected in the toggle theme button */
+if (document.documentElement.classList.contains('js-dark-theme')) {
+    toggleThemeBtn.innerHTML = getDarkThemeSVG();
 }
 
 /* initialize models and views */
@@ -77,7 +74,7 @@ calc.addEventListener('click', (event) => {
     switch(targetData) {
         case 'switch-theme':
             darkThemeMatchMedia.removeEventListener('change', darkThemeMatchMediaHandler);
-            if (calc.classList.contains('js-dark-theme')) {
+            if (document.documentElement.classList.contains('js-dark-theme')) {
                 setLightTheme();
                 localStorage.setItem(themeKey, lightThemeValue);
             } else {
@@ -169,12 +166,12 @@ function getDarkThemeSVG() {
 
 function setDarkTheme() {
     toggleThemeBtn.innerHTML = getDarkThemeSVG();
-    calc.classList.add('js-dark-theme');
+    document.documentElement.classList.add('js-dark-theme');
 }
 
 function setLightTheme() {
     toggleThemeBtn.innerHTML = getLightThemeSVG();
-    calc.classList.remove('js-dark-theme');
+    document.documentElement.classList.remove('js-dark-theme');
 }
 
 function darkThemeMatchMediaHandler(event) {

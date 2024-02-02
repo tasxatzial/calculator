@@ -83,7 +83,7 @@ body {
     transition: visibility 0s 100ms;
 }
 
-.calc.js-dark-theme {
+.js-dark-theme .calc {
     --options-bgclr: #2F2F2F;
     --btn-option-inactive-clr: rgba(255, 255, 255, 0.4);
     --btn-option-clr: rgb(235, 235, 235);
