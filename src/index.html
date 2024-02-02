@@ -8,7 +8,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <script src="js/theme.js"></script> <!-- Blocking script -->
+    <script>
+        /* This is a blocking script required to determine the calculator theme
+        as quickly as possible. This solves the flashing problem that occurs
+        when the page loads, and the calculator, which is already styled using
+        the light theme, needs to be redrawn because the javascript code has
+        determined that the selected theme is dark. */
+
+        /* Both themeKey and darkThemeValue are also defined in script.js */
+        (function () {
+            const themeKey = 'calc-key';
+            const darkThemeValue = 'dark';
+
+            /* set theme */
+            if (localStorage.getItem(themeKey)) {
+                if (localStorage.getItem(themeKey) === darkThemeValue) {
+                    document.documentElement.classList.add('js-dark-theme');
+                }
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('js-dark-theme');
+            }    
+        })();
+    </script> 
     <link rel="stylesheet" href="css/styles.css">    
     <script src="node_modules/decimal.js/decimal.mjs" type="module"></script>
     <script src="js/script.js" type="module"></script>
