@@ -9,18 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <script>
-        /* This is a blocking script required to determine the calculator theme
-        as quickly as possible. This solves the flashing problem that occurs
-        when the page loads, and the calculator, which is already styled using
-        the light theme, needs to be redrawn because the javascript code has
-        determined that the selected theme is dark. */
-
-        /* Both themeKey and darkThemeValue are also defined in script.js */
+        /* Blocking script. Determines the calculator theme and prevents the
+        flashing that occurs when the page loads due to switching from light
+        to dark theme.
+        Both themeKey and darkThemeValue are also defined in script.js */
         (function () {
             const themeKey = 'calc-key';
             const darkThemeValue = 'dark';
-
-            /* set theme */
             if (localStorage.getItem(themeKey)) {
                 if (localStorage.getItem(themeKey) === darkThemeValue) {
                     document.documentElement.classList.add('js-dark-theme');

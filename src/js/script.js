@@ -19,8 +19,8 @@ const themeKey = 'calc-key';
 const darkThemeValue = 'dark';
 const lightThemeValue = 'light';
 
-/* theme has already been set in theme.js but this also needs to be
-   reflected in the toggle theme button */
+/* theme has already been set in the html element, but we also need
+to update toggle theme button */
 if (document.documentElement.classList.contains('js-dark-theme')) {
     toggleThemeBtnIcon.setAttribute('xlink:href', `${spritePath}#moon`);
     toggleThemeBtnText.textContent = 'Switch to light theme';
