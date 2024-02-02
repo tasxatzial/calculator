@@ -13,6 +13,7 @@ const openHelpBtn = calc.querySelector('.btn-open-help');
 const closeHelpBtn = calc.querySelector('.btn-close-help');
 const historyClearBtn = calc.querySelector('.btn-history-clear');
 const historyListContainer = calc.querySelector('.history-list-container');
+const spritePath = new URL('../img/sprite.svg', import.meta.url).pathname;
 const darkThemeMatchMedia = window.matchMedia('(prefers-color-scheme: dark)');
 const themeKey = 'calc-key';
 const darkThemeValue = 'dark';
@@ -21,7 +22,7 @@ const lightThemeValue = 'light';
 /* theme has already been set in theme.js but this also needs to be
    reflected in the toggle theme button */
 if (document.documentElement.classList.contains('js-dark-theme')) {
-    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#moon');
+    toggleThemeBtnIcon.setAttribute('xlink:href', `${spritePath}#moon`);
     toggleThemeBtnText.textContent = 'Switch to light theme';
 }
 
@@ -152,13 +153,13 @@ function handleInput(id) {
 }
 
 function setDarkTheme() {
-    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#moon');
+    toggleThemeBtnIcon.setAttribute('xlink:href', `${spritePath}#moon`);
     toggleThemeBtnText.textContent = 'Switch to light theme';
     document.documentElement.classList.add('js-dark-theme');
 }
 
 function setLightTheme() {
-    toggleThemeBtnIcon.setAttribute('xlink:href', 'img/sprite.svg#sun');
+    toggleThemeBtnIcon.setAttribute('xlink:href', `${spritePath}#sun`);
     toggleThemeBtnText.textContent = 'Switch to dark theme';
     document.documentElement.classList.remove('js-dark-theme');
 }
