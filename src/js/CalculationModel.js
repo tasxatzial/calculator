@@ -86,7 +86,7 @@ export default class CalculationModel extends Model {
         }
     }
 
-    getOperationArity(operation) {
+    getArity(operation) {
         switch(operation) {
             case '+':case '-':case '*':case '/':case '^':
                 return 2;
@@ -147,21 +147,24 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
+    selectDot() {
+        const la = this.getLastAdded(1);
+        if (this.hasPrevNumberDot() || !this.isDigitOrDot(la)) {
+            return;
+        }
+        this.prevNumber += '.';
+        this.expression += '.';
+        this.result = '';
+        this.raiseChange("changeState");
+    }
+
     selectDigit(digit) {
         const la = this.getLastAdded(1);
-        if (la === ')'
-            || (digit !== '.' && this.isPrevNumberZero())
-            || (digit === '.' && this.hasPrevNumberDot('.'))
-            || this.hasPrevNumberMaxPrecision()) {
+        if (la === ')' || this.isPrevNumberZero() || this.hasPrevNumberMaxPrecision()) {
                 return;
         }
-        if (!this.isDigitOrDot(la) && digit === '.') {
-            this.expression += '0.';
-            this.prevNumber = '0.' + this.prevNumber;
-        } else {
-            this.prevNumber += digit;
-            this.expression += digit;
-        }
+        this.prevNumber += digit;
+        this.expression += digit;
         this.result = '';
         this.raiseChange("changeState");
     }
@@ -271,10 +274,10 @@ export default class CalculationModel extends Model {
             } else {
                 const op = postfixArr[i];
                 const n1 = evalStack.pop();
-                if (this.getOperationArity(op) === 2) {
+                if (this.getArity(op) === 2) {
                     const n2 = evalStack.pop();
                     evalStack.push(this.opToFn[op](n2, n1));
-                } else if (this.getOperationArity(op) === 1) {
+                } else if (this.getArity(op) === 1) {
                     evalStack.push(this.opToFn[op](n1));
                 }
             }

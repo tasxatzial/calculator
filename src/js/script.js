@@ -134,8 +134,11 @@ function handleInput(id) {
         case 'Delete':
             calculationModel.reset();
             break;
-        case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':case '.':
+        case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':case '0':
             calculationModel.selectDigit(id);
+            break;
+        case '.':
+            calculationModel.selectDot();
             break;
         case '(':
             calculationModel.selectLeftParen();
