@@ -125,6 +125,10 @@ body {
     opacity: 0.5;
 }
 
+.calc .expression > span {
+    display: inline-flex;
+}
+
 .calc .result-current {
     font-size: var(--btn-fs);
 }
@@ -133,7 +137,7 @@ body {
     font-size: calc(0.8 * var(--btn-fs));
 }
 
-.calc .history-expression {
+.calc .expression-history {
     font-size: calc(0.6 * var(--btn-fs));
 }
 

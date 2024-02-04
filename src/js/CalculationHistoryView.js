@@ -36,9 +36,11 @@ export default class CalculationHistoryView {
     createCalculation(key, value) {
         return `<li class='history-list-item' data-id='${key}'>
                   <button class='output output-history'>
-                    <span class='expression-container expression-container-history'>${ViewUtils.formatExpression(value.expression)}</span>
-                    <span class='sr-only'>=</span>
-                    <span class='result result-history'>${ViewUtils.formatNumber(value.result)}</span>
+                    <div class='expression-container expression-container-history'>
+                      <span class='expression expression-history'>${ViewUtils.formatExpression(value.expression)}</span>
+                      <span class='sr-only'>=</span>
+                    </div>
+                    <div class='result result-history'>${ViewUtils.formatNumber(value.result)}</div>
                   </button>
                 </li>`;
     }
