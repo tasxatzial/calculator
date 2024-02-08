@@ -200,7 +200,7 @@ body {
 
 .calc .btn {
     width: 25%;
-    min-width: calc(0.8 * var(--btn-width));
+    min-width: calc(var(--min-scale-factor) * var(--btn-width));
     height: var(--btn-width);
     padding: var(--btn-padding);
     margin: var(--btn-margin);
@@ -322,6 +322,8 @@ body {
 
 .calc {
     --btn-fs: 2rem; /* controls the calculator size */
+    --columns: 4;
+    --min-scale-factor: 0.8;
 
     --options-bgclr: whitesmoke;
     --btn-option-inactive-clr: rgba(0, 0, 0, 0.4);
@@ -350,13 +352,14 @@ body {
     --btn-padding: calc(0.25 * var(--btn-fs));
     --btn-margin: calc(0.125 * var(--btn-fs));
     --border-width: calc(0.0625 * var(--btn-fs));
+    --row-width: var(--columns) * var(--btn-width) + 2 * var(--columns) * var(--btn-margin) + 2 * var(--padding);
 
     isolation: isolate;
     position: relative;
     overflow: hidden;
     width: 100%;
-    max-width: calc(4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding));
-    min-width: calc(0.8 * (4 * var(--btn-width) + 8 * var(--btn-margin) + 2 * var(--padding)));
+    max-width: calc(var(--row-width));
+    min-width: calc(var(--min-scale-factor) * var(--row-width));
     border-radius: calc(0.2 * var(--btn-fs));
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
 }
