@@ -352,8 +352,7 @@ body {
     --btn-margin: calc(0.125 * var(--btn-fs));
     --border-width: calc(0.0625 * var(--btn-fs));
 
-
-
+    isolation: isolate;
     position: relative;
     overflow: hidden;
     width: 100%;
