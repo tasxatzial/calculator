@@ -225,13 +225,7 @@ body {
 }
 
 .calc .btn:not(.btn-number) {
-    font-weight: bold;
-}
-
-.calc .btn.btn-operator,
-.calc .btn.btn-back,
-.calc .btn.btn-equals {
-    padding-bottom: .4em;
+    font-weight: 600;
 }
 
 .calc .btn-clear,
@@ -247,7 +241,7 @@ body {
     content: var(--content, "");
     position: absolute;
     bottom: 0;
-    left: 1.8em;
+    left: 61%;
     font-size: .6em;
 }
 
@@ -342,7 +336,7 @@ body {
     --btn-erase-clr: rgb(200, 81, 60);
     --btn-paren-clr: rgb(182, 58, 182);
     --btn-equals-clr: rgb(1, 139, 70);
-    --btn-operator-clr: #a77a00;
+    --btn-operator-clr: #a07501;
     --btn-bgclr-active: rgba(0, 0, 0, .1);
 
     --btn-history-clear-clr-hover: blue;
