@@ -7,6 +7,7 @@ export default class CalculationView {
         this.missingParens = calcElement.querySelector('.missing-parens');
         this.leftParenBtn = calcElement.querySelector('.btn-left-paren');
         this.equalsSign = calcElement.querySelector('.expression-current-equals-sign');
+        this.openParenthesesText = this.leftParenBtn.querySelector('.open-parentheses-text');
     }
 
     getResult() {
@@ -58,9 +59,11 @@ export default class CalculationView {
             this.missingParens.textContent = parentheses;
             const content = "'" + count.toString() + "'";
             this.leftParenBtn.style.setProperty("--content", content);
+            this.openParenthesesText.textContent = count + ' open parentheses';
         } else {
             this.leftParenBtn.style.setProperty("--content", "''");
             this.missingParens.textContent = '';
+            this.openParenthesesText.textContent = '';
         }
     }
 }
