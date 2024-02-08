@@ -8,6 +8,7 @@ export default class CalculationView {
         this.leftParenBtn = calcElement.querySelector('.btn-left-paren');
         this.equalsSign = calcElement.querySelector('.expression-current-equals-sign');
         this.openParenthesesText = this.leftParenBtn.querySelector('.open-parentheses-text');
+        this.invalidInputMsg = calcElement.querySelector('.invalid-input-msg');
     }
 
     getResult() {
@@ -25,6 +26,7 @@ export default class CalculationView {
         this.updateExpression(data.expression);
         this.updateParensCount(data.leftParenCount);
         this.updateResult(data.result);
+        this.resetInvalidInputMsg();
     }
 
     updateResult(result) {
@@ -64,6 +66,27 @@ export default class CalculationView {
             this.leftParenBtn.style.setProperty("--content", "''");
             this.missingParens.textContent = '';
             this.openParenthesesText.textContent = '';
+        }
+    }
+
+    setInvalidInputMsg() {
+        this.updateInvalidInputMsg("Error: Not allowed input");
+    }
+
+    setMaxDigitsMsg() {
+        this.updateInvalidInputMsg("Error: Number has maximum number of digits");
+    }
+
+    resetInvalidInputMsg() {
+        this.invalidInputMsg.textContent = '';
+    }
+
+    updateInvalidInputMsg(newMsg) {
+        const msg = this.invalidInputMsg.textContent;
+        if (msg.charAt(msg.length - 1) === '.') {
+            this.invalidInputMsg.textContent = newMsg;
+        } else {
+            this.invalidInputMsg.textContent = newMsg + '.';
         }
     }
 }

@@ -150,6 +150,7 @@ export default class CalculationModel extends Model {
     selectDot() {
         const la = this.getLastAdded(1);
         if (this.hasPrevNumberDot() || !this.isDigitOrDot(la)) {
+            this.raiseChange("invalidInput");
             return;
         }
         this.prevNumber += '.';
@@ -160,8 +161,13 @@ export default class CalculationModel extends Model {
 
     selectDigit(digit) {
         const la = this.getLastAdded(1);
-        if (la === ')' || this.isPrevNumberZero() || this.hasPrevNumberMaxPrecision()) {
-                return;
+        if (la === ')' || this.isPrevNumberZero()) {
+            this.raiseChange("invalidInput");
+            return;
+        }
+        if (this.hasPrevNumberMaxPrecision()) {
+            this.raiseChange("maxDigits");
+            return;
         }
         this.prevNumber += digit;
         this.expression += digit;
@@ -172,6 +178,7 @@ export default class CalculationModel extends Model {
     selectLeftParen() {
         const la = this.getLastAdded(1);
         if (la === ')' || this.isDigitOrDot(la)) {
+            this.raiseChange("invalidInput");
             return;
         }
         this.expression += '(';
@@ -184,6 +191,7 @@ export default class CalculationModel extends Model {
     selectRightParen() {
         const la = this.getLastAdded(1);
         if (this.leftParenCount === 0 || this.isOperation(la) || la === '(') {
+            this.raiseChange("invalidInput");
             return;
         }
         this.expression += ')';
@@ -197,7 +205,8 @@ export default class CalculationModel extends Model {
         const la = this.getLastAdded(1);
         if (this.isOperation(la) ||
             ((la === '' || la === '(') && operation !== '-')) {
-            return;
+                this.raiseChange("invalidInput");
+                return;
         }
         if (!this.isDigitOrDot(la) && la !== ')' && operation === '-') {
             this.expression += '~';
@@ -212,6 +221,7 @@ export default class CalculationModel extends Model {
     selectEvaluate() {
         const la = this.getLastAdded(1);
         if (this.expression === '') {
+            this.raiseChange("invalidInput");
             return;
         }
         if (this.isOperation(la) || this.leftParenCount !== 0) {
