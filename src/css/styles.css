@@ -152,6 +152,7 @@ body {
     margin-top: 0;
     margin-bottom: 0.5em;
     font-size: calc(1.25 * var(--help-topic-fs));
+    font-weight: 600;
     text-align: center;
 }
 
@@ -160,17 +161,15 @@ body {
     margin-bottom: 0.4em;
     border-bottom: 0.1em solid var(--output-border-clr);
     font-size: var(--help-topic-fs);
-    letter-spacing: 0.05em;
     text-align: center;
 }
 
-.calc .help-body p {
+.calc .help-topic-text {
     margin: 0;
     font-size: calc(0.85 * var(--help-topic-fs));
-    word-spacing: 0.1em;
 }
 
-.calc .help-body p:not(:last-child) {
+.calc .help-topic-text:not(:last-child) {
     margin-bottom: 0.5em;
 }
 
