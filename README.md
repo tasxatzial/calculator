@@ -8,10 +8,11 @@ A simple calculator that supports the 4 basic operations on decimal numbers and 
 * If the user has not selected a theme, the applied theme is always synchronized with the system theme.
 * Calculations are saved in history and can be reloaded.
 * History is restored when the page reloads.
-* Screen reader friendly.
 
 ## Implementation
 
+* Responsive.
+* Accessible + screen reader friendly.
 * Variation of the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern.
 
 ## Dependencies
