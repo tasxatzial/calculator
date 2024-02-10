@@ -6,7 +6,6 @@ export default class CalculationHistoryView {
     }
 
     render(data) {
-        this.calcHistoryListContainer.removeAttribute('aria-live');
         const ul = document.createElement('ul');
         ul.classList = 'history-list';
         const keys = Object.keys(data).sort((a,b) => b - a);
@@ -19,6 +18,7 @@ export default class CalculationHistoryView {
         if (ul.children.length === 0) {
             this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('There\'s no history');
         } else {
+            this.calcHistoryListContainer.removeAttribute('aria-live');
             this.calcHistoryListContainer.innerHTML = '';
             this.calcHistoryListContainer.appendChild(ul);
         }
