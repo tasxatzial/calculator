@@ -17,7 +17,7 @@ export default class CalculationHistoryView {
         }
 
         if (ul.children.length === 0) {
-            this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('There\'s no history yet');
+            this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('There\'s no history');
         } else {
             this.calcHistoryListContainer.innerHTML = '';
             this.calcHistoryListContainer.appendChild(ul);
