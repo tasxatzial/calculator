@@ -34,6 +34,7 @@ export default class CalculationView {
     updateResult(result) {
         if (result === null) {
             this.result.textContent = 'Error';
+            this.equalsSign.removeAttribute('aria-hidden');
             return;
         }
         const formattedResult = ViewUtils.formatNumber(result);
