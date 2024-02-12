@@ -9,6 +9,7 @@ export default class CalculationView {
         this.equalsSign = calcElement.querySelector('.expression-current-equals-sign');
         this.openParenthesesText = this.leftParenBtn.querySelector('.open-parentheses-text');
         this.invalidInputMsg = calcElement.querySelector('.invalid-input-msg');
+        this.emptyDisplayMsg = calcElement.querySelector('.empty-display-msg');
     }
 
     getResult() {
@@ -27,6 +28,7 @@ export default class CalculationView {
         this.updateParensCount(data.leftParenCount);
         this.updateResult(data.result);
         this.resetInvalidInputMsg();
+        this.updateEmptyDisplayMsg();
     }
 
     updateResult(result) {
@@ -87,6 +89,14 @@ export default class CalculationView {
             this.invalidInputMsg.textContent = newMsg;
         } else {
             this.invalidInputMsg.textContent = newMsg + '.';
+        }
+    }
+
+    updateEmptyDisplayMsg() {
+        if (this.getExpression() === '' && this.getResult() === '') {
+            this.emptyDisplayMsg.textContent = 'Empty';
+        } else {
+            this.emptyDisplayMsg.textContent = '';
         }
     }
 }
