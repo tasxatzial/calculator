@@ -1,8 +1,8 @@
-export default class ViewUtils {
+export default class CalculationViewHelper {
     constructor() {}
 
     static formatNumber(str) {
-        if (!ViewUtils.isNumeric(str) || str.includes('e')) {
+        if (!CalculationViewHelper.isNumeric(str) || str.includes('e')) {
             return str;
         }
         const [wholePart, fractionalPart] = str.split('.');
@@ -28,7 +28,7 @@ export default class ViewUtils {
 
     static formatExpression(expression) {
         const numbers = expression.split(/[/*+\-)(^~]/).filter(x => x !== '');
-        const formattedNumbers = numbers.map(n => ViewUtils.formatNumber(n));
+        const formattedNumbers = numbers.map(n => CalculationViewHelper.formatNumber(n));
         let expr = expression;
         for (let i = 0; i < numbers.length; i++) {
             expr = expr.replace(numbers[i], formattedNumbers[i]);

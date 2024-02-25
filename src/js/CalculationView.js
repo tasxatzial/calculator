@@ -1,4 +1,4 @@
-import ViewUtils from './ViewUtils.js';
+import CalculationViewHelper from './CalculationViewHelper.js';
 
 export default class CalculationView {
     constructor(calcElement) {
@@ -37,7 +37,7 @@ export default class CalculationView {
             this.equalsSign.removeAttribute('aria-hidden');
             return;
         }
-        const formattedResult = ViewUtils.formatNumber(result);
+        const formattedResult = CalculationViewHelper.formatNumber(result);
         if (this.getResult() !== formattedResult) {
             this.result.innerText = formattedResult;
         }
@@ -49,7 +49,7 @@ export default class CalculationView {
     }
 
     updateExpression(expression) {
-        const formattedExpression = ViewUtils.formatExpression(expression);
+        const formattedExpression = CalculationViewHelper.formatExpression(expression);
         if (this.getExpression() !== formattedExpression) {
             this.expression.innerHTML = formattedExpression;
         }

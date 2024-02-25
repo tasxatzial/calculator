@@ -28,7 +28,7 @@ if (document.documentElement.classList.contains('js-dark-theme')) {
 
 /* initialize models and views */
 const calculationHistoryModel = new CalculationHistoryModel(JSON.parse(localStorage.getItem('calc-history')));
-const calcHistoryView = new CalculationHistoryView(calc);
+const calculationHistoryView = new CalculationHistoryView(calc);
 const calculationModel = new CalculationModel(JSON.parse(localStorage.getItem('calc-current-calculation')));
 const calculationView = new CalculationView(calc);
 calculationView.render(calculationModel.getCalculation());
@@ -59,13 +59,13 @@ calculationModel.addChangeListener("maxDigits", () => {
 calculationHistoryModel.addChangeListener("changeState", () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
     if (calc.classList.contains('js-history-open')) {
-        calcHistoryView.render(calculationHistoryModel.getHistory());
+        calculationHistoryView.render(calculationHistoryModel.getHistory());
     }
 });
 
 calculationHistoryModel.addChangeListener("historyClear", () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
-    calcHistoryView.clear();
+    calculationHistoryView.clear();
 });
 
 historyListContainer.addEventListener('click', (event) => {
@@ -192,6 +192,6 @@ function toggleHistory() {
         calc.classList.add('js-history-open');
         toggleHistoryBtn.setAttribute('aria-expanded', 'true');
         toggleHistoryBtnText.textContent = 'Close history';
-        calcHistoryView.render(calculationHistoryModel.getHistory());
+        calculationHistoryView.render(calculationHistoryModel.getHistory());
     }
 }
