@@ -5,8 +5,7 @@ import Decimal from '../node_modules/decimal.js/decimal.mjs';
 export default class CalculationModel extends Model {
     constructor(props) {
         super();
-        this.precision = 16;
-        this.Dec = Decimal.clone({precision: this.precision});
+        this.Dec = Decimal.clone();
         this.opToFn = {
             '+': (n1, n2) => new this.Dec(n1).add(n2),
             '-': (n1, n2) => new this.Dec(n1).minus(n2),
@@ -47,6 +46,23 @@ export default class CalculationModel extends Model {
         }
     }
 
+    setPrecision(postfixArr) {
+        const numberLengths = postfixArr.filter(x => !isNaN(x))
+                                        .map(x => x.length)
+                                        .sort((a,b) => b - a);       
+        if (numberLengths.length === 0) {
+            this.Dec.set({precision: 1});
+            return;
+        }
+        const maxLength = numberLengths[0];
+        let maxLengthCount = 1;
+        let i = 1;
+        while (numberLengths[i++] === maxLength) {
+            maxLengthCount++;
+        }
+        this.Dec.set({precision: maxLength * numberLengths.length + 1});
+    }
+
     setPrevNumber() {
         this.prevNumber = '';
         let i = this.expression.length - 1;
@@ -75,15 +91,6 @@ export default class CalculationModel extends Model {
 
     isPrevNumberZero() {
         return this.prevNumber === '0';
-    }
-
-    hasPrevNumberMaxPrecision() {
-        const decimalSplit = this.prevNumber.split('.');
-        if (decimalSplit.length === 2) {
-            return decimalSplit[0].length + decimalSplit[1].length === this.precision;
-        } else {
-            return decimalSplit[0].length === this.precision;
-        }
     }
 
     getArity(operation) {
@@ -165,10 +172,6 @@ export default class CalculationModel extends Model {
             this.raiseChange("invalidInput");
             return;
         }
-        if (this.hasPrevNumberMaxPrecision()) {
-            this.raiseChange("maxDigits");
-            return;
-        }
         this.prevNumber += digit;
         this.expression += digit;
         this.result = '';
@@ -228,8 +231,9 @@ export default class CalculationModel extends Model {
             this.result = null;
         } else {
             try {
-                const postfixExpr = this.exprToPostfix();
-                this.result = this.evaluatePostfix(postfixExpr);
+                const postfixArr = this.exprToPostfix();
+                this.setPrecision(postfixArr);
+                this.result = this.evaluatePostfix(postfixArr);
                 this.raiseChange("evaluateSuccess");
             } catch (e) {
                 this.result = null;

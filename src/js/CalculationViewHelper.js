@@ -62,7 +62,7 @@ export default class CalculationViewHelper {
     }
 
     // Source: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number/#answer-175787
-    // Credit: https://stackoverflow.com/users/17121/dan
+    // Credit: https://stackoverflow.com/users/17121
     static isNumeric(str) {
         if (typeof str != "string") {
             return false;
@@ -70,5 +70,5 @@ export default class CalculationViewHelper {
         return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
                !isNaN(parseFloat(str)) && // ...and ensure strings of whitespace fail
                isFinite(str);
-      }
+    }
 }

@@ -76,10 +76,6 @@ export default class CalculationView {
         this.updateInvalidInputMsg("Error: Not allowed input");
     }
 
-    setMaxDigitsMsg() {
-        this.updateInvalidInputMsg("Error: Number has maximum number of digits");
-    }
-
     resetInvalidInputMsg() {
         this.invalidInputMsg.textContent = '';
     }

@@ -52,10 +52,6 @@ calculationModel.addChangeListener("invalidInput", () => {
     calculationView.setInvalidInputMsg();
 });
 
-calculationModel.addChangeListener("maxDigits", () => {
-    calculationView.setMaxDigitsMsg();
-});
-
 calculationHistoryModel.addChangeListener("changeState", () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
     if (calc.classList.contains('js-history-open')) {
