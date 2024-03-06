@@ -173,7 +173,7 @@ body {
 }
 
 .calc .help-topic-text:not(:last-child) {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.75em;
 }
 
 .github-text {
@@ -439,6 +439,7 @@ body {
     visibility: hidden;
     position: absolute;
     z-index: 1;
+    overflow-y: auto;
     width: 100%;
     height: 100%;
     background-color: var(--options-bgclr);
@@ -454,6 +455,15 @@ body {
 
 .calc .help-topic {
     margin-bottom: calc(0.5 * var(--btn-fs));
+}
+
+.calc .shortcut-list {
+    padding-left: 1em;
+    margin-bottom: 0.75em;
+}
+
+.calc .shortcut-list > li {
+    margin-bottom: 0.25em;
 }
 
 .calc .non-help {

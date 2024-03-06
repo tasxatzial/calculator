@@ -44,10 +44,32 @@
                 </button>
             </div>
             <div class="help-body">
-                <p class="help-title">Help</p>
-                <section aria-label="History" class="help-topic">
-                    <p class="help-topic-title">History</p>
+                <h2 class="help-title">Help</h2>
+                <section aria-labelledby="calculator-help-shortcuts-title">
+                    <h3 id="calculator-help-shortcuts-title" class="help-topic-title">Shortcuts</h3>
+                    <p class="help-topic-text">To use the shortcuts, click on the calculator display area. When the display is ready for input, you'll see a green outline around it and a blinking cursor.</p>
+                    <p class="help-topic-text">Here's the list of shortcut keys:</p>
+                    <ul class="shortcut-list help-topic-text">
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">+</span><span class="sr-only">plus</span> : Addition sign</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">-</span><span class="sr-only">dash</span> : Substraction/negative sign</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">*</span><span class="sr-only">star</span> : Multiplication sign</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">/</span><span class="sr-only">slash</span> : Division sign</li>
+                        <li><span class="sr-only">Keys </span>0 to 9 : Digits 0 to 9</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">.</span><span class="sr-only">dot</span> : Decimal point</li>
+                        <li><span class="sr-only">Key </span>Backspace : Delete last input</li>
+                        <li><span class="sr-only">Key </span>Delete : Clear expression</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">(</span></span><span class="sr-only">Left parenthesis</span> : Left parenthesis</li>
+                        <li><span class="sr-only">Key </span><span aria-hidden="true">)</span></span><span class="sr-only">Right parenthesis</span> : Right parenthesis</li>
+                        <li><span class="sr-only">Keys </span><span aria-hidden="true">=</span></span><span class="sr-only">Equals</span> or Enter : Calculate expression</li>
+                    </ul>
+                </section>
+                <section aria-labelledby="calculator-help-history-title" class="help-topic">
+                    <h3 id="calculator-help-history-title" class="help-topic-title">History</h3>
                     <p class="help-topic-text">Click on a history item to load it into the calculation display area.</p>
+                </section>
+                <section aria-labelledby="calculator-help-sr-title" class="help-topic">
+                    <h3 id="calculator-help-sr-title" class="help-topic-title">Screen readers</h3>
+                    <p class="help-topic-text">To enter input using the keyboard shortcuts, switch to focus/forms mode when the display area is in focus.</p>
                 </section>
             </div>
         </section>
