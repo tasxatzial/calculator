@@ -42,7 +42,8 @@ body {
     outline: none;
 }
 
-.calc .js-focus-visible .focus-visible {
+.calc .js-focus-visible .focus-visible,
+.calc .output-current:focus {
     outline: 2px solid limegreen;
     outline-offset: -2px;
 }
@@ -52,13 +53,14 @@ body {
         outline: none;
     }
 
-    .calc :focus-visible {
+    .calc :focus-visible,
+    .calc .output-current:focus {
         outline: 2px solid limegreen;
         outline-offset: -2px;
     }
 }
 
-.calc.js-calc-active .cursor {
+.calc .js-display-active .cursor {
     animation: blinking 0.5s infinite alternate;
 }
 

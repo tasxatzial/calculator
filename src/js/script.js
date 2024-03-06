@@ -71,6 +71,21 @@ historyListContainer.addEventListener('click', (event) => {
     }
 });
 
+currentOutput.addEventListener('keyup', (e) => {
+    handleInput(e.key);
+});
+
+['click', 'focus'].forEach(type => {
+    currentOutput.addEventListener(type, () => {
+        currentOutput.classList.add('js-display-active');
+        currentOutput.focus();
+    });
+});
+
+currentOutput.addEventListener('blur', () => {
+    currentOutput.classList.remove('js-display-active');
+});
+
 calc.addEventListener('click', (event) => {
     const el = event.target.closest('button') || event.target.closest('a');
     if (!el) {
@@ -113,20 +128,6 @@ calc.addEventListener('click', (event) => {
             }
             handleInput(targetData);
     }
-});
-
-window.addEventListener('blur', () => {
-    calc.classList.remove('js-calc-active');
-});
-
-['mousedown', 'touchstart', 'focusin'].forEach(type => {
-    document.addEventListener(type, (event) => {
-        if (calc.contains(event.target)) {
-            calc.classList.add('js-calc-active');
-        } else {
-            calc.classList.remove('js-calc-active');
-        }
-    });
 });
 
 /* ------------------------ functions ------------------------ */
