@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "rollup-plugin-license": "^3.0.1",
-    "vite": "^3.2.7"
+    "vite": "^3.2.10"
   },
   "author": "Anastasios Chatzialexiou",
   "license": "MIT",
