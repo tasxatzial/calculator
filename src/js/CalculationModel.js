@@ -6,6 +6,7 @@ export default class CalculationModel extends Model {
     constructor(props) {
         super();
         this.Dec = Decimal.clone();
+        this.minPrecision = 16;
         this.opToFn = {
             '+': (n1, n2) => new this.Dec(n1).add(n2),
             '-': (n1, n2) => new this.Dec(n1).minus(n2),
@@ -51,7 +52,7 @@ export default class CalculationModel extends Model {
                                         .map(x => x.length)
                                         .sort((a,b) => b - a);       
         if (numberLengths.length === 0) {
-            this.Dec.set({precision: 1});
+            this.Dec.set({precision: Math.max(1, this.precision)});
             return;
         }
         const maxLength = numberLengths[0];
@@ -60,7 +61,7 @@ export default class CalculationModel extends Model {
         while (numberLengths[i++] === maxLength) {
             maxLengthCount++;
         }
-        this.Dec.set({precision: maxLength * numberLengths.length + 1});
+        this.Dec.set({precision: Math.max(maxLength * numberLengths.length + 1, this.minPrecision)});
     }
 
     setPrevNumber() {
