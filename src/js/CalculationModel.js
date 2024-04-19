@@ -48,20 +48,10 @@ export default class CalculationModel extends Model {
     }
 
     setPrecision(postfixArr) {
-        const numberLengths = postfixArr.filter(x => !isNaN(x))
-                                        .map(x => x.length)
-                                        .sort((a,b) => b - a);       
-        if (numberLengths.length === 0) {
-            this.Dec.set({precision: Math.max(1, this.precision)});
-            return;
-        }
-        const maxLength = numberLengths[0];
-        let maxLengthCount = 1;
-        let i = 1;
-        while (numberLengths[i++] === maxLength) {
-            maxLengthCount++;
-        }
-        this.Dec.set({precision: Math.max(maxLength * numberLengths.length + 1, this.minPrecision)});
+        const numbers = postfixArr.filter(x => !isNaN(x))
+        const totalLength = numbers.reduce((s, a) => s + a.length, 0);
+        const avgLength = Math.ceil(totalLength / numbers.length);
+        this.Dec.set({precision: Math.max(avgLength * (numbers.length + 1), this.minPrecision)});
     }
 
     setPrevNumber() {
