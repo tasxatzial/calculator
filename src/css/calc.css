@@ -1,20 +1,6 @@
-* {
-    box-sizing: border-box;
-}
-
 :root {
-    /* calculator scales proportionally */
+    /* set the width (calculator scales proportionally) */
     --calc-max-width: 15rem;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
 }
 
 /*-------------------- UTILITY --------------------*/
@@ -174,13 +160,6 @@ body {
 
 .calc .help-topic-text:not(:last-child) {
     margin-bottom: 0.75em;
-}
-
-.github-text {
-    margin: 2em 1em 1em;
-    font-size: 1.1rem;
-    text-align: center;
-    line-height: 1.4;
 }
 
 /*-------------------- LINK --------------------*/
