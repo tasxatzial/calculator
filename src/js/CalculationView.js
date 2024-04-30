@@ -13,7 +13,7 @@ export default class CalculationView {
     }
 
     render(data) {
-        this._updateExpression(data.expression);
+        this._updateExpression(data.expressionTokens);
         this._updateParensCount(data.leftParenCount);
         this._updateResult(data.result);
         this._resetInvalidInputMsg();
@@ -39,8 +39,8 @@ export default class CalculationView {
         }
     }
 
-    _updateExpression(expression) {
-        const formattedExpression = CalculationViewHelper.formatExpression(expression);
+    _updateExpression(expressionTokens) {
+        const formattedExpression = CalculationViewHelper.formatExpression(expressionTokens);
         this.expression.innerHTML = formattedExpression;
     }
 

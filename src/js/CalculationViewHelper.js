@@ -26,39 +26,33 @@ export default class CalculationViewHelper {
         }
     }
 
-    static formatExpression(expression) {
-        const numbers = expression.split(/[/*+\-)(^~]/).filter(x => x !== '');
-        const formattedNumbers = numbers.map(n => CalculationViewHelper.formatNumberString(n));
-        let expr = expression;
-        for (let i = 0; i < numbers.length; i++) {
-            expr = expr.replace(numbers[i], formattedNumbers[i]);
-        }
-        let finalExpr = '';
-        for (let i = 0; i < expr.length; i++) {
-            switch(expr.charAt(i)) {
+    static formatExpression(expressionTokens) {
+        let expr = '';
+        expressionTokens.forEach(token => {
+            switch(token) {
                 case '/':
-                    finalExpr += '<span class="sr-only">divided by</span><span aria-hidden="true">÷</span>';
+                    expr += '<span class="sr-only">divided by</span><span aria-hidden="true">÷</span>';
                     break;
                 case '*':
-                    finalExpr += '<span class="sr-only">times</span><span aria-hidden="true">×</span>';
+                    expr += '<span class="sr-only">times</span><span aria-hidden="true">×</span>';
                     break;
                 case '+':
-                    finalExpr += '<span class="sr-only">plus</span><span aria-hidden="true">+</span>';
+                    expr += '<span class="sr-only">plus</span><span aria-hidden="true">+</span>';
                     break;
                 case '-':case '~':
-                    finalExpr += '<span class="sr-only">minus</span><span aria-hidden="true">−</span>';
+                    expr += '<span class="sr-only">minus</span><span aria-hidden="true">−</span>';
                     break;
                 case '(':
-                    finalExpr += '<span class="sr-only">left parenthesis</span><span aria-hidden="true">(</span>';
+                    expr += '<span class="sr-only">left parenthesis</span><span aria-hidden="true">(</span>';
                     break;
                 case ')':
-                    finalExpr += '<span class="sr-only">right parenthesis</span><span aria-hidden="true">)</span>';
+                    expr += '<span class="sr-only">right parenthesis</span><span aria-hidden="true">)</span>';
                     break;
                 default:
-                    finalExpr += expr.charAt(i);
+                    expr +=  CalculationViewHelper.formatNumberString(token);
             }
-        }
-        return finalExpr;
+        });
+        return expr;
     }
 
     // Source: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number/#answer-175787

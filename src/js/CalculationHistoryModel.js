@@ -14,7 +14,7 @@ export default class CalculationHistoryModel extends Model {
 
     add(calculation) {
         const lastCalculation = this.calcList[this.id - 1];
-        if (this.id === 0 || lastCalculation.expression !== calculation.expression) {
+        if (this.id === 0 || lastCalculation.expressionTokens.join("") !== calculation.expressionTokens.join("")) {
               this.calcList[this.id++] = calculation;
               this.raiseChange("changeState");
         }

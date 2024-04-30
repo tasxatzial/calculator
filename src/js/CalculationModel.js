@@ -17,7 +17,7 @@ export default class CalculationModel extends Model {
         };
         if (props) {
             this.result = props.result;
-            this.expression = props.expression;
+            this.expression = props.expressionTokens.join("");
             this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
         } else {
@@ -25,11 +25,14 @@ export default class CalculationModel extends Model {
         }
     }
 
-    _initDefaults() {
-        this.result = '';
-        this.expression = '';
-        this.prevNumber = '';
-        this.leftParenCount = 0;
+    load(props) {
+        if (props) {
+            this.result = props.result;
+            this.expression = props.expressionTokens.join("");
+            this._setPrevNumber();
+            this.leftParenCount = props.leftParenCount;
+            this.raiseChange("changeState");
+        }
     }
 
     reset() {
@@ -37,89 +40,11 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
-    load(props) {
-        if (props) {
-            this.result = props.result;
-            this.expression = props.expression;
-            this._setPrevNumber();
-            this.leftParenCount = props.leftParenCount;
-            this.raiseChange("changeState");
-        }
-    }
-
-    _setPrecision(postfixArr) {
-        const numbers = postfixArr.filter(x => !isNaN(x))
-        const totalLength = numbers.reduce((s, a) => s + a.length, 0);
-        const avgLength = Math.ceil(totalLength / numbers.length);
-        this.Dec.set({precision: Math.max(avgLength * (numbers.length + 1), this.minPrecision)});
-    }
-
-    _setPrevNumber() {
-        this.prevNumber = '';
-        let i = this.expression.length - 1;
-        while (i >= 0 && this._isDigitOrDot(this.expression.charAt(i))) {
-            this.prevNumber = this.expression.charAt(i) + this.prevNumber;
-            i--;
-        }
-    }
-
-    _isDigitOrDot(char) {
-        return !isNaN(parseFloat(char)) || char === '.';
-    }
-
-    _isOperation(char) {
-        return char === '/' ||
-               char === '*' ||
-               char === '+' ||
-               char === '-' ||
-               char === '~' ||
-               char === '^';
-    }
-
-    _isPrevNumberFractional() {
-        return this.prevNumber.split('.').length === 2;
-    }
-
-    _getArity(operation) {
-        switch(operation) {
-            case '+':case '-':case '*':case '/':case '^':
-                return 2;
-            case '~':
-                return 1;
-        }
-    }
-
-    _getPriority(operation) {
-        switch(operation) {
-            case '+':case '-':
-                return 1;
-            case '*':case '/':
-                return 2;
-            case '^':
-                return 3;
-            case '~':
-                return 4;
-        }
-    }
-
-    _getAssociativity(operation) {
-        switch(operation) {
-            case '+':case '-':case '*':case '/':case '~':
-                return 'L';
-            case '^':
-                return 'R';
-        }
-    }
-
-    _getLastInput() {
-        return this.expression.charAt(this.expression.length - 1);
-    }
-
     getCalculation() {
         const result = (this.result === null) ? null : this.result.toString();
         return {
             result: result,
-            expression: this.expression,
+            expressionTokens: this._getExprTokens(this.expression),
             leftParenCount: this.leftParenCount
         };
     }
@@ -229,10 +154,89 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
+    _initDefaults() {
+        this.result = '';
+        this.expression = '';
+        this.prevNumber = '';
+        this.leftParenCount = 0;
+    }
+
+    _setPrecision(postfixArr) {
+        const numbers = postfixArr.filter(x => !isNaN(x))
+        const totalLength = numbers.reduce((s, a) => s + a.length, 0);
+        const avgLength = Math.ceil(totalLength / numbers.length);
+        this.Dec.set({precision: Math.max(avgLength * (numbers.length + 1), this.minPrecision)});
+    }
+
+    _setPrevNumber() {
+        this.prevNumber = '';
+        let i = this.expression.length - 1;
+        while (i >= 0 && this._isDigitOrDot(this.expression.charAt(i))) {
+            this.prevNumber = this.expression.charAt(i) + this.prevNumber;
+            i--;
+        }
+    }
+
+    _isDigitOrDot(char) {
+        return !isNaN(parseFloat(char)) || char === '.';
+    }
+
+    _isOperation(char) {
+        return char === '/' ||
+               char === '*' ||
+               char === '+' ||
+               char === '-' ||
+               char === '~' ||
+               char === '^';
+    }
+
+    _isPrevNumberFractional() {
+        return this.prevNumber.split('.').length === 2;
+    }
+
+    _getArity(operation) {
+        switch(operation) {
+            case '+':case '-':case '*':case '/':case '^':
+                return 2;
+            case '~':
+                return 1;
+        }
+    }
+
+    _getPriority(operation) {
+        switch(operation) {
+            case '+':case '-':
+                return 1;
+            case '*':case '/':
+                return 2;
+            case '^':
+                return 3;
+            case '~':
+                return 4;
+        }
+    }
+
+    _getAssociativity(operation) {
+        switch(operation) {
+            case '+':case '-':case '*':case '/':case '~':
+                return 'L';
+            case '^':
+                return 'R';
+        }
+    }
+
+    _getLastInput() {
+        return this.expression.charAt(this.expression.length - 1);
+    }
+
+    _getExprTokens() {
+        return this.expression.split(/([/*+\-)(^~])/).filter(x => x);
+    }
+
     _exprToPostfix() {
         const postfix = [];
         const stack = new Stack();
-        const tokens = this.expression.split(/([/*+\-)(^~])/).filter(x => x);
+        const tokens = this._getExprTokens();
         for (let i = 0; i < tokens.length; i++) {
             const tok = tokens[i];
             if (!isNaN(tok)) {
