@@ -26,12 +26,31 @@ if (document.documentElement.classList.contains('js-dark-theme')) {
     toggleThemeBtnText.textContent = 'Switch to light theme';
 }
 
+/* grab data from localStorage */
+const calcVersion = localStorage.getItem('calc-version');
+const calcHistory = JSON.parse(localStorage.getItem('calc-history'));
+const currentCalculation = JSON.parse(localStorage.getItem('calc-current-calculation'));
+
+/* update calculations to version 2 */
+if (calcVersion !== '2') {
+    if (currentCalculation) {
+        CalculationModel.syncCalculation(currentCalculation);
+        localStorage.setItem('calc-current-calculation', JSON.stringify(currentCalculation));
+    }
+    if (calcHistory) {
+        Object.values(calcHistory).forEach(calculation => CalculationModel.syncCalculation(calculation));
+        localStorage.setItem('calc-history', JSON.stringify(calcHistory));
+    }
+    localStorage.setItem('calc-version', '2');
+}
+
 /* initialize models and views */
-const calculationHistoryModel = new CalculationHistoryModel(JSON.parse(localStorage.getItem('calc-history')));
+const calculationHistoryModel = new CalculationHistoryModel(calcHistory);
 const calculationHistoryView = new CalculationHistoryView(calc);
-const calculationModel = new CalculationModel(JSON.parse(localStorage.getItem('calc-current-calculation')));
+const calculationModel = new CalculationModel(currentCalculation);
 const calculationView = new CalculationView(calc);
 calculationView.render(calculationModel.getCalculation());
+
 
 /* ---------------------------------- listeners ---------------------------------- */
 

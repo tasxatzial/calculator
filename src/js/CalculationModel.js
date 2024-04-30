@@ -49,6 +49,14 @@ export default class CalculationModel extends Model {
         };
     }
 
+    /* Sync a calculation to version 2. Modifies props. */
+    static syncCalculation(props) {
+        if (props.expression !== undefined) {
+            props.expressionTokens = props.expression.split(/([/*+\-)(^~])/).filter(x => x);
+            delete props.expression;
+        }
+    }
+
     delete() {
         if (this.expression === '') {
             return;
