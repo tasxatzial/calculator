@@ -11,12 +11,12 @@ export default class CalculationHistoryView {
         const keys = Object.keys(data).sort((a,b) => b - a);
 
         for (let key of keys) {
-            const calculation = this.createCalculation(key, data[key]);
+            const calculation = this._createCalculation(key, data[key]);
             ul.insertAdjacentHTML('beforeend', calculation);
         }
 
         if (ul.children.length === 0) {
-            this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('There\'s no history');
+            this.calcHistoryListContainer.innerHTML = this._getNoHistoryHtml('There\'s no history');
         } else {
             this.calcHistoryListContainer.removeAttribute('aria-live');
             this.calcHistoryListContainer.innerHTML = '';
@@ -24,23 +24,23 @@ export default class CalculationHistoryView {
         }
     }
 
-    getNoHistoryHtml(msg) {
+    _getNoHistoryHtml(msg) {
         return `<p class='no-history-msg'>${msg}</p>`;
     }
 
     clear() {
         this.calcHistoryListContainer.setAttribute('aria-live', 'polite');
-        this.calcHistoryListContainer.innerHTML = this.getNoHistoryHtml('History cleared');
+        this.calcHistoryListContainer.innerHTML = this._getNoHistoryHtml('History cleared');
     }
 
-    createCalculation(key, value) {
+    _createCalculation(key, value) {
         return `<li class='history-list-item' data-id='${key}'>
                   <button class='output output-history'>
                     <div class='expression-container expression-container-history'>
                       <span class='expression expression-history'>${CalculationViewHelper.formatExpression(value.expression)}</span>
                       <span class='sr-only'>=</span>
                     </div>
-                    <div class='result result-history'>${CalculationViewHelper.formatNumber(value.result)}</div>
+                    <div class='result result-history'>${CalculationViewHelper.formatNumberString(value.result)}</div>
                   </button>
                 </li>`;
     }

@@ -18,14 +18,14 @@ export default class CalculationModel extends Model {
         if (props) {
             this.result = props.result;
             this.expression = props.expression;
-            this.setPrevNumber();
+            this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
         } else {
-            this.initDefaults();
+            this._initDefaults();
         }
     }
 
-    initDefaults() {
+    _initDefaults() {
         this.result = '';
         this.expression = '';
         this.prevNumber = '';
@@ -33,7 +33,7 @@ export default class CalculationModel extends Model {
     }
 
     reset() {
-        this.initDefaults();
+        this._initDefaults();
         this.raiseChange("changeState");
     }
 
@@ -41,33 +41,33 @@ export default class CalculationModel extends Model {
         if (props) {
             this.result = props.result;
             this.expression = props.expression;
-            this.setPrevNumber();
+            this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
             this.raiseChange("changeState");
         }
     }
 
-    setPrecision(postfixArr) {
+    _setPrecision(postfixArr) {
         const numbers = postfixArr.filter(x => !isNaN(x))
         const totalLength = numbers.reduce((s, a) => s + a.length, 0);
         const avgLength = Math.ceil(totalLength / numbers.length);
         this.Dec.set({precision: Math.max(avgLength * (numbers.length + 1), this.minPrecision)});
     }
 
-    setPrevNumber() {
+    _setPrevNumber() {
         this.prevNumber = '';
         let i = this.expression.length - 1;
-        while (i >= 0 && this.isDigitOrDot(this.expression.charAt(i))) {
+        while (i >= 0 && this._isDigitOrDot(this.expression.charAt(i))) {
             this.prevNumber = this.expression.charAt(i) + this.prevNumber;
             i--;
         }
     }
 
-    isDigitOrDot(char) {
+    _isDigitOrDot(char) {
         return !isNaN(parseFloat(char)) || char === '.';
     }
 
-    isOperation(char) {
+    _isOperation(char) {
         return char === '/' ||
                char === '*' ||
                char === '+' ||
@@ -76,15 +76,11 @@ export default class CalculationModel extends Model {
                char === '^';
     }
 
-    hasPrevNumberDot() {
+    _isPrevNumberFractional() {
         return this.prevNumber.split('.').length === 2;
     }
 
-    isPrevNumberZero() {
-        return this.prevNumber === '0';
-    }
-
-    getArity(operation) {
+    _getArity(operation) {
         switch(operation) {
             case '+':case '-':case '*':case '/':case '^':
                 return 2;
@@ -93,7 +89,7 @@ export default class CalculationModel extends Model {
         }
     }
 
-    getPriority(operation) {
+    _getPriority(operation) {
         switch(operation) {
             case '+':case '-':
                 return 1;
@@ -106,7 +102,7 @@ export default class CalculationModel extends Model {
         }
     }
 
-    getAssociativity(operation) {
+    _getAssociativity(operation) {
         switch(operation) {
             case '+':case '-':case '*':case '/':case '~':
                 return 'L';
@@ -115,8 +111,8 @@ export default class CalculationModel extends Model {
         }
     }
 
-    getLastAdded(i) {
-        return this.expression.charAt(this.expression.length - i);
+    _getLastInput() {
+        return this.expression.charAt(this.expression.length - 1);
     }
 
     getCalculation() {
@@ -132,7 +128,7 @@ export default class CalculationModel extends Model {
         if (this.expression === '') {
             return;
         }
-        const la = this.getLastAdded(1);
+        const la = this._getLastInput();
         if (la === '(') {
             this.leftParenCount--;
         }
@@ -140,14 +136,14 @@ export default class CalculationModel extends Model {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
-        this.setPrevNumber();
+        this._setPrevNumber();
         this.result = '';
         this.raiseChange("changeState");
     }
 
     selectDot() {
-        const la = this.getLastAdded(1);
-        if (this.hasPrevNumberDot() || !this.isDigitOrDot(la)) {
+        const la = this._getLastInput();
+        if (this._isPrevNumberFractional() || !this._isDigitOrDot(la)) {
             this.raiseChange("invalidInput");
             return;
         }
@@ -158,8 +154,8 @@ export default class CalculationModel extends Model {
     }
 
     selectDigit(digit) {
-        const la = this.getLastAdded(1);
-        if (la === ')' || this.isPrevNumberZero()) {
+        const la = this._getLastInput();
+        if (la === ')' || this.prevNumber === '0') {
             this.raiseChange("invalidInput");
             return;
         }
@@ -170,8 +166,8 @@ export default class CalculationModel extends Model {
     }
 
     selectLeftParen() {
-        const la = this.getLastAdded(1);
-        if (la === ')' || this.isDigitOrDot(la)) {
+        const la = this._getLastInput();
+        if (la === ')' || this._isDigitOrDot(la)) {
             this.raiseChange("invalidInput");
             return;
         }
@@ -183,8 +179,8 @@ export default class CalculationModel extends Model {
     }
 
     selectRightParen() {
-        const la = this.getLastAdded(1);
-        if (this.leftParenCount === 0 || this.isOperation(la) || la === '(') {
+        const la = this._getLastInput();
+        if (this.leftParenCount === 0 || this._isOperation(la) || la === '(') {
             this.raiseChange("invalidInput");
             return;
         }
@@ -196,13 +192,13 @@ export default class CalculationModel extends Model {
     }
 
     selectOperation(operation) {
-        const la = this.getLastAdded(1);
-        if (this.isOperation(la) ||
+        const la = this._getLastInput();
+        if (this._isOperation(la) ||
             ((la === '' || la === '(') && operation !== '-')) {
                 this.raiseChange("invalidInput");
                 return;
         }
-        if (!this.isDigitOrDot(la) && la !== ')' && operation === '-') {
+        if (!this._isDigitOrDot(la) && la !== ')' && operation === '-') {
             this.expression += '~';
         } else {
             this.expression += operation;
@@ -213,18 +209,18 @@ export default class CalculationModel extends Model {
     }
 
     selectEvaluate() {
-        const la = this.getLastAdded(1);
+        const la = this._getLastInput();
         if (this.expression === '') {
             this.raiseChange("invalidInput");
             return;
         }
-        if (this.isOperation(la) || this.leftParenCount !== 0) {
+        if (this._isOperation(la) || this.leftParenCount !== 0) {
             this.result = null;
         } else {
             try {
-                const postfixArr = this.exprToPostfix();
-                this.setPrecision(postfixArr);
-                this.result = this.evaluatePostfix(postfixArr);
+                const postfixArr = this._exprToPostfix();
+                this._setPrecision(postfixArr);
+                this.result = this._evaluatePostfix(postfixArr);
                 this.raiseChange("evaluateSuccess");
             } catch (e) {
                 this.result = null;
@@ -233,7 +229,7 @@ export default class CalculationModel extends Model {
         this.raiseChange("changeState");
     }
 
-    exprToPostfix() {
+    _exprToPostfix() {
         const postfix = [];
         const stack = new Stack();
         const tokens = this.expression.split(/([/*+\-)(^~])/).filter(x => x);
@@ -243,14 +239,14 @@ export default class CalculationModel extends Model {
                 postfix.push(tok);
             } else if (tok === '(') {
                 stack.push(tok);
-            } else if (this.isOperation(tok)) {
+            } else if (this._isOperation(tok)) {
                 while(!stack.isEmpty()) {
                     const top = stack.top();
                     if (top === '(') {
                         break;
                     }
-                    if (this.getPriority(tok) < this.getPriority(top) ||
-                        (this.getPriority(tok) === this.getPriority(top) && this.getAssociativity(tok) === 'L')) {
+                    if (this._getPriority(tok) < this._getPriority(top) ||
+                        (this._getPriority(tok) === this._getPriority(top) && this._getAssociativity(tok) === 'L')) {
                         postfix.push(top);
                         stack.pop();
                     } else {
@@ -271,7 +267,7 @@ export default class CalculationModel extends Model {
         return postfix;
     }
 
-    evaluatePostfix(postfixArr) {
+    _evaluatePostfix(postfixArr) {
         const evalStack = new Stack();
         for (let i = 0; i < postfixArr.length; i++) {
             if (!isNaN(postfixArr[i])) {
@@ -279,10 +275,10 @@ export default class CalculationModel extends Model {
             } else {
                 const op = postfixArr[i];
                 const n1 = evalStack.pop();
-                if (this.getArity(op) === 2) {
+                if (this._getArity(op) === 2) {
                     const n2 = evalStack.pop();
                     evalStack.push(this.opToFn[op](n2, n1));
-                } else if (this.getArity(op) === 1) {
+                } else if (this._getArity(op) === 1) {
                     evalStack.push(this.opToFn[op](n1));
                 }
             }

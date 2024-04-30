@@ -12,35 +12,26 @@ export default class CalculationView {
         this.emptyDisplayMsg = calcElement.querySelector('.empty-display-msg');
     }
 
-    getResult() {
-        if (this.result.children[1]) {
-            return this.result.children[1].textContent;
-        }
-        return this.result.textContent;
-    }
-
-    getExpression() {
-        return this.expression.textContent;
-    }
-
     render(data) {
-        this.updateExpression(data.expression);
-        this.updateParensCount(data.leftParenCount);
-        this.updateResult(data.result);
-        this.resetInvalidInputMsg();
-        this.updateEmptyDisplayMsg();
+        this._updateExpression(data.expression);
+        this._updateParensCount(data.leftParenCount);
+        this._updateResult(data.result);
+        this._resetInvalidInputMsg();
+        this._updateEmptyDisplayMsg();
     }
 
-    updateResult(result) {
+    setInvalidInputMsg() {
+        this._updateInvalidInputMsg("Error: Not allowed input");
+    }
+
+    _updateResult(result) {
         if (result === null) {
             this.result.textContent = 'Error';
             this.equalsSign.removeAttribute('aria-hidden');
             return;
         }
-        const formattedResult = CalculationViewHelper.formatNumber(result);
-        if (this.getResult() !== formattedResult) {
-            this.result.innerText = formattedResult;
-        }
+        const formattedResult = CalculationViewHelper.formatNumberString(result);
+        this.result.innerText = formattedResult;
         if (result === '') {
             this.equalsSign.setAttribute('aria-hidden', true);
         } else {
@@ -48,14 +39,12 @@ export default class CalculationView {
         }
     }
 
-    updateExpression(expression) {
+    _updateExpression(expression) {
         const formattedExpression = CalculationViewHelper.formatExpression(expression);
-        if (this.getExpression() !== formattedExpression) {
-            this.expression.innerHTML = formattedExpression;
-        }
+        this.expression.innerHTML = formattedExpression;
     }
 
-    updateParensCount(count) {
+    _updateParensCount(count) {
         if (count !== 0) {
             let parentheses = '';
             for (let i = 0; i < count; i++) {
@@ -72,15 +61,11 @@ export default class CalculationView {
         }
     }
 
-    setInvalidInputMsg() {
-        this.updateInvalidInputMsg("Error: Not allowed input");
-    }
-
-    resetInvalidInputMsg() {
+    _resetInvalidInputMsg() {
         this.invalidInputMsg.textContent = '';
     }
 
-    updateInvalidInputMsg(newMsg) {
+    _updateInvalidInputMsg(newMsg) {
         const msg = this.invalidInputMsg.textContent;
         if (msg.charAt(msg.length - 1) === '.') {
             this.invalidInputMsg.textContent = newMsg;
@@ -89,9 +74,9 @@ export default class CalculationView {
         }
     }
 
-    updateEmptyDisplayMsg() {
-        if (this.getExpression() === '' && this.getResult() === '') {
-            this.emptyDisplayMsg.textContent = 'Empty';
+    _updateEmptyDisplayMsg() {
+        if (this.expression.textContent === '') {
+            this.emptyDisplayMsg.textContent = 'Display is empty';
         } else {
             this.emptyDisplayMsg.textContent = '';
         }
