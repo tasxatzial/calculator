@@ -31,7 +31,7 @@ export default class CalculationView {
             return;
         }
         const formattedResult = CalculationViewHelper.formatNumberString(result);
-        this.result.innerText = formattedResult;
+        this.result.textContent = formattedResult;
         if (result === '') {
             this.equalsSign.setAttribute('aria-hidden', true);
         } else {
