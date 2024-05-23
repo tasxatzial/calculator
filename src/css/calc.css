@@ -293,7 +293,8 @@ body {
 }
 
 .calc .btn-option:active,
-.calc .output-history:active {
+.calc .output-history:active,
+.calc .btn-history-clear:active {
     background-color: var(--btn-option-clr-active);
 }
 
