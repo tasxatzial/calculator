@@ -3,6 +3,10 @@
     --calc-max-width: 15rem;
 }
 
+body {
+    background-color: #ddddf0;
+}
+
 /*-------------------- UTILITY --------------------*/
 
 @keyframes blinking {
