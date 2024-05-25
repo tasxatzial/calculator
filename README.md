@@ -14,7 +14,7 @@ A simple calculator that supports the 4 basic operations on decimal numbers and 
 ## Implementation
 
 * Accessible + screen reader friendly.
-* Variation of the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern.
+* Variation of the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern (only for inputting expressions, performing calculations, and displaying the results).
 * Expressions are calculated with the [Shunting yard algorithm](https://en.wikipedia.org/wiki/Shunting_yard_algorithm).
 
 ## Dependencies
