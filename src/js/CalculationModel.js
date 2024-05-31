@@ -144,7 +144,6 @@ export default class CalculationModel extends Model {
     selectEvaluate() {
         const la = this._getLastInput();
         if (this.expression === '') {
-            this.raiseChange("invalidInput");
             return;
         }
         if (this._isOperation(la) || this.leftParenCount !== 0) {
