@@ -16,7 +16,12 @@ export default class CalculationModel extends Model {
             '~': (n) => new this.Dec(n).neg(),
         };
         if (props) {
-            this.result = props.result;
+            if (props.result == null) {
+                this.result = "";
+            }
+            else {
+                this.result = props.result;
+            }
             this.expression = props.expressionTokens.join("");
             this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
