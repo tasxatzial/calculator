@@ -58,27 +58,27 @@ if (darkThemeMatchMedia.addEventListener && !localStorage.getItem(themeKey)) {
     darkThemeMatchMedia.addEventListener('change', darkThemeMatchMediaHandler);
 }
 
-calculationModel.addChangeListener("changeState", () => {
+calculationModel.addChangeListener('changeState', () => {
     localStorage.setItem('calc-current-calculation', JSON.stringify(calculationModel.getCalculation()));
     calculationView.render(calculationModel.getCalculation());
 });
 
-calculationModel.addChangeListener("evaluateSuccess", () => {
+calculationModel.addChangeListener('evaluateSuccess', () => {
     calculationHistoryModel.add(calculationModel.getCalculation());
 });
 
-calculationModel.addChangeListener("invalidInput", () => {
+calculationModel.addChangeListener('invalidInput', () => {
     calculationView.setInvalidInputMsg();
 });
 
-calculationHistoryModel.addChangeListener("changeState", () => {
+calculationHistoryModel.addChangeListener('changeState', () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
     if (calc.classList.contains('js-history-open')) {
         calculationHistoryView.render(calculationHistoryModel.getHistory());
     }
 });
 
-calculationHistoryModel.addChangeListener("historyClear", () => {
+calculationHistoryModel.addChangeListener('historyClear', () => {
     localStorage.setItem('calc-history', JSON.stringify(calculationHistoryModel.getHistory()));
     calculationHistoryView.clear();
 });

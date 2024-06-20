@@ -21,7 +21,7 @@ export default class CalculationView {
     }
 
     setInvalidInputMsg() {
-        this._updateInvalidInputMsg("Error: Not allowed input");
+        this._updateInvalidInputMsg('Error: Not allowed input');
     }
 
     _updateResult(result) {
@@ -52,10 +52,10 @@ export default class CalculationView {
             }
             this.missingParens.textContent = parentheses;
             const content = "'" + count.toString() + "'";
-            this.leftParenBtn.style.setProperty("--content", content);
+            this.leftParenBtn.style.setProperty('--content', content);
             this.openParenthesesText.textContent = count + ' open parentheses';
         } else {
-            this.leftParenBtn.style.setProperty("--content", "''");
+            this.leftParenBtn.style.setProperty('--content', "''");
             this.missingParens.textContent = '';
             this.openParenthesesText.textContent = '';
         }

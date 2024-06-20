@@ -17,12 +17,12 @@ export default class CalculationModel extends Model {
         };
         if (props) {
             if (props.result == null) {
-                this.result = "";
+                this.result = '';
             }
             else {
                 this.result = props.result;
             }
-            this.expression = props.expressionTokens.join("");
+            this.expression = props.expressionTokens.join('');
             this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
         } else {
@@ -33,16 +33,16 @@ export default class CalculationModel extends Model {
     load(props) {
         if (props) {
             this.result = props.result;
-            this.expression = props.expressionTokens.join("");
+            this.expression = props.expressionTokens.join('');
             this._setPrevNumber();
             this.leftParenCount = props.leftParenCount;
-            this.raiseChange("changeState");
+            this.raiseChange('changeState');
         }
     }
 
     reset() {
         this._initDefaults();
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     getCalculation() {
@@ -76,64 +76,64 @@ export default class CalculationModel extends Model {
         this.expression = this.expression.slice(0, -1);
         this._setPrevNumber();
         this.result = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectDot() {
         const la = this._getLastInput();
         if (this._isPrevNumberFractional() || !this._isDigitOrDot(la)) {
-            this.raiseChange("invalidInput");
+            this.raiseChange('invalidInput');
             return;
         }
         this.prevNumber += '.';
         this.expression += '.';
         this.result = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectDigit(digit) {
         const la = this._getLastInput();
         if (la === ')' || this.prevNumber === '0') {
-            this.raiseChange("invalidInput");
+            this.raiseChange('invalidInput');
             return;
         }
         this.prevNumber += digit;
         this.expression += digit;
         this.result = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectLeftParen() {
         const la = this._getLastInput();
         if (la === ')' || this._isDigitOrDot(la)) {
-            this.raiseChange("invalidInput");
+            this.raiseChange('invalidInput');
             return;
         }
         this.expression += '(';
         this.leftParenCount++;
         this.result = '';
         this.prevNumber = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectRightParen() {
         const la = this._getLastInput();
         if (this.leftParenCount === 0 || this._isOperation(la) || la === '(') {
-            this.raiseChange("invalidInput");
+            this.raiseChange('invalidInput');
             return;
         }
         this.expression += ')';
         this.leftParenCount--;
         this.result = '';
         this.prevNumber = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectOperation(operation) {
         const la = this._getLastInput();
         if (this._isOperation(la) ||
             ((la === '' || la === '(') && operation !== '-')) {
-                this.raiseChange("invalidInput");
+                this.raiseChange('invalidInput');
                 return;
         }
         if (!this._isDigitOrDot(la) && la !== ')' && operation === '-') {
@@ -143,7 +143,7 @@ export default class CalculationModel extends Model {
         }
         this.result = '';
         this.prevNumber = '';
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     selectEvaluate() {
@@ -158,12 +158,12 @@ export default class CalculationModel extends Model {
                 const postfixArr = this._exprToPostfix();
                 this._setPrecision(postfixArr);
                 this.result = this._evaluatePostfix(postfixArr);
-                this.raiseChange("evaluateSuccess");
+                this.raiseChange('evaluateSuccess');
             } catch (e) {
                 this.result = null;
             }
         }
-        this.raiseChange("changeState");
+        this.raiseChange('changeState');
     }
 
     _initDefaults() {
