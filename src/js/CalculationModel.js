@@ -1,6 +1,6 @@
 import Stack from './Stack.js';
 import Model from './Model.js';
-import Decimal from '../node_modules/decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 
 export default class CalculationModel extends Model {
     constructor(props) {

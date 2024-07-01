@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "npm run build && vite preview"
+    "serve": "vite build && vite preview"
   },
   "devDependencies": {
     "rollup-plugin-license": "^3.0.1",
