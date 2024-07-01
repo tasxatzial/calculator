@@ -16,7 +16,7 @@ export default class CalculationModel extends Model {
             '~': (n) => new this.Dec(n).neg(),
         };
         if (props) {
-            if (props.result == null) {
+            if (props.result === null) {
                 this.result = '';
             }
             else {
@@ -70,7 +70,7 @@ export default class CalculationModel extends Model {
         if (la === '(') {
             this.leftParenCount--;
         }
-        if (la == ')') {
+        if (la === ')') {
             this.leftParenCount++;
         }
         this.expression = this.expression.slice(0, -1);
