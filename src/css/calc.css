@@ -176,6 +176,7 @@ body {
     padding: .5em 1em;
     margin-inline: auto;
     transition: transform 250ms ease-in;
+    width: 100%;
 }
 
 .calc .skip-to-clear-history:focus {
