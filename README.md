@@ -28,12 +28,6 @@ The following dependencies will be installed via `npm install`:
 
 ## Run locally
 
-Install the required dependencies:
-
-```bash
-npm install
-```
-
 Run the development version:
 
 ```bash
