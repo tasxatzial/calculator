@@ -10,6 +10,7 @@ export default class CalculationView {
         this.openParenthesesText = this.leftParenBtn.querySelector('.open-parentheses-text');
         this.invalidInputMsg = calcElement.querySelector('.invalid-input-msg');
         this.emptyDisplayMsg = calcElement.querySelector('.empty-display-msg');
+        this.deleteInputBtn = calcElement.querySelector('.btn-back');
     }
 
     render(data) {
@@ -18,6 +19,7 @@ export default class CalculationView {
         this._updateResult(data.result);
         this._resetInvalidInputMsg();
         this._updateEmptyDisplayMsg();
+        this._updateBackBtnLabel();
     }
 
     setInvalidInputMsg() {
@@ -79,6 +81,42 @@ export default class CalculationView {
             this.emptyDisplayMsg.textContent = 'Display is empty';
         } else {
             this.emptyDisplayMsg.textContent = '';
+        }
+    }
+
+    _updateBackBtnLabel() {
+        if (this.expression.textContent === '') {
+            this.deleteInputBtn.setAttribute('aria-label', 'delete last input. Nothing to delete, expression is empty.');
+        } else {
+            const lastInput = this.expression.textContent.at(-1);
+            let lastInputText;
+            switch(lastInput) {
+                case '×':
+                    lastInputText = 'times';
+                    break;
+                case '÷':
+                    lastInputText = 'divide by';
+                    break;
+                case '−':
+                    lastInputText = 'minus';
+                    break;
+                case '(':
+                    lastInputText = 'left parenthesis';
+                    break;
+                case ')':
+                    lastInputText = 'right parenthesis';
+                    break;
+                case '.':
+                    lastInputText = 'point';
+                    break;
+                default:
+                    lastInputText = lastInput;
+            }
+            const deleteBtnAriaLabel = this.deleteInputBtn.getAttribute('aria-label');
+            if (deleteBtnAriaLabel.at(-1) !== '.') {
+                lastInputText += '.';
+            }
+            this.deleteInputBtn.setAttribute('aria-label', `delete ${lastInputText}`);
         }
     }
 }
