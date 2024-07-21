@@ -88,7 +88,7 @@ export default class CalculationView {
         if (this.expression.textContent === '') {
             this.deleteInputBtn.setAttribute('aria-label', 'delete last input. Nothing to delete, expression is empty.');
         } else {
-            const lastInput = this.expression.textContent.at(-1);
+            const lastInput = this.expression.textContent.charAt(this.expression.textContent.length - 1);
             let lastInputText;
             switch(lastInput) {
                 case '×':
@@ -113,7 +113,7 @@ export default class CalculationView {
                     lastInputText = lastInput;
             }
             const deleteBtnAriaLabel = this.deleteInputBtn.getAttribute('aria-label');
-            if (deleteBtnAriaLabel.at(-1) !== '.') {
+            if (deleteBtnAriaLabel.charAt(deleteBtnAriaLabel.length - 1) !== '.') {
                 lastInputText += '.';
             }
             this.deleteInputBtn.setAttribute('aria-label', `delete ${lastInputText}`);
