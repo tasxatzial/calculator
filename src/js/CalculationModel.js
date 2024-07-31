@@ -187,6 +187,7 @@ export default class CalculationModel extends Model {
             this.prevNumber = this.expression.charAt(i) + this.prevNumber;
             i--;
         }
+        console.log(this.prevNumber)
     }
 
     _isDigitOrDot(char) {
