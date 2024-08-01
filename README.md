@@ -46,6 +46,24 @@ Build & serve the production version:
 npm run serve
 ```
 
+## Tests
+
+Vitest is used for testing.
+
+Currently, only a basic set of tests has been written for the basic model operations, such as inputting and calculating expressions.
+
+Run the tests:
+
+```bash
+npm run test
+```
+
+or, if you prefer access to the browser UI:
+
+```bash
+npm run test:ui
+```
+
 ## Screenshots
 
 See [screenshots](screenshots/).
