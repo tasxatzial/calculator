@@ -2,6 +2,8 @@
 
 A simple calculator that supports the 4 basic operations on decimal numbers and grouping of terms using parentheses.
 
+[Live version](https://tasxatzial.github.io/calculator/)
+
 ## Features
 
 * Dark & light theme. The selected theme is restored when the page reloads.
